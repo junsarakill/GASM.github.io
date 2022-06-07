@@ -3,34 +3,70 @@
 <head>
  <title>게임용 보조 사이트 모음</title>
  <style>
- 	a:link {
- 		color: red;
- 	}
- 	a:visited{
- 		color:blue;
- 	}
- 	a:hover{
+ 	a:link
+ 	{
  		color:red;
  	}
- 	a:active{
+ 	a:visited
+ 	{
+ 		color:blue;
+ 	}
+ 	a:hover
+ 	{
+ 		color:red;
+ 	}
+ 	a:active
+ 	{
  		color:green;
  	}
- 	div {	
- 		width:300px;
- 		height: 50px;
- 		background: black;
- 		font-size: 200%;
+ 	a
+ 	{
+ 		text-decoration: none;
+ 		font-weight: bold;
  	}
- 	div:hover {
- 		width: 700px;
- 		overflow: hidden;
- 		height: auto;
- 	}
- 	li {
-			list-style-type: none;
-		}
-	span {
-		color:white;
+	.dropdownbtn
+	{
+		background-color: #2a2831;
+		color: white;
+		padding: 16px 105px 16px;
+		font-size: 26px;
+		border: none;
+		text-align: center;
+	}
+	.dropdown
+	{
+		position: relative;
+		display: inline-block;
+	}
+	.dropdown-content
+	{
+		display: none;
+		position: absolute;
+		background-color: #f9f9f9;
+		width: 100%;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+		font-size: 16px;
+	}
+	.dropdown-content a
+	{
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+	.dropdown-content a:hover
+	{
+		background-color: #9e9fae;
+	}
+	.dropdown:hover .dropdownbtn
+	{
+		background-color: #ffa500;
+		padding: 16px 256px 16px;
+	}
+	.dropdown:hover .dropdown-content
+	{
+		display: block;
 	}
  </style>
 </head>
@@ -69,19 +105,27 @@
 			<td><a href="https://d2gunsmith.com/"target=_blank>건스미스</a></td>
 		</tr>
 	</table></h1>
-	<div><b><span>맵 목록</span>
-		<ul>
-			<li><a href="./커스텀.png"target=_blank style="color:white;">커스텀</a></li>
-			<li><a href="./팩토리.png"target=_blank style="color:white;">팩토리</a></li>
-			<li><a href="./쇼어라인.png"target=_blank style="color:white;">쇼어라인</a></li>
-			<li><a href="./인터체인지.png"target=_blank style="color:white;">인터체인지</a></li>
-			<li><a href="./우드.png"target=_blank style="color:white;">우드</a></li>
-			<li><a href="./리저브.png"target=_blank style="color:white;">리저브</a></li>
-			<li><a href="./랩1.png"target=_blank style="color:white;">랩지하</a></li>
-			<li><a href="./랩2.png"target=_blank style="color:white;">랩1-2층</a></li>
-			<li><a href="./등대.png"target=_blank style="color:white;">등머</a></li>
-		</ul></b>
-	</div>
 
+	<div class="dropdown">
+		<button class="dropdownbtn">맵목록</button>
+		<div class="dropdown-content"><table border=1 style='width:100%;text-align: center;'>
+			<tr>
+				<td><a href="./커스텀.png"target=_blank>커스텀</a></td>
+				<td><a href="./팩토리.png"target=_blank>팩토리</a></td>
+				<td><a href="./쇼어라인.png"target=_blank>쇼어라인</a></td>
+				<td><a href="./인터체인지.png"target=_blank>인터체인지</a></td>
+			</tr>
+			<tr>
+				<td><a href="./우드.png"target=_blank>우드</a></td>
+				<td><a href="./리저브.png"target=_blank>리저브</a></td>
+				<td><a href="./랩1.png"target=_blank>랩지하</a></td>
+				<td><a href="./랩2.png"target=_blank>랩1-2층</a></td>
+			</tr>
+			<tr>
+				<td><a href="./등대.png"target=_blank>등머</a></td>
+			</tr>
+
+		</table>
+	</div>
 </body>
 </html>
