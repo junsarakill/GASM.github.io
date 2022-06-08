@@ -1,131 +1,172 @@
-<!doctype html>
-<html>
-<head>
- <title>게임용 보조 사이트 모음</title>
- <style>
- 	a:link
- 	{
- 		color:red;
- 	}
- 	a:visited
- 	{
- 		color:blue;
- 	}
- 	a:hover
- 	{
- 		color:red;
- 		background-color: #cf8e8e;
- 	}
- 	a:active
- 	{
- 		color:green;
- 	}
- 	a
- 	{
- 		text-decoration: none;
- 		font-weight: bold;
- 		display: block;
- 	}
-	.dropdownbtn
-	{
-		background-color: #2a2831;
-		color: white;
-		padding: 16px 105px 16px;
-		font-size: 26px;
-		border: none;
-		text-align: center;
-	}
-	.dropdown
-	{
-		position: relative;
-		display: inline-block;
-	}
-	.dropdown-content
-	{
-		display: none;
-		position: absolute;
-		background-color: #f9f9f9;
-		width: 100%;
-		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		z-index: 1;
-		font-size: 16px;
-	}
-	.dropdown-content a
-	{
-		color: black;
-		padding: 12px 16px;
-	}
-	.dropdown-content a:hover
-	{
-		background-color: #9e9fae;
-	}
-	.dropdown:hover .dropdownbtn
-	{
-		background-color: #ffa500;
-		padding: 16px 256px 16px;
-	}
-	.dropdown:hover .dropdown-content
-	{
-		display: block;
-	}
- </style>
-</head>
-<body>
-	<h1><table border=1>
-		<tr>
-			<th>타르코프</th>
-			<th>프리코네</th>
-			<th>소녀전선</th>
-			<th>데스티니</th>
-			<th>블루아카</th>
-		</tr>
-		<tr>
-			<td><a href="https://docs.google.com/spreadsheets/d/19dW8rnxCOqvkJ6VwsObNA6YRlKAgRVobmpH74d6z86U/edit#gid=1154078243"target=_blank>타르코프 개인 시트</a></td>
-			<td><a href="https://docs.google.com/spreadsheets/d/1Bhfwq8y2WSX9W-E4QLH3INMYnfaCCqRpv3Pe7RHWbkg/edit#gid=2145381735"target=_blank>프리코네 개인 시트</a></td>
-			<td><a href="https://docs.google.com/spreadsheets/d/1HhvbA-z50VhGSJUf99ZnEpu_WEpNSPMu13gNIfrbN6c/edit#gid=0"target=_blank>소녀전선 개인 시트</a></td>	
-			<td><a href="https://docs.google.com/spreadsheets/d/1ApRfi4kezxL1wMRMuq_LWRlETdACgDKVcHvgmnCQ1e4/edit#gid=142664422"target=_blank>데스티니 개인 시트</a></td>	
-			<td><a href="https://docs.google.com/spreadsheets/d/1D_IU1-ZMEt2DcU7k2uQYkNgXJS7zwal1rMzUcYIINbA/edit#gid=0"target=_blank>블루아카이브 개인 시트</a></td>
-		</tr>
-		<tr>
-			<td><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki"target=_blank>타르코프 위키</a></td>
-			<td><a href="https://www.pcrdfans.com/battle"target=_blank>아레나 검색기</a></td>
-			<td></td>
-			<td><a href="https://app.destinyitemmanager.com/4611686018486839626/d2/inventory"target=_blank>DIM</a></td>	
-		</tr>
-		<tr>
-			<td><a href="https://tarkov-market.com/"target=_blank>가격 확인 사이트</a></td>
-			<td><a href="https://gall.kyaruberos.com/"target=_blank>캬루베로스</a></td>
-			<td></td>
-			<td><a href="https://d2armorpicker.com/#/"target=_blank>스탯맞추기</a></td>
-		</tr>
-		<tr>
-			<td><a href="https://tarkovtracker.io/quests/"target=_blank>타르코프 트래커</a></td>
-			<td><a href="https://expugn.github.io/priconne-quest-helper/"target=_blank>퀘스트 도우미</a></td>
-			<td></td>
-			<td><a href="https://d2gunsmith.com/"target=_blank>건스미스</a></td>
-		</tr>
-	</table></h1>
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>게임용 보조 사이트 모음</title>
+		<style type="text/css">
+			body
+			{
+				background-color: #121212;
+			}
+			.mainmenu a 
+			{
+				font: bold 30px Arial, Helvetica, sans-serif;
+				color: #EC9F19;
+				text-decoration: none;
+				padding: 0 0 0 10px;
+				display: block;
+				line-height: 35px;
+				border-style: solid;
+				border-color: #dddddd;
+			}
+			.mainmenu a:hover
+			{
+				text-decoration: underline;
+			}
+			.mainmenu a:active
+			{
+				color: #008000;
+			}
+			#head
+			{
+				cursor: text;
+				text-align: center;
+				color: #9C2023;
+			}
+			#map
+			{
+				border-color: #FFF;
+				color: #fae087;
+			}
+			#map:hover
+			{
+				border-color: #FFF;
+			}
+			.mainmenu
+			{
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.mainmenu > li  
+			{
+				position: relative;
+				float: left;
+				height: 35px;
+				width: 20%;  /* 목록 추가시 분할 1/n */
+				background: #313235;
+			}
+			.mainmenu > li:hover
+			{
+				background: #CCCCCC;
+			}
+			.mainmenu > li:hover > ul
+			{
+				display: inline;
+			}
+			.submenu
+			{
+				position: absolute;
+				list-style: none;
+				top: 35px;
+				left: 0;
+				width: 100%;
+				padding: 0;
+				margin: 0;
+				display: none;
+			}
+			.submenu > li 
+			{
+				position: relative;
+				height: 35px;
+				background: #313235;
+			}
+			.submenu > li:hover
+			{
+				background: #CCCCCC;
+			}
+			.submenu > li:hover > ul
+			{
+				display: inline;
+			}
+			.thirdmenu
+			{
+				position: absolute;
+				top: 0;
+				right: -200px;
+				width: 200px;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: none;
+			}
+			.thirdmenu > li 
+			{
+				height: 35px;
+				background: #313235;
+			}
+			.thirdmenu > li:hover
+			{
+				background: #CCCCCC;
+			}
+		</style>
+ 	<body>
+ 		<ul class="mainmenu">
+ 			<li>
+ 				<a href="#" id="head">타르코프</a>
+ 				<ul class="submenu">
+ 					<li><a href="https://docs.google.com/spreadsheets/d/19dW8rnxCOqvkJ6VwsObNA6YRlKAgRVobmpH74d6z86U/edit#gid=1154078243"target=_blank>타르코프 개인 시트</a></li>
+ 					<li><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki"target=_blank>타르코프 위키</a></li>
+ 					<li><a href="https://tarkov-market.com/"target=_blank>가격 확인 사이트</a></li>
+ 					<li><a href="https://tarkovtracker.io/quests/"target=_blank>타르코프 트래커</a></li>
+ 					<li>
+ 						<a href="#" id="map">맵 목록</a>
+ 						<ul class="thirdmenu">
+ 							<li><a href="./커스텀.png"target=_blank>커스텀</a></li>
+ 							<li><a href="./팩토리.png"target=_blank>팩토리</a></li>
+ 							<li><a href="./쇼어라인.png"target=_blank>쇼어라인</a></li>
+ 							<li><a href="./인터체인지.png"target=_blank>인터체인지</a></li>
+ 							<li><a href="./우드.png"target=_blank>우드</a></li>
+ 							<li><a href="./리저브.png"target=_blank>리저브</a></li>
+ 							<li><a href="./랩1.png"target=_blank>랩지하</a></li>
+ 							<li><a href="./랩2.png"target=_blank>랩1-2층</a></li>
+ 							<li><a href="./등대.png"target=_blank>등머</a></li>
+ 						</ul>
+ 					</li>
+ 				</ul>
+ 			</li>
+ 			<li>
+ 				<a href="#" id="head">프리코네</a>
+ 				<ul class="submenu">
+ 					<li><a href="https://docs.google.com/spreadsheets/d/1Bhfwq8y2WSX9W-E4QLH3INMYnfaCCqRpv3Pe7RHWbkg/edit#gid=2145381735"target=_blank>프리코네 개인 시트</a></li>
+ 					<li><a href="https://www.pcrdfans.com/battle"target=_blank>아레나 검색기</a></li>
+ 					<li><a href="https://gall.kyaruberos.com/"target=_blank>캬루베로스</a></li>
+ 					<li><a href="https://expugn.github.io/priconne-quest-helper/"target=_blank>퀘스트 도우미</a></li>
+ 				</ul>
+ 			</li>
 
-	<div class="dropdown">
-		<button class="dropdownbtn">맵 목록</button>
-		<div class="dropdown-content"><table border=1 style='width:100%;text-align: center;'>
-			<tr>
-				<td><a href="./커스텀.png"target=_blank>커스텀</a></td>
-				<td><a href="./팩토리.png"target=_blank>팩토리</a></td>
-				<td><a href="./쇼어라인.png"target=_blank>쇼어라인</a></td>
-				<td><a href="./인터체인지.png"target=_blank>인터체인지</a></td>
-			</tr>
-			<tr>
-				<td><a href="./우드.png"target=_blank>우드</a></td>
-				<td><a href="./리저브.png"target=_blank>리저브</a></td>
-				<td><a href="./랩1.png"target=_blank>랩지하</a></td>
-				<td><a href="./랩2.png"target=_blank>랩1-2층</a></td>
-			</tr>
-			<tr>
-				<td><a href="./등대.png"target=_blank>등머</a></td>
-			</tr>
+ 			<li>
+ 				<a href="#" id="head">소녀전선</a>
+ 				<ul class="submenu">
+ 					<li><a href="https://docs.google.com/spreadsheets/d/1HhvbA-z50VhGSJUf99ZnEpu_WEpNSPMu13gNIfrbN6c/edit#gid=0"target=_blank>소녀전선 개인 시트</a></li>
+ 				</ul>
+ 			</li>
+ 			<li><a href="#" id="head">데스티니</a>
+ 				<ul class="submenu">
+ 					<li><a href="https://docs.google.com/spreadsheets/d/1ApRfi4kezxL1wMRMuq_LWRlETdACgDKVcHvgmnCQ1e4/edit#gid=142664422"target=_blank>데스티니 개인 시트</a></li>
+ 					<li><a href="https://app.destinyitemmanager.com/4611686018486839626/d2/inventory"target=_blank>DIM</a></li>
+ 					<li><a href="https://d2armorpicker.com/#/"target=_blank>스탯맞추기</a></li>
+ 					<li><a href="https://d2gunsmith.com/"target=_blank>건스미스</a></li>
+ 				</ul>
+ 			</li>
+ 			<li>
+ 				<a href="#" id="head">블루아카</a>
+ 				<ul class="submenu">
+ 					<li><a href="https://docs.google.com/spreadsheets/d/1D_IU1-ZMEt2DcU7k2uQYkNgXJS7zwal1rMzUcYIINbA/edit#gid=0"target=_blank>블루아카이브 개인 시트</a></li>
+ 				</ul>
+ 			</li>
+ 		</ul>
 
-		</table>
-	</div>
-</body>
-</html>
+	</body>
+	</html>
