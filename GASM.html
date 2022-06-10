@@ -5,9 +5,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>게임용 보조 사이트 모음</title>
 		<style type="text/css">
-			body /*오늘은 head 색 변경, 항목당 툴팁 생성, 다크모드 전환*/
+			:root
 			{
-				background-color: #121212;
+				--sub--bg--color:  #313235;
+				--sub--hover--bg--color: #ccc;
+				--line-height: 50px;
+			}
+			body /* 항목당 툴팁 생성, 다크모드 전환*/
+			{
+				background-color:  #121212;
 			}
 			.mainmenu a 
 			{
@@ -16,7 +22,7 @@
 				text-decoration: none;
 				padding: 0 0 0 10px;
 				display: block;
-				line-height: 35px;
+				line-height: var(--line-height);
 				border-style: solid;
 				border-color: #dddddd;
 			}
@@ -53,23 +59,25 @@
 			{
 				position: relative;
 				float: left;
-				height: 35px;
+				height: var(--line-height);
 				width: 20%;  /* 목록 추가시 분할 1/n */
-				background: #313235;
+				background: var(--sub--bg--color);
 			}
 			.mainmenu > li:hover
 			{
-				background: #CCCCCC;
+				background: var(--sub--hover--bg--color);
 			}
 			.mainmenu > li:hover > ul
 			{
 				display: inline;
 			}
+
+
 			.submenu
 			{
 				position: absolute;
 				list-style: none;
-				top: 35px;
+				top: var(--line-height);
 				left: 0;
 				width: 100%;
 				padding: 0;
@@ -79,17 +87,19 @@
 			.submenu > li 
 			{
 				position: relative;
-				height: 35px;
-				background: #313235;
+				height: var(--line-height);
+				background: var(--sub--bg--color);
 			}
 			.submenu > li:hover
 			{
-				background: #CCCCCC;
+				background: var(--sub--hover--bg--color);
 			}
 			.submenu > li:hover > ul
 			{
 				display: inline;
 			}
+
+
 			.thirdmenu
 			{
 				position: absolute;
@@ -103,12 +113,33 @@
 			}
 			.thirdmenu > li 
 			{
-				height: 35px;
-				background: #313235;
+				height: var(--line-height);
+				background: var(--sub--bg--color);
 			}
 			.thirdmenu > li:hover
 			{
-				background: #CCCCCC;
+				background: var(--sub--hover--bg--color);
+			}
+
+			.tooltip
+			{
+				position: relative;
+				display: inline-block;
+				border-bottom: 1px dotted black;
+			}
+			.tooltip .tooltiptext
+			{
+				visibility: hidden;
+				width: 120px;
+				background-color: black;
+				color: #fff;
+				text-align: center;
+				padding: 5px 0;
+				border-radius: 6px;
+			}
+			.tooltip:hover .tooltiptext
+			{
+				visibility: visible;
 			}
 		</style>
  	<body>
