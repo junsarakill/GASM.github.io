@@ -1,0 +1,180 @@
+/* 06.13 개선할점
+	각 항목마다 favicon(16x16) 이미지 삽입
+	input button,summit 사용 name, url 값 입력 받아서
+	<a href="url">name</a>꼴로 dropdownmenu에 입력해 저장하기
+*/
+/*
+	06.14 변경점
+	다크모드 전환 추가(기본 다크모드)
+	html, css, js 문서 분리, 툴팁 추가
+*/
+/*기술순서 포지션 - 요소내부(텍스트,컬러) - 크기 - 패딩, 마진 - 보더 -
+\n display,visibility 등 충돌에 관계*/
+:root
+{
+	--line-height: 50px;
+	--main-count-percent: 20%; /* 목록 추가시 분할 1/n */
+
+	--body-bg-color: #121212;
+	--body-color: #fff;
+	--main-color: #EC9F19;
+	--main-border-color: #ddd;
+	--main-color-active: #008000;
+	--main-header-color: #E65100;
+	--main-map-color: #fae087;
+	--sub-bg-color:  #313235;
+	--sub-bg-color-hover: #ccc;
+	--tooltip-color: #fff;
+	--tooltip-bg-color: rgba(91,91,91,0.8);
+}
+.light-mode
+{
+	--body-bg-color: #fff;
+	--body-color: #000;
+	--main-color: #4785f0;
+	--main-border-color: #222;
+	--main-color-active: #008000;
+	--main-header-color: #19aeff;
+	--main-map-color: #fae087;
+	--sub-bg-color:  #c0c0c0;
+	--sub-bg-color-hover: #333;
+	--tooltip-color: #000;
+	--tooltip-bg-color: rgba(245,245,220,0.8);
+}
+
+body
+{
+	background-color: var(--body-bg-color);
+	color: var(--body-color);
+}
+.mainmenu a
+{
+	font: bold 30px Arial, Helvetica, sans-serif;
+	color: var(--main-color);
+	text-decoration: none;
+	line-height: var(--line-height);
+	padding: 0 0 0 10px;
+	border-style: solid;
+	border-color: var(--main-border-color);
+
+	display: block;
+}
+.mainmenu a:hover {text-decoration: underline;}
+.mainmenu a:active {color: var(--main-color-active);}
+#head
+{
+	cursor: text;
+	text-align: center;
+	color: var(--main-header-color);
+}
+#map {color: var(--main-map-color);} /*맵 목록 색상 다르게 */
+.mainmenu
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.mainmenu > li  
+{	
+	position: relative;
+	float: left;
+	background: var(--sub-bg-color);
+	height: var(--line-height);
+	width: var(--main-count-percent);
+}
+.mainmenu > li:hover 
+{
+	background: var(--sub-bg-color-hover);
+}
+.mainmenu > li:hover > ul {display: inline;}
+
+
+.submenu
+{
+	position: absolute;
+	list-style: none;
+	top: var(--line-height);
+	left: 0;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+	display: none;
+}
+.submenu > li 
+{
+	position: relative;
+	background: var(--sub-bg-color);
+	height: var(--line-height);
+}
+.submenu > li:hover
+{
+	background: var(--sub-bg-color-hover);
+}
+.submenu > li:hover > ul {display: inline;}
+
+
+.thirdmenu
+{
+	position: absolute;
+	list-style: none;
+	top: 0;
+	right: -200px;
+	width: 200px;
+	padding: 0;
+	margin: 0;
+
+	display: none;
+}
+.thirdmenu > li 
+{
+	background: var(--sub-bg-color);
+	height: var(--line-height);
+}
+.thirdmenu > li:hover
+{
+	background: var(--sub-bg-color-hover);
+}
+/*submenu class 로 병합*/
+.tooltip
+{
+}
+.tooltip .tooltiptext
+{
+	position: absolute;
+	background-color: var(--tooltip-bg-color);
+	color: var(--tooltip-color);
+	text-align: center;
+	width: 100%;
+	top: 150%;
+	padding: 15px 0;
+	border-radius: 9px;
+
+	opacity: 0;
+	transition: opacity 1s;
+	visibility: hidden;
+	z-index: 1;
+}
+.tooltip .tooltiptext::after
+{
+	position: absolute;
+	content: " ";
+	bottom: 100%;
+	left: 50%;
+	margin-left: -15px;
+	border-width: 15px;
+	border-style: solid;
+	border-color: transparent transparent var(--tooltip-bg-color) transparent;
+}
+.tooltip:hover .tooltiptext
+{
+	visibility: visible;
+	opacity: 1;
+}
+
+#darkCheckbox
+{
+	margin-top: 30px;
+	float: right;
+
+}
