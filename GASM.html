@@ -5,21 +5,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>게임용 보조 사이트 모음</title>
 		<style type="text/css">
+			/* 06.13 개선할점
+			항목당 툴팁 생성,
+			다크모드 전환, 
+			각 항목마다 favicon(16x16) 이미지 삽입
+			*/
 			:root
 			{
 				--sub--bg--color:  #313235;
 				--sub--hover--bg--color: #ccc;
 				--line-height: 50px;
 			}
-			body /* 06.13 개선점
-			항목당 툴팁 생성,
-			다크모드 전환, 
-			각 항목마다 favicon(16x16) 이미지 삽입,
-			
-			*/
-			{
-				background-color:  #121212;
-			}
+			body {background-color:  #121212;}
 			.mainmenu a 
 			{
 				font: bold 30px Arial, Helvetica, sans-serif;
@@ -31,14 +28,8 @@
 				border-style: solid;
 				border-color: #dddddd;
 			}
-			.mainmenu a:hover
-			{
-				text-decoration: underline;
-			}
-			.mainmenu a:active
-			{
-				color: #008000;
-			}
+			.mainmenu a:hover {text-decoration: underline;}
+			.mainmenu a:active {color: #008000;}
 			#head
 			{
 				cursor: text;
@@ -50,10 +41,7 @@
 				border-color: #FFF;
 				color: #fae087;
 			}
-			#map:hover
-			{
-				border-color: #FFF;
-			}
+			#map:hover {border-color: #FFF;}
 			.mainmenu
 			{
 				list-style: none;
@@ -68,14 +56,11 @@
 				width: 20%;  /* 목록 추가시 분할 1/n */
 				background: var(--sub--bg--color);
 			}
-			.mainmenu > li:hover
+			.mainmenu > li:hover 
 			{
 				background: var(--sub--hover--bg--color);
 			}
-			.mainmenu > li:hover > ul
-			{
-				display: inline;
-			}
+			.mainmenu > li:hover > ul {display: inline;}
 
 
 			.submenu
@@ -99,10 +84,7 @@
 			{
 				background: var(--sub--hover--bg--color);
 			}
-			.submenu > li:hover > ul
-			{
-				display: inline;
-			}
+			.submenu > li:hover > ul {display: inline;}
 
 
 			.thirdmenu
@@ -142,10 +124,7 @@
 				padding: 5px 0;
 				border-radius: 6px;
 			}
-			.tooltip:hover .tooltiptext
-			{
-				visibility: visible;
-			}
+			.tooltip:hover .tooltiptext{visibility: visible;}
 		</style>
  	<body>
  		<ul class="mainmenu">
