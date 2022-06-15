@@ -1,9 +1,8 @@
-/* 06.14 개선할점
+/* 06.15 개선할점
 	다크모드 텍스트 클릭해도 체크박스 변경되게
 	참조) https://zzznara2.tistory.com/607
 	각 항목마다 favicon(16x16) 이미지 삽입
-	input button,summit 사용 name, url 값 입력 받아서
-	<a href="url">name</a>꼴로 dropdownmenu에 입력해 저장하기
+	웹에서 dropdown 항목 추가 할 수 있게(html web storage?)
 */
 /*
 	06.14 변경점
@@ -137,7 +136,8 @@ body
 {
 	background: var(--sub-bg-color-hover);
 }
-/*submenu class 로 병합*/
+
+
 .tooltip
 {
 }
