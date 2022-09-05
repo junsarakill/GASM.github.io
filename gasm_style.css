@@ -1,5 +1,4 @@
-/* 06.15 개선할점
-	각 항목마다 favicon(16x16) 이미지 삽입
+/*	TODO
 	웹에서 dropdown 항목 추가 할 수 있게(html web storage?)
 */
 /*
@@ -134,47 +133,9 @@ body
 	background: var(--sub-bg-color-hover);
 }
 
-
-/*.tooltip
-{
-}
-.tooltip .tooltiptext
-{
-	position: absolute;
-	background-color: var(--tooltip-bg-color);
-	color: var(--tooltip-color);
-	text-align: center;
-	width: 100%;
-	top: 150%;
-	padding: 15px 0;
-	border-radius: 9px;
-
-	opacity: 0;
-	transition: opacity 1s;
-	visibility: hidden;
-	z-index: 1;
-}
-.tooltip .tooltiptext::after
-{
-	position: absolute;
-	content: " ";
-	bottom: 100%;
-	left: 50%;
-	margin-left: -15px;
-	border-width: 15px;
-	border-style: solid;
-	border-color: transparent transparent var(--tooltip-bg-color) transparent;
-}
-.tooltip:hover .tooltiptext
-{
-	visibility: visible;
-	opacity: 1;
-}*/
-
 #darkCheckbox
 {
 	margin-top: 30px;
 	float: right;
 	cursor: pointer;
-
 }
