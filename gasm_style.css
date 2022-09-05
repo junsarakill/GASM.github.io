@@ -133,7 +133,7 @@ body
 	background: var(--sub-bg-color-hover);
 }
 
-#darkCheckbox
+.darkCheckbox
 {
 	margin-top: 30px;
 	float: right;
