@@ -43,3 +43,8 @@ a
 {
     background-color: #ddd;
 }
+
+.navbar:hover .dropdownContents:hover
+{
+    display: block;
+}
