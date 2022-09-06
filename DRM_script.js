@@ -1,4 +1,4 @@
 function viewStage(stageNum)
 {
-    //@@ stageNum from.add го╟М form.submit()
+    //@@ stageNum from.add form.submit()
 }
