@@ -5,42 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>데스티니 레이드 매뉴얼</title>
     <!-- 외부 스타일시트 -->
-    <link rel="stylesheet" href="./DRM_style.css">
+    <link rel="stylesheet" href="./DRM_style.css?">
 </head>
 <body>
-    <!-- @@ kingsFall 기준 임시 작성 -->
+    <!-- @@ kingsFall 1 기준 임시 작성 -->
     <!-- @@ 레이드 드롭다운 -->
-    <nav class="navbar">
-        <a>lastWish</a>
-        <div class="dropdownContents">
-            
+    <header>
+        <div class="dropdown">
+            <a class="dropTabs">lastWish</a>
+            <a class="dropTabs">garden</a>
+            <a class="dropTabs">deepStone</a>
+            <a class="dropTabs">glassVault</a>
+            <a class="dropTabs">VoD</a>
+            <a class="dropTabs">kingsFall</a>
+            <div class="dropdownContents">
+                <a onclick="viewStage('ent')">entrance</a>
+                <a onclick="viewStage('1')">1</a>
+                <a onclick="viewStage('2')">2</a>
+                <a onclick="viewStage('3')">3</a>
+                <a onclick="viewStage('4')">4</a>
+                <a onclick="viewStage('boss')">Final</a>
+            </div>
         </div>
-        <a>garden</a>
-        <a>deepStone</a>
-        <a>glassVault</a>
-        <a>VoD</a>
-        <a>kingsFall</a>
-        <div class="dropdownContents">
-            <a>entrance</a>
-            <a>1</a>
-            <a>2</a>
-            <a>3</a>
-            <a>4</a>
-            <a>Final</a>
-        </div>
+    </header>
+    <nav>
+        
     </nav>
     <!-- @@ 매뉴얼 본문 -->
-    <article>
+    <section>
         <!-- @@ 본문 필터 -->
         <div id="filter">
-
+            <input type="checkbox" id="center" name="filter" value="center"><label for="center">중앙조</label>
+            <input type="checkbox" id="side" name="filter" value="side"><label for="side">러너조</label>
         </div>
         <div id="detail">
 
         </div>
-    </article>
+    </section>
     <!-- @@ 매뉴얼 사이드바 -->
     <aside>
 
     </aside>
+    <!-- 외부 스크립트 -->
+    <script type="text/javascript" src="./DRM_script.js"></script>
 </body>
