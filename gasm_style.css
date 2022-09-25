@@ -10,7 +10,7 @@
 :root
 {
 	--line-height: 50px;
-	--main-count-percent: 20%; /* 목록 추가시 분할 1/n */
+	--main-count-percent: 16%; /* 목록 추가시 분할 1/n */
 
 	--body-bg-color: #121212;
 	--body-color: #fff;
