@@ -3,13 +3,29 @@
 {
     --body-bd-color : #121212;
     --body-color : #fff;
-
+    --content-bd-color : #413939;
+    --button-yellow : #f1c232;
+    --button-blue : #2986cc;
+    --button-red : #cc0000;
+    --button-purple : #6a329f;
+    --button-green : #38761d;
+    --button-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
 }
 
 body
 {
     background-color: var(--body-bd-color);
     color: var(--body-color);
+    
+}
+
+.filter
+{
+    text-align: center;
+    width: 100%;
+    background-color: var(--content-bd-color);
+    max-width: 500px;
+    margin: auto;
 }
 
 .filter button
@@ -30,16 +46,77 @@ body
 /* 버튼 별 색상 */
 #ssr
 {
-    border: 2px solid #f1c232;
+    border: 3px solid var(--button-yellow);
 }
-
-#ssr.hover
+#ssr:hover
 {
-    background-color: #f1c232;
+    background-color: var(--button-yellow);
     color: white;
 }
 
 #ur
 {
-    
+    border: 3px solid transparent;
+    border-image: var(--button-rainbow);
+    border-image-slice: 1;
+}
+#ur:hover
+{
+    background-image: var(--button-rainbow);
+    color: white;
+}
+
+#blue
+{
+    border: 3px solid var(--button-blue);
+}
+#blue:hover
+{
+    background-color: var(--button-blue);
+    color: white;
+}
+
+#red
+{
+    border: 3px solid var(--button-red);
+}
+#red:hover
+{
+    background-color: var(--button-red);
+    color: white;
+}
+
+#yellow
+{
+    border: 3px solid var(--button-yellow);
+}
+#yellow:hover
+{
+    background-color: var(--button-yellow);
+    color: white;
+}
+
+#purple
+{
+    border: 3px solid var(--button-purple);
+}
+#purple:hover
+{
+    background-color: var(--button-purple);
+    color: white;
+}
+
+#green
+{
+    border: 3px solid var(--button-green);
+}
+#green:hover
+{
+    background-color: var(--button-green);
+    color: white;
+}
+
+.list
+{
+    background-color: var(--content-bd-color);
 }
