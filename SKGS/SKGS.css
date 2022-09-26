@@ -1,0 +1,40 @@
+/* 기본 스타일 */
+:root
+{
+    --body-bd-color : #121212;
+    --body-color : #fff;
+
+}
+
+body
+{
+    background-color: var(--body-bd-color);
+    color: var(--body-color);
+}
+
+.filter button
+{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+/* 버튼 별 색상 */
+#ssr
+{
+    border: 2px solid #f1c232;
+}
+
+#ssr.hover
+{
+    background-color: #f1c232;
+    color: white;
+}
