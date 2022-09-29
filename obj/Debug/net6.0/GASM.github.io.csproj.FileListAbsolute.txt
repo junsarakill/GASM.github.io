@@ -1,0 +1,15 @@
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.csproj.AssemblyReference.cache
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.AssemblyInfoInputs.cache
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.AssemblyInfo.cs
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.csproj.CoreCompileInputs.cache
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\bin\Debug\net6.0\GASM.github.io.exe
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\bin\Debug\net6.0\GASM.github.io.deps.json
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\bin\Debug\net6.0\GASM.github.io.runtimeconfig.json
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\bin\Debug\net6.0\GASM.github.io.dll
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\bin\Debug\net6.0\GASM.github.io.pdb
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.dll
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\refint\GASM.github.io.dll
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.pdb
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\GASM.github.io.genruntimeconfig.cache
+C:\Users\제이로고스\Documents\GitHub\GASM.github.io\obj\Debug\net6.0\ref\GASM.github.io.dll
