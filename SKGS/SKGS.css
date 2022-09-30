@@ -120,3 +120,20 @@ body
 {
     background-color: var(--content-bd-color);
 }
+
+
+.list_content *
+{
+    vertical-align: middle;
+    border: 5px solid black;
+}
+
+.list_content .deactiveImg
+{
+    opacity: 50%;
+}
+
+.list_content .activeImg
+{
+    opacity: 100%;
+}
