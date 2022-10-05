@@ -1,16 +1,34 @@
-//ÀÌ¹ÌÁö ¸®½ºÆ®
-const imgInfo = 
+//ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
+function viewImgList()
 {
-    id : "name"
-};
-//
-var fs = require('fs');
-fs.readdir('./img', function(err, fileList)
-{
-    console.log(fileList);
-});
+    imgMap.forEach(imgInfo => {
+        //ì‹œì‘ ì´ë¯¸ì§€ë¼ë©´ ì´ë¯¸ì§€ ì¶”ê°€
+        if(imgInfo.prevImg == "start")
+        {
+            console.log(imgInfo.id);
+            addImg(imgInfo.id);
+        }
+    });
+}
 
-//ÀÌ¹ÌÁö ¼±ÅÃ½Ã ºñÈ°¼ºÈ­ : Å¬·¡½º¸í º¯°æ
+//@@ ì¬ê·€í•¨ìˆ˜ : ì´ë¯¸ì§€ ì¶”ê°€
+function addImg(imgId)
+{
+    var imgInfo = imgMap.get(imgId);
+    //ì´ë¯¸ì§€ ì¶”ê°€
+    document.write(
+        "<img id=\""+imgId+"\" src=\"./img/"+imgId+".png\" "
+        +"onclick=\"switchImg(this)\">");
+    //ë‹¤ìŒì´ë¯¸ì§€ ì¡´ì¬ì‹œ í•¨ìˆ˜ ì¬ì‹¤í–‰
+    if(imgInfo.nextImg != "end")
+    {
+        document.write("<em>-></em>");
+        
+        return addImg(imgInfo.nextImg);
+    }
+}
+
+//ì´ë¯¸ì§€ ì„ íƒì‹œ ë¹„í™œì„±í™” : í´ë˜ìŠ¤ëª… ë³€ê²½
 function switchImg(e)
 {
     if(e.classList.item(0) == 'deactiveImg')
@@ -19,13 +37,8 @@ function switchImg(e)
         e.className = 'deactiveImg';   
 }
 
-//ÀÌ¹ÌÁö ºÒ·¯¿À±â
-function viewImg()
+//ì´ë¯¸ì§€ ë¶ˆëŸ¬ì˜¤ê¸°
+function viewImg(id)
 {
-    for(var i = 1;i < 10; i++)
-    {
-        document.write(
-            "<img id=\""+i+"\" src=\"./img/"+i+".png\" "
-            +"onclick=\"switchImg(this)\">");
-    }
+    
 }

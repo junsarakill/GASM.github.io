@@ -132,4 +132,23 @@
 	 	]
 	 	,"description": "choose 2 way"
 	}
+
+	//javascript 맨 위
+	,"imgInfo":
+	{
+		"scope": "javascript"
+		,"prefix": "imgfo"
+		,"body":
+		[
+			"const imgInfo${1:imgId} ="
+			,"{"
+			,"\tid : \"${1:imgId}\""
+			,",status : 0"
+			,",nextImg : \"${2:end}\""
+			,",prevImg : \"${3:start}\""
+			,"}"
+			,"imgMap.set(imgInfo${1:imgId}.id,imgInfo${1:imgId});"
+		]
+		,"description": "type imgInfo using by skgs"
+	}
 }
