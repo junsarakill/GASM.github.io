@@ -4,8 +4,8 @@ const imgInfo =
     id : "name"
 };
 //
-import { readdir } from 'fs';
-readdir('./img', function(err, fileList)
+var fs = require('fs');
+fs.readdir('./img', function(err, fileList)
 {
     console.log(fileList);
 });
