@@ -1,5 +1,5 @@
 const imgMap = new Map();
-
+//이미지 정보 스니펫 imgfo 사용할것 
 const imgInfo1 = 
 {
     id : "1"
@@ -12,7 +12,7 @@ const imgInfo2 =
 {
     id : "2"
     ,status : 0
-    ,nextImg : "end"
+    ,nextImg : "5"
     ,prevImg : "start"
 }
 imgMap.set(imgInfo2.id,imgInfo2);
@@ -44,8 +44,8 @@ const imgInfo5 =
 {
     id : "5"
 ,status : 0
-,nextImg : "end"
-,prevImg : "start"
+,nextImg : "6"
+,prevImg : "2"
 }
 imgMap.set(imgInfo5.id,imgInfo5);
 const imgInfo6 =
@@ -53,7 +53,7 @@ const imgInfo6 =
     id : "6"
 ,status : 0
 ,nextImg : "end"
-,prevImg : "start"
+,prevImg : "5"
 }
 imgMap.set(imgInfo6.id,imgInfo6);
 const imgInfo7 =
@@ -84,10 +84,26 @@ const imgInfo10 =
 {
     id : "10"
 ,status : 0
-,nextImg : "end"
+,nextImg : "12"
 ,prevImg : "start"
 }
 imgMap.set(imgInfo10.id,imgInfo10);
+const imgInfo12 =
+{
+    id : "12"
+,status : 0
+,nextImg : "end"
+,prevImg : "10"
+}
+imgMap.set(imgInfo12.id,imgInfo12);
+const imgInfo13 =
+{
+    id : "13"
+,status : 0
+,prevImg : "start"
+,nextImg : "end"
+}
+imgMap.set(imgInfo13.id,imgInfo13);
 
 
 

@@ -144,8 +144,8 @@
 			,"{"
 			,"\tid : \"${1:imgId}\""
 			,",status : 0"
-			,",nextImg : \"${2:end}\""
 			,",prevImg : \"${3:start}\""
+			,",nextImg : \"${2:end}\""
 			,"}"
 			,"imgMap.set(imgInfo${1:imgId}.id,imgInfo${1:imgId});"
 		]

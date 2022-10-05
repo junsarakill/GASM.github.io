@@ -18,13 +18,18 @@ function addImg(imgId)
     //이미지 추가
     document.write(
         "<img id=\""+imgId+"\" src=\"./img/"+imgId+".png\" "
-        +"onclick=\"switchImg(this)\">");
+        +"alt=\"No Image\" onclick=\"switchImg(this)\">");
     //다음이미지 존재시 함수 재실행
     if(imgInfo.nextImg != "end")
     {
-        document.write("<em>-></em>");
+        document.write("<em>→</em>");
         
         return addImg(imgInfo.nextImg);
+    }
+    //이미지 구분 공백 삽입
+    else
+    {
+        document.write("&nbsp&nbsp&nbsp&nbsp&nbsp");
     }
 }
 
@@ -35,10 +40,4 @@ function switchImg(e)
         e.className = 'activeImg';    
     else
         e.className = 'deactiveImg';   
-}
-
-//이미지 불러오기
-function viewImg(id)
-{
-    
 }
