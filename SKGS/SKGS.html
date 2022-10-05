@@ -5,6 +5,8 @@
         <title>SenranGakuseiList</title>
         <!-- 외부 스타일 -->
         <link rel="stylesheet" href="./SKGS.css">
+        <!-- 외부 스크립트 -->
+        <script type="module" src="./SKGS.js"></script>
     </head>
     <body>
         <!-- 검색 필터 -->
@@ -29,12 +31,9 @@
                 리스트
             </div>
             <div class="list_content">
-                <img id="1" src="./img/1.png" onclick="switchImg(this)">
-                <em>→</em>
-                <img id="2" src="./img/2.png" onclick="switchImg(this)">
+                <!-- 이미지 리스트 생성 -->
+                <script>viewImg();</script>
             </div>
         </main>
-        <!-- 외부 스크립트 -->
-        <script type="text/javascript" src="./SKGS.js"></script>
     </body>
 </html>
