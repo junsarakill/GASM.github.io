@@ -104,6 +104,22 @@ const imgInfo13 =
 ,nextImg : "end"
 }
 imgMap.set(imgInfo13.id,imgInfo13);
-
-
+//id = 14 prev = start next = end
+const imgInfo14 =
+{
+    id : "14"
+,status : 0
+,prevImg : "start"
+,nextImg : "end"
+}
+imgMap.set(imgInfo14.id,imgInfo14);
+//id = 15 prev = start next = end
+const imgInfo15 =
+{
+    id : "15"
+,status : 0
+,prevImg : "start"
+,nextImg : "end"
+}
+imgMap.set(imgInfo15.id,imgInfo15);
 

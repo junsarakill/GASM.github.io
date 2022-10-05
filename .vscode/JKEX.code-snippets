@@ -140,12 +140,13 @@
 		,"prefix": "imgfo"
 		,"body":
 		[
-			"const imgInfo${1:imgId} ="
+			"//id = ${1:imgId} prev = ${2:start} next = ${3:end}"
+			,"const imgInfo${1:imgId} ="
 			,"{"
 			,"\tid : \"${1:imgId}\""
 			,",status : 0"
-			,",prevImg : \"${3:start}\""
-			,",nextImg : \"${2:end}\""
+			,",prevImg : \"${2:start}\""
+			,",nextImg : \"${3:end}\""
 			,"}"
 			,"imgMap.set(imgInfo${1:imgId}.id,imgInfo${1:imgId});"
 		]
