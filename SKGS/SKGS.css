@@ -1,16 +1,25 @@
 /* 기본 스타일 */
+/* fixme 여기에 n~lr 까지 색상 추가 */
 :root
 {
     --body-bd-color : #121212;
     --body-color : #fff;
-    --content-bd-color : #413939;
-    --button-yellow : #f1c232;
-    --button-blue : #2986cc;
-    --button-red : #cc0000;
+    --content-bd-color : #2e2e2e;
+    --border-yellow : #ffa700;
+    --border-blue : #0057e7;
+    --border-red : #d62d20;
+    --border-purple : #6a329f;
+    --border-green : #008744;
+    --border-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    --button-yellow : #ffa700;
+    --button-blue : #0057e7;
+    --button-red : #d62d20;
     --button-purple : #6a329f;
-    --button-green : #38761d;
+    --button-green : #008744;
     --button-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    --text-color : #FFF;
 }
+
 
 body
 {
@@ -24,7 +33,7 @@ body
     text-align: center;
     width: 100%;
     background-color: var(--content-bd-color);
-    max-width: 500px;
+    max-width: 600px;
     margin: auto;
 }
 
@@ -42,80 +51,77 @@ body
     transition-duration: 0.4s;
     cursor: pointer;
 }
+/* 버튼, 이미지 활성화 */
+/* fixme 여기에 n~lr 까지 색상 추가 */
+.deactive
+{
+    --button-yellow : white;
+    --button-blue : white;
+    --button-red : white;
+    --button-purple : white;
+    --button-green : white;
+    --button-rainbow : white;
+    --text-color : black;
+}
+
+.active
+{
+    opacity: 100%;
+}
+/* 마우스 오버시 */
+.button_rank:hover, .button_color:hover
+{
+    scale: 1.2;
+}
 
 /* 버튼 별 색상 */
+/* fixme 여기에 n~lr 까지 색상 추가 */
 #ssr
 {
-    border: 3px solid var(--button-yellow);
-}
-#ssr:hover
-{
+    border: 3px solid var(--border-yellow);
     background-color: var(--button-yellow);
-    color: white;
+    color: var(--text-color);
 }
-
 #ur
 {
     border: 3px solid transparent;
-    border-image: var(--button-rainbow);
+    border-image: var(--border-rainbow);
     border-image-slice: 1;
-}
-#ur:hover
-{
     background-image: var(--button-rainbow);
-    color: white;
+    color: var(--text-color);
 }
-
 #blue
 {
-    border: 3px solid var(--button-blue);
-}
-#blue:hover
-{
+    border: 3px solid var(--border-blue);
     background-color: var(--button-blue);
-    color: white;
+    color: var(--text-color);
 }
-
 #red
 {
-    border: 3px solid var(--button-red);
-}
-#red:hover
-{
+    border: 3px solid var(--border-red);
     background-color: var(--button-red);
-    color: white;
+    color: var(--text-color);
 }
-
 #yellow
 {
-    border: 3px solid var(--button-yellow);
-}
-#yellow:hover
-{
+    border: 3px solid var(--border-yellow);
     background-color: var(--button-yellow);
-    color: white;
+    color: var(--text-color);
 }
-
 #purple
 {
-    border: 3px solid var(--button-purple);
-}
-#purple:hover
-{
+    border: 3px solid var(--border-purple);
     background-color: var(--button-purple);
-    color: white;
+    color: var(--text-color);
 }
-
 #green
 {
-    border: 3px solid var(--button-green);
-}
-#green:hover
-{
+    border: 3px solid var(--border-green);
     background-color: var(--button-green);
-    color: white;
+    color: var(--text-color);
 }
 
+/* 이미지 리스트 */
 .list
 {
     background-color: var(--content-bd-color);
@@ -128,12 +134,29 @@ body
     border: 5px solid black;
 }
 
-.list_content .deactiveImg
+.list_content .n
 {
-    opacity: 50%;
+    border-color: lightgreen;
+}
+.list_content .r
+{
+    border-color: lightsalmon;
+}
+.list_content .sr
+{
+    border-color: silver;
+}
+.list_content .ssr
+{
+    border-color: var(--button-yellow);
+}
+.list_content .ur
+{
+    border-image: var(--button-rainbow);
+    border-image-slice: 1;
+}
+.list_content .lr
+{
+    border-color: lightgoldenrodyellow;
 }
 
-.list_content .activeImg
-{
-    opacity: 100%;
-}

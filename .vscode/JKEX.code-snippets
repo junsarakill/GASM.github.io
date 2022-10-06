@@ -140,9 +140,20 @@
 		,"prefix": "imgfo"
 		,"body":
 		[
-			"const imgInfo${1:imgId} = new imgObj(\"${1:imgId}\",0,\"${2:start}\",\"${3:end}\",\"${4:rarity}\",\"${5:type}\");"
+			"const imgInfo${1:imgId} = new imgObj(\"${1:imgId}\",0,\"${2:start}\",\"${3:end}\",rarityList[${4:0~5}],typeList[${5:0~4}]);"
 			,"imgMap.set(imgInfo${1:imgId}.id,imgInfo${1:imgId});"
 		]
 		,"description": "type imgInfo using by skgs"
+	}
+
+	,"log":
+	{
+		"scope": "javascript"
+		,"prefix": "lger"
+		,"body":
+		[
+			"console.log(${1:value});"
+		]
+		,"description": "logger"
 	}
 }

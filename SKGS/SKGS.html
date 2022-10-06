@@ -14,16 +14,20 @@
         <header class="filter">
             <!-- 등급별 -->
             <div class="filter_rank">
-                <button class="button_rank" id="ssr">SSR</button>
-                <button class="button_rank" id="ur">UR</button>
+                <button class="button_rank active" id="n" onclick="typeFilter(this, filterList)">N</button>
+                <button class="button_rank active" id="r" onclick="typeFilter(this, filterList)">R</button>
+                <button class="button_rank active" id="sr" onclick="typeFilter(this, filterList)">SR</button>
+                <button class="button_rank active" id="ssr" onclick="typeFilter(this, filterList)">SSR</button>
+                <button class="button_rank active" id="ur" onclick="typeFilter(this, filterList)">UR</button>
+                <button class="button_rank active" id="lr" onclick="typeFilter(this, filterList)">LR</button>
             </div>
             <!-- 속성별 -->
             <div class="filter_color">
-                <button class="button_color" id="blue">陰</button>
-                <button class="button_color" id="red">陽</button>
-                <button class="button_color" id="yellow">閃</button>
-                <button class="button_color" id="purple">絢</button>
-                <button class="button_color" id="green">繞</button>
+                <button class="button_color active" id="blue" onclick="typeFilter(this, filterList)">陰</button>
+                <button class="button_color active" id="red" onclick="typeFilter(this, filterList)">陽</button>
+                <button class="button_color active" id="yellow" onclick="typeFilter(this, filterList)">閃</button>
+                <button class="button_color active" id="purple" onclick="typeFilter(this, filterList)">絢</button>
+                <button class="button_color active" id="green" onclick="typeFilter(this, filterList)">繞</button>
             </div>
         </header>
         <!-- 리스트 -->
@@ -31,9 +35,9 @@
             <div class="list_title">
                 리스트
             </div>
-            <div class="list_content">
+            <div id="list_content" class="list_content">
                 <!-- 이미지 리스트 생성 -->
-                <script>viewImgList();</script>
+                <script>viewImgList(imgStartMap);</script>
             </div>
         </main>
     </body>
