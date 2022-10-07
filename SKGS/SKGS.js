@@ -1,7 +1,8 @@
-//쿠키 저장
 //쿠키 이름
 const cookieFilter = "filter";
-setCookieArray(cookieFilter,filterList,90);
+//기본 쿠키 저장
+if(getCookieArray(cookieFilter) == null || getCookieArray(cookieFilter) == "")
+    setCookieArray(cookieFilter,filterList,90);
 
 //fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
 //필터에 따른 시작 객체 모음
@@ -74,7 +75,7 @@ function switchImg(e)
         e.classList.replace('active','deactive');
 }
 
-//속성 필터 해당 속성으로 시작하는 이미지만 보여줌
+//필터 선택
 //매개변수 type : 0 = rarity
 function typeFilter(e, list)
 {
@@ -96,7 +97,10 @@ function typeFilter(e, list)
         //리스트에서 해당 속성 추가
         list.push(e.id);
     }
+    //필터 리스트에 저장
     filterList = list;
+    //필터 쿠키 저장
+    setCookieArray(cookieFilter,filterList,90);
 
     console.log("처리 후: "+filterList);
 }
