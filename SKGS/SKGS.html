@@ -14,9 +14,12 @@
             <div class="title">
                 리스트
             </div>
+            <div class="header_content">
+                <button id="openNav" onclick="openFilter()">&#9776;</button>
+            </div>
         </header>
         <!-- 검색 필터 -->
-        <aside class="filter">
+        <aside class="filter" id="filter">
             <!-- 등급별 -->
             <div class="filter_rank">
                 <button class="button_rank deactive" id="n" onclick="typeFilter(this, filterList)">N</button>
