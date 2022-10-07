@@ -11,23 +11,6 @@ else
     console.log("필터 정보: " + filterList);
 }
 
-//이미지 비활성화 리스트 불러오기
-imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"));
-
-//이미지 비활성화
-function deactiveImg()
-{
-    for(var i = 0; i < imgDeactiveList.length; i++)
-    {
-        console.log(imgDeactiveList[i]);
-        console.log(imgInfo100.id);
-        
-        
-    }   
-}
-
-
-
 //필터 활성화
 function activeFilter()
 {
