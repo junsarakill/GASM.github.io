@@ -11,14 +11,22 @@ else
     console.log("필터 정보: " + filterList);
 }
 
-//이미지 활성화 리스트 불러오기
+//이미지 비활성화 리스트 불러오기
+imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"));
+
+//이미지 비활성화
 function deactiveImg()
 {
-    if(localStorage.getItme("deactiveImg") != null)
+    for(var i = 0; i < imgDeactiveList.length; i++)
     {
-        imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"))
-    }
+        console.log(imgDeactiveList[i]);
+        console.log(imgInfo100.id);
+        
+        
+    }   
 }
+
+
 
 //필터 활성화
 function activeFilter()
@@ -53,6 +61,9 @@ let imgStartMap = collectStartMap(imgMap);
 //리스트 추가 : 매개변수 = 객체 담긴 맵
 function viewImgList(map)
 {
+    //기존 리스트 제거
+    document.getElementById("list_content").innerHTML = "";
+    //리스트 추가
     map.forEach(imgInfo => {
         addImg(imgInfo.id);
     });
@@ -66,38 +77,56 @@ function addImg(imgId)
     if(imgInfo != null)
     {
         //이미지 추가
-        document.write(
-            "<img id=\""+imgId+"\" class=\""+imgClass+"\""
+        document.getElementById("list_content").innerHTML+="<img id=\""+imgId+"\" class=\""+imgClass+"\""
             +" src=\"./img/"+imgId+".png\""
-            +" alt=\"No Image\" onclick=\"switchImg(this)\">");
+            +" alt=\"No Image\" onclick=\"switchImg(this, imgDeactiveList)\">";
         //다음이미지 존재시 함수 재실행
         if(imgInfo.nextImg != "end")
         {
-            document.write("<em>→</em>");
+            document.getElementById("list_content").innerHTML+="<em>→</em>";
             
             return addImg(imgInfo.nextImg);
         }
         //이미지 구분 공백 삽입
         else
         {
-            document.write("&nbsp&nbsp&nbsp&nbsp&nbsp");
+            document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
         }
     }
     else
     {
-        document.write("No Img Info")
+        document.getElementById("list_content").innerHTML+="No Img Info";
     }
 }
 
 //이미지 선택시 비활성화 : 클래스명 변경
-function switchImg(e)
+function switchImg(e, list)
 {
     console.log(e);
 
     if(e.classList.item(0) == 'deactive')
+    {
+        //클래스 변경
         e.classList.replace('deactive','active');
+        //비활성화 리스트에서 해당 이미지 제거
+        list = list.filter(function(data)
+        {
+            return data != e.id;
+        });
+        
+    }
     else
+    {
+        //클래스 변경
         e.classList.replace('active','deactive');
+        //비활성화 리스트에서 해당 이미지 추가
+        list.push(e.id);
+    }
+    //활성화 리스트에 저장
+    imgDeactiveList = list;
+
+    console.log("처리 후 : "+imgDeactiveList);
+    localStorage.setItem("deactiveImg",JSON.stringify(imgDeactiveList));
 }
 
 //필터 선택
@@ -126,6 +155,7 @@ function typeFilter(e, list)
     
     console.log("처리 후: "+filterList);
     localStorage.setItem("filter", JSON.stringify(filterList));
-    //변경된 필터로 검색하기 위해 새로고침
-    location.reload();
+    //변경된 필터로 검색
+    imgStartMap = collectStartMap(imgMap);
+    viewImgList(imgStartMap);
 }

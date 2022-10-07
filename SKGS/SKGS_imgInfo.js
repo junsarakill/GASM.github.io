@@ -25,6 +25,13 @@ class imgObj
         this.type = type;
     }
 }
+const imgInfoList =
+[
+    new imgObj("1","active","start","11","ur","blue")
+    ,new imgObj("2","active","start","11","ur","blue")
+]
+console.log(imgInfoList);
+console.log(imgInfoList[1]);
 const imgInfo1 = new imgObj("1","active","start","11","ur","blue");
 imgMap.set(imgInfo1.id,imgInfo1);
 const imgInfo2 = new imgObj("2","active","start","12","ur","red");

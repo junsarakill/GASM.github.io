@@ -149,7 +149,7 @@
 	,"log":
 	{
 		"scope": "javascript"
-		,"prefix": "lger"
+		,"prefix": "conlger"
 		,"body":
 		[
 			"console.log(${1:value});"
