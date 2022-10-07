@@ -12,7 +12,7 @@
     <body>
         <header>
             <div class="title">
-                리스트
+                SKGS List
             </div>
             <div class="header_content">
                 <button id="openNav" onclick="openFilter()">&#9776;</button>
@@ -21,6 +21,7 @@
         <!-- 검색 필터 -->
         <aside>
             <div class="filter" id="filter">
+                <button id="closeNav" onclick="closeFilter()">&times;</button>
                 <!-- 등급별 -->
                 <div class="filter_rank">
                     <button class="button_rank deactive" id="n" onclick="typeFilter(this, filterList)">N</button>
@@ -40,7 +41,6 @@
                 </div>
                 <!-- 필터 설정 불러오기 -->
                 <script>activeFilter();</script>
-                <button id="closeNav" onclick="closeFilter()">&times;</button>
             </div>
         </aside>
         <!-- 리스트 -->

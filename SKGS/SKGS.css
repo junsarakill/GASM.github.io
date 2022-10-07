@@ -1,9 +1,10 @@
 /* 기본 스타일 */
 :root
 {
-    --body-bd-color : #121212;
+    --body-bd-color : #010101;
     --body-color : #fff;
-    --content-bd-color : #2e2e2e;
+    --content-bd-color : #1f2023;
+    --filter-bd-color : #424242;
 
     --border-lightgreen : lightgreen;
     --border-lightsalmon : lightsalmon;
@@ -26,17 +27,22 @@
     --button-red : #d62d20;
     --button-purple : #6a329f;
     --button-green : #008744;
-    --button-filter : #b8a3c2;
+    --button-filter : #ce93d8;
     
     --text-color-white : #FFF;
     --text-color-black : #000;
 }
 
+html
+{
+    height: 100%;
+}
 
 body
 {
     background-color: var(--body-bd-color);
     color: var(--body-color);
+    height: 100%;
 }
 
 .title
@@ -51,6 +57,8 @@ body
     font-size: 24px!important;
     background-color: var(--button-filter)!important;
     display: none;
+    cursor: pointer;
+    position: fixed;
 }
 
 #closeNav
@@ -61,15 +69,19 @@ body
     background-color: var(--button-filter)!important;
     text-align: center;
     padding: 0px;
+    display: block;
+    cursor: pointer;
 }
 
 .filter
 {
     text-align: center;
     width: 100%;
-    background-color: var(--content-bd-color);
-    max-width: 600px;
-    margin: auto;
+    background-color: var(--filter-bd-color);
+    max-width: 45%;
+    margin-bottom: 5%;
+    position: fixed;
+    z-index: 1;
 }
 
 .filter button
@@ -86,7 +98,8 @@ body
     transition-duration: 0.4s;
     cursor: pointer;
 }
-/* 버튼, 이미지 활성화 */
+
+/* 버튼, 이미지 활성화 여부 */
 .deactive
 {
     --button-lightgreen : white;
@@ -188,6 +201,10 @@ body
 {
     background-color: var(--content-bd-color);
     padding: 5px;
+    margin: auto;
+    margin-top: 20%;
+    max-width: 80%;
+    height: 100%;
 }
 
 
@@ -195,6 +212,12 @@ body
 {
     vertical-align: middle;
     border: 5px solid black;
+}
+
+.list_content em
+{
+    border: none;
+    margin: 5px;
 }
 
 .list_content .deactive

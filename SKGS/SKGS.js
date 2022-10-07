@@ -154,7 +154,7 @@ function typeFilter(e, list)
 function openFilter()
 {
     document.getElementById("filter").style.display = "block";
-    document.getElementById("closeNav").style.display = 'inline-block';
+    document.getElementById("closeNav").style.display = 'block';
     document.getElementById("openNav").style.display = 'none';
     
 }
