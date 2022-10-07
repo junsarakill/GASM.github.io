@@ -1,12 +1,27 @@
-//쿠키 이름
-const cookieFilter = "filter";
-//기본 쿠키 저장
-if(getCookieArray(cookieFilter) == null || getCookieArray(cookieFilter) == "")
+//필터 리스트 불러오기
+if(localStorage.getItem("filter") == null)
 {
-    console.log("기본 쿠키 저장");
-    setCookieArray(cookieFilter,filterList,90);
+    console.log("기본 필터 리스트 저장");
+    localStorage.setItem("filter", JSON.stringify(filterList));
 }
+else
+{
+    filterList = JSON.parse(localStorage.getItem("filter"));
     
+    console.log("필터 정보: " + filterList);
+}
+
+//필터 활성화
+function activeFilter()
+{
+    for(var i = 0; i < filterList.length; i++)
+    {
+        console.log(filterList[i]);
+        document.getElementById(filterList[i]).classList.replace("deactive","active");
+    }
+}
+
+
 
 //fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
 //필터에 따른 시작 객체 모음
@@ -103,8 +118,7 @@ function typeFilter(e, list)
     }
     //필터 리스트에 저장
     filterList = list;
-    //필터 쿠키 저장
-    setCookieArray(cookieFilter,filterList,90);
+    localStorage.setItem("filter", JSON.stringify(filterList));
 
     console.log("처리 후: "+filterList);
 }
