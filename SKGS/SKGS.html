@@ -10,8 +10,13 @@
         <script type="text/javascript" src="./SKGS.js"></script>   
     </head>
     <body>
+        <header>
+            <div class="title">
+                리스트
+            </div>
+        </header>
         <!-- 검색 필터 -->
-        <header class="filter">
+        <aside class="filter">
             <!-- 등급별 -->
             <div class="filter_rank">
                 <button class="button_rank deactive" id="n" onclick="typeFilter(this, filterList)">N</button>
@@ -27,17 +32,13 @@
                 <button class="button_color deactive" id="red" onclick="typeFilter(this, filterList)">陽</button>
                 <button class="button_color deactive" id="yellow" onclick="typeFilter(this, filterList)">閃</button>
                 <button class="button_color deactive" id="purple" onclick="typeFilter(this, filterList)">絢</button>
-                <button class="button_color deactive" id="green" onclick="typeFilter(this, filterList)">繞</button>
+                <button class="button_color deactive" id="green" onclick="typeFilter(this, filterList)">繚</button>
             </div>
             <!-- 필터 설정 불러오기 -->
             <script>activeFilter();</script>
-            <script>deactiveImg();</script>
-        </header>
+        </aside>
         <!-- 리스트 -->
         <main class="list">
-            <div class="list_title">
-                리스트
-            </div>
             <div id="list_content" class="list_content">
                 <!-- 이미지 리스트 생성 -->
                 <script>viewImgList(imgStartMap);</script>

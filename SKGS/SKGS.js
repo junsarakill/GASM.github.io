@@ -16,7 +16,6 @@ function activeFilter()
 {
     for(var i = 0; i < filterList.length; i++)
     {
-        console.log(filterList[i]);
         document.getElementById(filterList[i]).classList.replace("deactive","active");
     }
 }
@@ -52,33 +51,41 @@ function viewImgList(map)
     });
 }
 
-//@@ 재귀함수 : 이미지 추가
+//재귀함수 : 이미지 추가
 function addImg(imgId)
 {
     var imgInfo = imgMap.get(imgId);
     var imgClass = imgInfo.status+" "+imgInfo.rarity+" "+imgInfo.type
-    if(imgInfo != null)
+    try
     {
-        //이미지 추가
-        document.getElementById("list_content").innerHTML+="<img id=\""+imgId+"\" class=\""+imgClass+"\""
-            +" src=\"./img/"+imgId+".png\""
-            +" alt=\"No Image\" onclick=\"switchImg(this, imgDeactiveList)\">";
-        //다음이미지 존재시 함수 재실행
-        if(imgInfo.nextImg != "end")
+        if(imgInfo != null)
         {
-            document.getElementById("list_content").innerHTML+="<em>→</em>";
-            
-            return addImg(imgInfo.nextImg);
+            //이미지 추가
+            document.getElementById("list_content").innerHTML+="<img id=\""+imgId+"\" class=\""+imgClass+"\""
+                +" src=\"./img/"+imgId+".png\""
+                +" alt=\"No. "+imgId+"\" onclick=\"switchImg(this, imgDeactiveList)\">";
+            //다음이미지 존재시 함수 재실행
+            if(imgInfo.nextImg != "end")
+            {
+                document.getElementById("list_content").innerHTML+="<em>→</em>";
+                
+                return addImg(imgInfo.nextImg);
+            }
+            //이미지 구분 공백 삽입
+            else
+            {
+                document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
+            }
         }
-        //이미지 구분 공백 삽입
         else
         {
-            document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
+            document.getElementById("list_content").innerHTML+="No Img Info";
         }
     }
-    else
+    catch
     {
-        document.getElementById("list_content").innerHTML+="No Img Info";
+        console.log("오류남");
+        document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
     }
 }
 

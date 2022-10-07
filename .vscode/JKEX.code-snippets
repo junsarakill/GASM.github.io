@@ -31,7 +31,7 @@
 		,"description": "Print output to system"
 	}
 
-	,"log" : 
+	,"java logger" : 
 	{
 		"scope" : "java"
 		,"prefix" : "lger"
@@ -140,13 +140,12 @@
 		,"prefix": "imgfo"
 		,"body":
 		[
-			"const imgInfo${1:imgId} = new imgObj(\"${1:imgId}\",\"active\",\"${2:start}\",\"${3:end}\",\"${4:rarity}\",\"${5:type}\");"
-			,"imgMap.set(imgInfo${1:imgId}.id,imgInfo${1:imgId});"
+			",new imgObj(\"${1:imgId}\",\"active\",\"${2:start}\",\"${3:end}\",\"${4:rarity}\",\"${5:type}\")"
 		]
 		,"description": "type imgInfo using by skgs"
 	}
 
-	,"log":
+	,"js logger":
 	{
 		"scope": "javascript"
 		,"prefix": "conlger"

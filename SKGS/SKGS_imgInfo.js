@@ -47,11 +47,15 @@ const imgInfoList =
     ,new imgObj("17","active","7","end","ur","red")
     ,new imgObj("18","active","start","end","ur","purple")
     ,new imgObj("19","active","start","end","ur","green")
+    ,new imgObj("20","active","start","end","ur","yellow")
+    ,new imgObj("21","active","start","end","r","red")
     ,new imgObj("100","active","start","101","ssr","purple")
     ,new imgObj("101","active","100","102","ssr","purple")
     ,new imgObj("102","active","101","103","ur","purple")
     ,new imgObj("103","active","102","end","lr","purple")
+
     ,new imgObj("444","active","start","445","ur","green")
+
     ,new imgObj("666","active","start","end","ur","red")
 ]
 
@@ -60,7 +64,6 @@ const imgInfoList =
 function deactiveImg()
 {
     imgDeactiveList.forEach(imgId => {
-        console.log(imgId);
         //해당 이미지 객체 수정
         const imgInfo = imgInfoList.find(imgInfo => imgInfo.id === imgId);
         imgInfo.status = "deactive";
@@ -70,10 +73,14 @@ function deactiveImg()
 //이미지 객체 맵에 추가
 function addImgMap(imgList)
 {
+    //기존 정보 제거
+    imgMap.clear();
+    //객체 추가
     imgList.forEach(imgInfo => {
         imgMap.set(imgInfo.id, imgInfo);
     });
 }
 
+deactiveImg();
 addImgMap(imgInfoList);
 

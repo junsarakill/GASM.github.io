@@ -36,7 +36,11 @@ body
 {
     background-color: var(--body-bd-color);
     color: var(--body-color);
-    
+}
+
+.title
+{
+    text-align: center;
 }
 
 .filter
