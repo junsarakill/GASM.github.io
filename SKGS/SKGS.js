@@ -149,15 +149,3 @@ function typeFilter(e, list)
     imgStartMap = collectStartMap(imgMap);
     viewImgList(imgStartMap);
 }
-
-//필터 창 열기
-function openFilter()
-{
-    document.getElementById("filter").style.display = "block";
-    document.getElementById("openNav").style.display = 'none';
-}
-//필터 창 닫기
-function closeFilter()
-{
-
-}

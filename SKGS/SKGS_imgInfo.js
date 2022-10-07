@@ -5,11 +5,7 @@ let filterList =
 ["n","r","sr","ssr","ur","lr"
 ,"blue","red","yellow","purple","green"];
 //이미지 활성화 정보 불러오기
-let imgDeactiveList = [];
-if(localStorage.getItem("deactiveImg") == null)
-    localStorage.setItem("deactiveImg",JSON.stringify(imgDeactiveList));
-else
-    imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"));
+let imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"));
 //이미지 정보
 class imgObj 
 {

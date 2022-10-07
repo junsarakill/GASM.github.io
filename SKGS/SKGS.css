@@ -43,14 +43,6 @@ body
     text-align: center;
 }
 
-#openNav
-{
-    width: 50px;
-    height: 50px;
-    font-size: 24px!important;
-    background-color: var(--button-silver)!important;
-}
-
 .filter
 {
     text-align: center;
@@ -58,7 +50,6 @@ body
     background-color: var(--content-bd-color);
     max-width: 600px;
     margin: auto;
-    display: none;
 }
 
 .filter button
@@ -176,7 +167,6 @@ body
 .list
 {
     background-color: var(--content-bd-color);
-    padding: 5px;
 }
 
 
