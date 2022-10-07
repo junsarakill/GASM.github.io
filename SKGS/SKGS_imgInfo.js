@@ -1,15 +1,73 @@
+//쿠키
+//쿠키 저장
+function setCookie(cName, cValue, days)
+{
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + days);
+
+    var cookieValue = escape(cValue)
+        + ((days == null) ? '':'; expires=' + exdate.toUTCString());
+    
+    document.cookie = cName + '=' + cookieValue;
+}
+
+//쿠키 가져오기
+function getCookie(cName)
+{
+    var name = cName + "=";
+    var cArray = document.cookie.split(';');
+
+    for(var i = 0; i < cArray.length; i++)
+    {
+        var c = cArray[i];
+        
+        while(c.charAt(0) == ' ')
+        {
+            c = c.substring(1);
+        }
+        if(c.indexOf(name) == 0)
+        {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+//배열 쿠키 저장
+function setCookieArray(cName, cArray, days)
+{
+    var str = "";
+    for(var key in cArray)
+    {
+        if(str != "")
+            str += ",";
+        str += key+":"+cArray[key];
+    }
+    this.setCookie(cName,str,days);
+}
+
+//배열 쿠키 가져오기
+function getCookieArray(cName)
+{
+    var str = this.getCookie(cName);
+    var temp1 = str.split(",");
+    var reData = {};
+    
+    for(var i in temp1)
+    {
+        var temp2 = temp1[i].split(":");
+        reData[temp2[0]] = temp2[1];
+    }
+
+    return reData;
+}
+
 //이미지 정보 맵
 const imgMap = new Map();
-//등급 리스트
-const rarityList =
-[
-    "n","r","sr","ssr","ur","lr"
-]
-//속성 리스트
-const typeList = 
-[
-    "blue","red","yellow","purple","green"
-]
+//필터 정보
+let filterList = 
+["n","r","sr","ssr","ur","lr"
+,"blue","red","yellow","purple","green"];
 //이미지 정보
 class imgObj 
 {
@@ -29,73 +87,57 @@ class imgObj
         this.type = type;
     }
 }
-const imgInfo1 = new imgObj("1","active","start","11",rarityList[4],typeList[0]);
+const imgInfo1 = new imgObj("1","active","start","11","ur","blue");
 imgMap.set(imgInfo1.id,imgInfo1);
-const imgInfo2 = new imgObj("2","active","start","12",rarityList[4],typeList[1]);
+const imgInfo2 = new imgObj("2","active","start","12","ur","red");
 imgMap.set(imgInfo2.id,imgInfo2);
-const imgInfo3 = new imgObj("3","active","start","13",rarityList[4],typeList[2]);
+const imgInfo3 = new imgObj("3","active","start","13","ur","yellow");
 imgMap.set(imgInfo3.id,imgInfo3);
-const imgInfo4 = new imgObj("4","active","start","14",rarityList[4],typeList[3]);
+const imgInfo4 = new imgObj("4","active","start","14","ur","purple");
 imgMap.set(imgInfo4.id,imgInfo4);
-const imgInfo5 = new imgObj("5","active","start","15",rarityList[4],typeList[4]);
+const imgInfo5 = new imgObj("5","active","start","15","ur","green");
 imgMap.set(imgInfo5.id,imgInfo5);
-const imgInfo6 = new imgObj("6","active","start","16",rarityList[4],typeList[0]);
+const imgInfo6 = new imgObj("6","active","start","16","ur","blue");
 imgMap.set(imgInfo6.id,imgInfo6);
-const imgInfo7 = new imgObj("7","active","start","end",rarityList[3],typeList[4]);
+const imgInfo7 = new imgObj("7","active","start","end","ssr","green");
 imgMap.set(imgInfo7.id,imgInfo7);
-const imgInfo8 = new imgObj("8","active","start","end",rarityList[2],typeList[2]);
+const imgInfo8 = new imgObj("8","active","start","end","sr","yellow");
 imgMap.set(imgInfo8.id,imgInfo8);
-const imgInfo9 = new imgObj("9","active","start","end",rarityList[0],typeList[3]);
+const imgInfo9 = new imgObj("9","active","start","end","n","purple");
 imgMap.set(imgInfo9.id,imgInfo9);
-const imgInfo10 = new imgObj("10","active","start","end",rarityList[3],typeList[1]);
+const imgInfo10 = new imgObj("10","active","start","end","ssr","red");
 imgMap.set(imgInfo10.id,imgInfo10);
-const imgInfo11 = new imgObj("11","active","1","end",rarityList[4],typeList[0]);
+const imgInfo11 = new imgObj("11","active","1","end","ur","blue");
 imgMap.set(imgInfo11.id,imgInfo11);
-const imgInfo12 = new imgObj("12","active","2","end",rarityList[4],typeList[1]);
+const imgInfo12 = new imgObj("12","active","2","end","ur","red");
 imgMap.set(imgInfo12.id,imgInfo12);
-const imgInfo13 = new imgObj("13","active","3","end",rarityList[4],typeList[2]);
+const imgInfo13 = new imgObj("13","active","3","end","ur","yellow");
 imgMap.set(imgInfo13.id,imgInfo13);
-const imgInfo14 = new imgObj("14","active","4","end",rarityList[4],typeList[3]);
+const imgInfo14 = new imgObj("14","active","4","end","ur","purple");
 imgMap.set(imgInfo14.id,imgInfo14);
-const imgInfo15 = new imgObj("15","active","5","end",rarityList[4],typeList[4]);
+const imgInfo15 = new imgObj("15","active","5","end","ur","green");
 imgMap.set(imgInfo15.id,imgInfo15);
-const imgInfo16 = new imgObj("16","active","6","end",rarityList[4],typeList[0]);
+const imgInfo16 = new imgObj("16","active","6","end","ur","blue");
 imgMap.set(imgInfo16.id,imgInfo16);
-const imgInfo17 = new imgObj("17","active","7","end",rarityList[4],typeList[1]);
+const imgInfo17 = new imgObj("17","active","7","end","ur","red");
 imgMap.set(imgInfo17.id,imgInfo17);
+const imgInfo18 = new imgObj("18","active","start","end","ur","purple");
+imgMap.set(imgInfo18.id,imgInfo18);
+const imgInfo19 = new imgObj("19","active","start","end","ur","green");
+imgMap.set(imgInfo19.id,imgInfo19);
 
-const imgInfo100 = new imgObj("100","active","start","101",rarityList[3],typeList[3]);
+const imgInfo100 = new imgObj("100","active","start","101","ssr","purple");
 imgMap.set(imgInfo100.id,imgInfo100);
-const imgInfo101 = new imgObj("101","active","100","102",rarityList[3],typeList[3]);
+const imgInfo101 = new imgObj("101","active","100","102","ssr","purple");
 imgMap.set(imgInfo101.id,imgInfo101);
-const imgInfo102 = new imgObj("102","active","101","103",rarityList[4],typeList[3]);
+const imgInfo102 = new imgObj("102","active","101","103","ur","purple");
 imgMap.set(imgInfo102.id,imgInfo102);
-const imgInfo103 = new imgObj("103","active","102","end",rarityList[5],typeList[3]);
+const imgInfo103 = new imgObj("103","active","102","end","lr","purple");
 imgMap.set(imgInfo103.id,imgInfo103);
 
-const imgInfo444 = new imgObj("444","active","start","445",rarityList[4],typeList[4]);
+const imgInfo444 = new imgObj("444","active","start","445","ur","green");
 imgMap.set(imgInfo444.id,imgInfo444);
 
-const imgInfo666 = new imgObj("666",0,"start","end",rarityList[4],typeList[1]);
+const imgInfo666 = new imgObj("666",0,"start","end","ur","red");
 imgMap.set(imgInfo666.id,imgInfo666);
-
-
-//필터에 따른 시작 객체 모음
-//fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
-function collectStartMap(map)
-{
-    const ism = new Map();
-    
-    map.forEach(imgInfo => {
-        if(imgInfo.prevImg == "start")
-        {
-            ism.set(imgInfo.id,imgInfo);
-        }
-    });
-    console.log(ism);
-
-    return ism;
-}
-//마지막 시작객체만 정리
-const imgStartMap = collectStartMap(imgMap);
 

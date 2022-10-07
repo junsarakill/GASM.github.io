@@ -1,4 +1,28 @@
-let filterList = rarityList.concat(typeList);
+//쿠키 저장
+//쿠키 이름
+const cookieFilter = "filter";
+setCookieArray(cookieFilter,filterList,90);
+
+//fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
+//필터에 따른 시작 객체 모음
+function collectStartMap(map)
+{
+    const ism = new Map();
+    
+    map.forEach(imgInfo => {
+        if(imgInfo.prevImg == "start")
+        {
+            ism.set(imgInfo.id,imgInfo);
+        }
+    });
+    console.log(ism);
+
+    return ism;
+}
+
+//시작객체만 정리
+const imgStartMap = collectStartMap(imgMap);
+
 
 //리스트 추가 : 매개변수 = 객체 담긴 맵
 function viewImgList(map)
