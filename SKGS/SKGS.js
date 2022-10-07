@@ -2,7 +2,11 @@
 const cookieFilter = "filter";
 //기본 쿠키 저장
 if(getCookieArray(cookieFilter) == null || getCookieArray(cookieFilter) == "")
+{
+    console.log("기본 쿠키 저장");
     setCookieArray(cookieFilter,filterList,90);
+}
+    
 
 //fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
 //필터에 따른 시작 객체 모음
