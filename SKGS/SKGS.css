@@ -1,23 +1,34 @@
 /* 기본 스타일 */
-/* fixme 여기에 n~lr 까지 색상 추가 */
 :root
 {
     --body-bd-color : #121212;
     --body-color : #fff;
     --content-bd-color : #2e2e2e;
+
+    --border-lightgreen : lightgreen;
+    --border-lightsalmon : lightsalmon;
+    --border-silver : silver;
     --border-yellow : #ffa700;
+    --border-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    --border-lightgoldenrodyellow : lightgoldenrodyellow;
     --border-blue : #0057e7;
     --border-red : #d62d20;
     --border-purple : #6a329f;
     --border-green : #008744;
-    --border-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    
+    --button-lightgreen : lightgreen;
+    --button-lightsalmon : lightsalmon;
+    --button-silver : silver;
     --button-yellow : #ffa700;
+    --button-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    --button-lightgoldenrodyellow : lightgoldenrodyellow;
     --button-blue : #0057e7;
     --button-red : #d62d20;
     --button-purple : #6a329f;
     --button-green : #008744;
-    --button-rainbow : linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-    --text-color : #FFF;
+    
+    --text-color-white : #FFF;
+    --text-color-black : #000;
 }
 
 
@@ -52,16 +63,20 @@ body
     cursor: pointer;
 }
 /* 버튼, 이미지 활성화 */
-/* fixme 여기에 n~lr 까지 색상 추가 */
 .deactive
 {
+    --button-lightgreen : white;
+    --button-lightsalmon : white;
+    --button-silver : white;
     --button-yellow : white;
+    --button-rainbow : white;
+    --button-lightgoldenrodyellow : white;
     --button-blue : white;
     --button-red : white;
     --button-purple : white;
     --button-green : white;
-    --button-rainbow : white;
-    --text-color : black;
+    --text-color-white : black;
+    --text-color-black : black;
 }
 
 .active
@@ -75,12 +90,29 @@ body
 }
 
 /* 버튼 별 색상 */
-/* fixme 여기에 n~lr 까지 색상 추가 */
+#n
+{
+    border: 3px solid var(--border-lightgreen);
+    background-color: var(--button-lightgreen);
+    color: var(--text-color-white);
+}
+#r
+{
+    border: 3px solid var(--border-lightsalmon);
+    background-color: var(--button-lightsalmon);
+    color: var(--text-color-white);
+}
+#sr
+{
+    border: 3px solid var(--border-silver);
+    background-color: var(--button-silver);
+    color: var(--text-color-white);
+}
 #ssr
 {
     border: 3px solid var(--border-yellow);
     background-color: var(--button-yellow);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 #ur
 {
@@ -88,37 +120,43 @@ body
     border-image: var(--border-rainbow);
     border-image-slice: 1;
     background-image: var(--button-rainbow);
-    color: var(--text-color);
+    color: var(--text-color-white);
+}
+#lr
+{
+    border: 3px solid var(--border-lightgoldenrodyellow);
+    background-color: var(--button-lightgoldenrodyellow);
+    color: var(--text-color-black);
 }
 #blue
 {
     border: 3px solid var(--border-blue);
     background-color: var(--button-blue);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 #red
 {
     border: 3px solid var(--border-red);
     background-color: var(--button-red);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 #yellow
 {
     border: 3px solid var(--border-yellow);
     background-color: var(--button-yellow);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 #purple
 {
     border: 3px solid var(--border-purple);
     background-color: var(--button-purple);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 #green
 {
     border: 3px solid var(--border-green);
     background-color: var(--button-green);
-    color: var(--text-color);
+    color: var(--text-color-white);
 }
 
 /* 이미지 리스트 */
@@ -134,29 +172,34 @@ body
     border: 5px solid black;
 }
 
+.list_content .deactive
+{
+    opacity: 0.5;
+}
+
 .list_content .n
 {
-    border-color: lightgreen;
+    border-color: var(--border-lightgreen);
 }
 .list_content .r
 {
-    border-color: lightsalmon;
+    border-color: var(--border-lightsalmon);
 }
 .list_content .sr
 {
-    border-color: silver;
+    border-color: var(--border-silver);
 }
 .list_content .ssr
 {
-    border-color: var(--button-yellow);
+    border-color: var(--border-yellow);
 }
 .list_content .ur
 {
-    border-image: var(--button-rainbow);
+    border-image: var(--border-rainbow);
     border-image-slice: 1;
 }
 .list_content .lr
 {
-    border-color: lightgoldenrodyellow;
+    border-color: var(--border-lightgoldenrodyellow);
 }
 

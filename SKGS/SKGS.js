@@ -11,6 +11,15 @@ else
     console.log("필터 정보: " + filterList);
 }
 
+//이미지 활성화 리스트 불러오기
+function deactiveImg()
+{
+    if(localStorage.getItme("deactiveImg") != null)
+    {
+        imgDeactiveList = JSON.parse(localStorage.getItem("deactiveImg"))
+    }
+}
+
 //필터 활성화
 function activeFilter()
 {
@@ -21,16 +30,13 @@ function activeFilter()
     }
 }
 
-
-
-//fixme 221006 여기에 필터 리스트에 따른 if 문 추가 필요
 //필터에 따른 시작 객체 모음
 function collectStartMap(map)
 {
     const ism = new Map();
     
     map.forEach(imgInfo => {
-        if(imgInfo.prevImg == "start")
+        if(filterList.includes(imgInfo.rarity) && filterList.includes(imgInfo.type) && imgInfo.prevImg == "start")
         {
             ism.set(imgInfo.id,imgInfo);
         }
@@ -41,7 +47,7 @@ function collectStartMap(map)
 }
 
 //시작객체만 정리
-const imgStartMap = collectStartMap(imgMap);
+let imgStartMap = collectStartMap(imgMap);
 
 
 //리스트 추가 : 매개변수 = 객체 담긴 맵
@@ -95,7 +101,6 @@ function switchImg(e)
 }
 
 //필터 선택
-//매개변수 type : 0 = rarity
 function typeFilter(e, list)
 {
     console.log(list);
@@ -118,7 +123,9 @@ function typeFilter(e, list)
     }
     //필터 리스트에 저장
     filterList = list;
-    localStorage.setItem("filter", JSON.stringify(filterList));
-
+    
     console.log("처리 후: "+filterList);
+    localStorage.setItem("filter", JSON.stringify(filterList));
+    //변경된 필터로 검색하기 위해 새로고침
+    location.reload();
 }

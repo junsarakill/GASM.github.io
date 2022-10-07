@@ -4,6 +4,8 @@ const imgMap = new Map();
 let filterList = 
 ["n","r","sr","ssr","ur","lr"
 ,"blue","red","yellow","purple","green"];
+//이미지 활성화 정보
+let imgDeactiveList = [];
 //이미지 정보
 class imgObj 
 {
@@ -74,6 +76,6 @@ imgMap.set(imgInfo103.id,imgInfo103);
 const imgInfo444 = new imgObj("444","active","start","445","ur","green");
 imgMap.set(imgInfo444.id,imgInfo444);
 
-const imgInfo666 = new imgObj("666",0,"start","end","ur","red");
+const imgInfo666 = new imgObj("666","active","start","end","ur","red");
 imgMap.set(imgInfo666.id,imgInfo666);
 
