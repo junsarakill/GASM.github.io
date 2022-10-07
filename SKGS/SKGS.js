@@ -154,10 +154,14 @@ function typeFilter(e, list)
 function openFilter()
 {
     document.getElementById("filter").style.display = "block";
+    document.getElementById("closeNav").style.display = 'inline-block';
     document.getElementById("openNav").style.display = 'none';
+    
 }
 //필터 창 닫기
 function closeFilter()
 {
-
+    document.getElementById("filter").style.display = "none";
+    document.getElementById("closeNav").style.display = "none";
+    document.getElementById("openNav").style.display = 'block';
 }

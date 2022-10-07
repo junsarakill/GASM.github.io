@@ -26,6 +26,7 @@
     --button-red : #d62d20;
     --button-purple : #6a329f;
     --button-green : #008744;
+    --button-filter : #b8a3c2;
     
     --text-color-white : #FFF;
     --text-color-black : #000;
@@ -48,7 +49,18 @@ body
     width: 50px;
     height: 50px;
     font-size: 24px!important;
-    background-color: var(--button-silver)!important;
+    background-color: var(--button-filter)!important;
+    display: none;
+}
+
+#closeNav
+{
+    width: 50px;
+    height: 50px;
+    font-size: 48px!important;
+    background-color: var(--button-filter)!important;
+    text-align: center;
+    padding: 0px;
 }
 
 .filter
@@ -58,7 +70,6 @@ body
     background-color: var(--content-bd-color);
     max-width: 600px;
     margin: auto;
-    display: none;
 }
 
 .filter button
