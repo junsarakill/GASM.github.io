@@ -140,9 +140,32 @@
 		,"prefix": "imgfo"
 		,"body":
 		[
-			",new imgObj(\"${1:imgId}\",\"active\",\"${2:start}\",\"${3:end}\",\"${4:rarity}\",\"${5:type}\")"
+			",new imgObj(\"${1:imgId}\",\"active\",\"start\",\"end\",\"${2:ur}\",\"${3:type}\")"
 		]
 		,"description": "type imgInfo using by skgs"
+	}
+	,"imgInfo2":
+	{
+		"scope": "javascript"
+		,"prefix": "imgfo2"
+		,"body":
+		[
+			",new imgObj(\"${1:imgId}\",\"active\",\"start\",\"aaa\",\"ur\",\"${3:type}\")"
+			,",new imgObj(\"aaa\",\"active\",\"${1:start}\",\"end\",\"ur\",\"${3:type}\")"
+		]
+		,"description": "type imgInfo2 using by skgs"
+	}
+	,"imgInfo3":
+	{
+		"scope": "javascript"
+		,"prefix": "imgfo3"
+		,"body":
+		[
+			",new imgObj(\"${1:imgId}\",\"active\",\"start\",\"aaa\",\"ur\",\"${3:type}\")"
+			,",new imgObj(\"aaa\",\"active\",\"${1:start}\",\"bbb\",\"ur\",\"${3:type}\")"
+			,",new imgObj(\"bbb\",\"active\",\"aaa\",\"end\",\"lr\",\"${3:type}\")"
+		]
+		,"description": "type imgInfo3 using by skgs"
 	}
 
 	,"js logger":

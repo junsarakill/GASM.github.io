@@ -214,6 +214,13 @@ body
     border: 5px solid black;
 }
 
+img
+{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 .list_content em
 {
     border: none;

@@ -74,7 +74,7 @@ function addImg(imgId)
             //이미지 구분 공백 삽입
             else
             {
-                document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
+                document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
             }
         }
         else
@@ -85,7 +85,7 @@ function addImg(imgId)
     catch
     {
         console.log("오류남");
-        document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp";
+        document.getElementById("list_content").innerHTML+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
     }
 }
 
