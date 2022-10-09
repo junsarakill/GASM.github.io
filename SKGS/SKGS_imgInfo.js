@@ -820,7 +820,7 @@ const imgInfoList =
     ,new imgObj("52037200","active","51037250","end","ur","yellow")
     ,new imgObj("51037100","active","start","52037100","ur","red")
     ,new imgObj("52037100","active","51037100","end","ur","red")
-    ,new imgObj("51037000","active","start","end","ur","blue")
+    
     ,new imgObj("51037200","active","start","end","ur","yellow")
     ,new imgObj("51037400","active","start","52037400","ur","green")
     ,new imgObj("52037400","active","51037400","end","ur","green")
@@ -991,6 +991,7 @@ const imgInfoList =
     ,new imgObj("62035004","active","52035004","end","lr","blue")
     ,new imgObj("51035005","active","start","52035005","ur","blue")
     ,new imgObj("52035005","active","51035005","end","ur","blue")
+    ,new imgObj("51037000","active","start","end","ur","blue")
     //긴레이
     ,new imgObj("51108000","active","start","52108000","ur","blue")
     ,new imgObj("52108000","active","51108000","end","ur","blue")
@@ -1090,8 +1091,8 @@ const imgInfoList =
     //카자키리
     ,new imgObj("51142300","active","start","52142300","ur","purple")
     ,new imgObj("52142300","active","51142300","end","ur","purple")
-    ,new imgObj("51142000","active","start","52142000","ur","red")
-    ,new imgObj("52142000","active","51142000","end","ur","red")
+    ,new imgObj("51142000","active","start","52142000","ur","blue")
+    ,new imgObj("52142000","active","51142000","end","ur","blue")
     ,new imgObj("51142101","active","start","52142101","ur","red")
     ,new imgObj("52142101","active","51142101","end","ur","red")
     //아마네
