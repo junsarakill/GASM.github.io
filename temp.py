@@ -1,11 +1,12 @@
-tp1 = (1,2,"asd",[12,3,5])
-print(tp1)
-set2 = {
-    1,2,"ad"
-}
-print(set2)
+a = 'a'
+print(ord(a))
+print(ord('A'))
+print(ord('Z'))
+print(ord('z'))
 
-set1 = {1,2,3,67,(2313,"312312!")}
-print(set1)
+#int > 122 ? int -= 26
 
-list1 = [1,23,3]
+print(chr(ord('z')-25))
+print(chr(91))
+
+print(ord(' '))

@@ -178,4 +178,34 @@
 		]
 		,"description": "logger"
 	}
+
+
+	//python 맨 위
+	,"Function GCD": 
+	{
+	  	"scope": "python",
+	  	"prefix": "defGCD",
+	  	"body": 
+		[
+			"def calcGCD(n1, n2):"
+			,"\t#0으로 나누어 떨어지면 b가 최대 공약수"
+			,"\tif(n1 % n2 == 0):"
+			,"\t\treturn n2"
+			,"\t#아니면 b, a%b 로 다시 계산"
+			,"\treturn calcGCD(n2, n1%n2)"
+	  	],
+	  	"description": "최대공약수 알고리즘"
+	}
+	,"Function LCM": 
+	{
+	  	"scope": "python",
+	  	"prefix": "defLCM",
+	  	"body": 
+		[
+			"def calcLCM(n1, n2):"
+			,"\t#a,b의 최소공배수 = a*b / a,b의 최대공약수"
+			,"\treturn int(n1*n2 / calcGCD(n1,n2))"
+	  	],
+	  	"description": "최소공배수 알고리즘, defGCD 필요"
+	}
 }
