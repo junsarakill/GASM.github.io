@@ -1,12 +1,8 @@
-a = 'a'
-print(ord(a))
-print(ord('A'))
-print(ord('Z'))
-print(ord('z'))
+f = open("asd.txt","w")
 
-#int > 122 ? int -= 26
+#f.write("doremifarondo")
+print("asdsadasds",file=f)
 
-print(chr(ord('z')-25))
-print(chr(91))
 
-print(ord(' '))
+f.close()
+
