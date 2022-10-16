@@ -1018,8 +1018,9 @@ const imgInfoList =
     ,new imgObj("51026302","active","start","52026302","ur","purple")
     ,new imgObj("52026302","active","51026302","62026302","ur","purple")
     ,new imgObj("62026302","active","52026302","end","lr","purple")
-    //몽황조수 린
-    ,new imgObj("41026002","active","start","end","ssr","blue")
+    ,new imgObj("51026000","active","start","52026000","ur","blue")
+    ,new imgObj("52026000","active","51026000","62026000","ur","blue")
+    ,new imgObj("62026000","active","52026000","end","lr","blue")
     //료키
     ,new imgObj("51021200","active","start","52021200","ur","yellow")
     ,new imgObj("52021200","active","51021200","end","ur","yellow")
