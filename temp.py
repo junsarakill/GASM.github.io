@@ -1,12 +1,9 @@
-a = 'a'
-print(ord(a))
-print(ord('A'))
-print(ord('Z'))
-print(ord('z'))
+def calc(n1,n2):
+    result = n1*10 + n2*5
+    print("{}, {} = {}".format(n1,n2,result))
 
-#int > 122 ? int -= 26
 
-print(chr(ord('z')-25))
-print(chr(91))
+a = [[14,16],[4,38],[5,15],[5,11],[5,14]]
 
-print(ord(' '))
+for x in a:
+    calc(x[0],x[1])
