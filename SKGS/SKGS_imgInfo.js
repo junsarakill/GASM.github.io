@@ -1368,8 +1368,16 @@ function deactiveImg()
 {
     imgDeactiveList.forEach(imgId => {
         //해당 이미지 객체 수정
-        const imgInfo = imgInfoList.find(imgInfo => imgInfo.id === imgId);
-        imgInfo.status = "deactive";
+        try
+        {
+            const imgInfo = imgInfoList.find(imgInfo => imgInfo.id === imgId);
+            imgInfo.status = "deactive";
+        }
+        //비활성화 id가 imginfo에 없을 시
+        catch
+        {
+            console.log("id: %s 인 파일이 없습니다.",imgId);
+        }
     });
 }
 
