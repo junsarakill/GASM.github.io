@@ -1,0 +1,4 @@
+file read / write: line1
+file read / write: line2
+file read / write: line3
+file read / write: line4
