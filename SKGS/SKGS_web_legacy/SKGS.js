@@ -62,7 +62,7 @@ function addImg(imgId)
         {
             //이미지 추가
             document.getElementById("list_content").innerHTML+="<img id=\""+imgId+"\" class=\""+imgClass+"\""
-                +" src=\"./img/"+imgId+".png\""
+                +" src=\"../img/"+imgId+".png\""
                 +" alt=\"No. "+imgId+"\" onclick=\"switchImg(this, imgDeactiveList)\">";
             //다음이미지 존재시 함수 재실행
             if(imgInfo.nextImg != "end")
