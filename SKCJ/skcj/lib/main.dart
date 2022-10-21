@@ -5,6 +5,20 @@ import 'package:skcj/providers/counts.dart';
 import 'package:skcj/widgets/buttons.dart';
 import 'package:skcj/widgets/counter.dart';
 
+//타입, ssr 개수, sr 개수
+class Type {
+  String? type;
+  int? ssr = 0;
+  int? sr = 0;
+
+  Type(String this.type);
+
+  @override
+  String toString() {
+    return "Type: {type: ${type}, ssr: ${ssr}, sr: ${sr}}";
+  }
+}
+
 void main() {
   runApp(
     MultiProvider(
@@ -32,6 +46,14 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+  List<Object> typeList = [
+    Type("blue"),
+    Type("red"),
+    Type("yellow"),
+    Type("purple"),
+    Type("green")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,17 +63,11 @@ class Home extends StatelessWidget {
       body: ChangeNotifierProvider(
         create: (BuildContext context) => Counts(),
         child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //fixme 파라미터 객체(type, rarity)로 변경 필요
-            //버튼 20개 (ssr,ur) x (5 속성) x (+,-)
-            Counter(idx: 0),
-            Buttons(idx: 0),
-            Counter(idx: 1),
-            Buttons(idx: 1),
-          ],
-        )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Counter(idx: 0), Buttons(idx: 0)],
+          ),
+        ),
       ),
     );
   }
