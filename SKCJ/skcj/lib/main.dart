@@ -44,6 +44,8 @@ class Home extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //fixme 파라미터 객체(type, rarity)로 변경 필요
+            //버튼 20개 (ssr,ur) x (5 속성) x (+,-)
             Counter(idx: 0),
             Buttons(idx: 0),
             Counter(idx: 1),
