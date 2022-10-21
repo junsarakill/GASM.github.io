@@ -318,6 +318,8 @@ const imgInfoList =
     ,new imgObj("52008204","active","51008204","end","ur","yellow")
     ,new imgObj("51008106","active","start","52008106","ur","red")
     ,new imgObj("52008106","active","51008106","end","ur","red")
+    ,new imgObj("51008301","active","start","52008301","ur","purple")
+    ,new imgObj("52008301","active","51008301","end","ur","purple")
     //하루카
     ,new imgObj("51009250","active","start","end","ur","yellow")
     ,new imgObj("51009150","active","start","end","ur","red")
@@ -822,7 +824,6 @@ const imgInfoList =
     ,new imgObj("52037200","active","51037250","end","ur","yellow")
     ,new imgObj("51037100","active","start","52037100","ur","red")
     ,new imgObj("52037100","active","51037100","end","ur","red")
-    
     ,new imgObj("51037200","active","start","end","ur","yellow")
     ,new imgObj("51037400","active","start","52037400","ur","green")
     ,new imgObj("52037400","active","51037400","end","ur","green")
@@ -840,6 +841,9 @@ const imgInfoList =
     ,new imgObj("52037001","active","51037001","end","ur","blue")
     ,new imgObj("51037103","active","start","52037103","ur","red")
     ,new imgObj("52037103","active","51037103","end","ur","red")
+    ,new imgObj("51037201","active","start","52037201","ur","yellow")
+    ,new imgObj("52037201","active","51037201","62037201","ur","yellow")
+    ,new imgObj("62037201","active","52037201","end","lr","yellow")
     //바쇼
     ,new imgObj("51049150","active","start","52049100","ur","red")
     ,new imgObj("52049100","active","51049150","end","ur","red")
