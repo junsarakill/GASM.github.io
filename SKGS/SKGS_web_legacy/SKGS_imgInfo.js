@@ -1056,6 +1056,8 @@ const imgInfoList =
     ,new imgObj("51025401","active","start","52025401","ur","green")
     ,new imgObj("52025401","active","51025401","end","ur","green")
     ,new imgObj("51025000","active","start","end","ur","blue")
+    ,new imgObj("51025202","active","start","52025202","ur","yellow")
+    ,new imgObj("52025202","active","51025202","end","ur","yellow")
     //후부키
     ,new imgObj("51100100","active","start","52100100","ur","red")
     ,new imgObj("52100100","active","51100100","end","ur","red")
