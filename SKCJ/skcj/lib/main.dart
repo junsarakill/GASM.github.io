@@ -4,20 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:skcj/providers/counts.dart';
 import 'package:skcj/widgets/buttons.dart';
 import 'package:skcj/widgets/counter.dart';
-
-//타입, ssr 개수, sr 개수
-class Type {
-  String? type;
-  int? ssr = 0;
-  int? sr = 0;
-
-  Type(String this.type);
-
-  @override
-  String toString() {
-    return "Type: {type: ${type}, ssr: ${ssr}, sr: ${sr}}";
-  }
-}
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:skcj/models/db_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() {
   runApp(
@@ -46,14 +37,6 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  List<Object> typeList = [
-    Type("blue"),
-    Type("red"),
-    Type("yellow"),
-    Type("purple"),
-    Type("green")
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
