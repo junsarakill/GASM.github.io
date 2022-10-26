@@ -3,13 +3,17 @@ import 'package:skcj/models/jow.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
+  // ignore: prefer_typing_uninitialized_variables
   var _db;
 
   Future<Database> get database async {
-    if (_db != null) return _db;
-    _db = openDatabase(join(await getDatabasesPath(), "Jow.db"),
-        onCreate: (db, version) => _createDb(db), version: 1);
-    return _db;
+    if (_db != null) {
+      return _db;
+    } else {
+      _db = openDatabase(join(await getDatabasesPath(), "Jow.db"),
+          onCreate: (db, version) => _createDb(db), version: 1);
+      return _db;
+    }
   }
 
   static void _createDb(Database db) {

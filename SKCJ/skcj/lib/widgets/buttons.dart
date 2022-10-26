@@ -18,11 +18,42 @@ class SSRButtons extends StatelessWidget {
             },
             child: Icon(Icons.remove)),
         SizedBox(
-          width: 40,
-        ),
+            width: 40,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text("SSR", style: TextStyle(fontSize: 20)),
+            )),
         ElevatedButton(
             onPressed: () {
               context.read<selectType>().addSSRJow(int.parse(value));
+            },
+            child: Icon(Icons.add)),
+      ],
+    );
+  }
+}
+
+class SRButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    String value = context.watch<selectType>().sValue;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+            onPressed: () {
+              context.read<selectType>().removeSRJow(int.parse(value));
+            },
+            child: Icon(Icons.remove)),
+        SizedBox(
+            width: 40,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text("SR", style: TextStyle(fontSize: 20)),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              context.read<selectType>().addSRJow(int.parse(value));
             },
             child: Icon(Icons.add)),
       ],
