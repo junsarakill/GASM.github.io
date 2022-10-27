@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:skcj/database/dbHelper.dart';
 import 'package:skcj/providers/selectType.dart';
 import 'package:skcj/widgets/buttons.dart';
+import 'package:skcj/widgets/dropdown.dart';
 import 'package:skcj/widgets/sType.dart';
+import 'package:skcj/widgets/tyleList.dart';
 
 import 'models/jow.dart';
 
-final _valueList = ["0", "1", "2", "3", "4"];
-var _selectedValue = "0";
+const valueList = ["0", "1", "2", "3", "4"];
+const selectedValue = "0";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,6 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        //ChangeNotifierProvider(create: (_) => Counts()),
         ChangeNotifierProvider(create: (_) => selectType()),
       ],
       child: const MyApp(),
@@ -50,9 +51,7 @@ class Home extends StatelessWidget {
       body: ChangeNotifierProvider(
         create: (BuildContext context) => selectType(),
         child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-
+          child: ListView(
             children: [
               OutlinedButton(
                   onPressed: () {
@@ -63,7 +62,7 @@ class Home extends StatelessWidget {
                     dbHelper.insertJow(Jow(type: 3, ssr: 0, sr: 0));
                     dbHelper.insertJow(Jow(type: 4, ssr: 0, sr: 0));
                   },
-                  child: Text("DB insert")),
+                  child: Text("Reset")),
               DropdownType(),
               sType(),
               SSRButtons(),
@@ -73,50 +72,28 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class DropdownType extends StatefulWidget {
-  const DropdownType({super.key});
-
-  @override
-  State<DropdownType> createState() => _DropdownTypeState();
-}
-
-class _DropdownTypeState extends State<DropdownType> {
-  String dropdownValue = _valueList.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Align(
-            alignment: Alignment.center,
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const SizedBox(
+            height: 100,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
               ),
-              onChanged: (String? value) {
-                setState(() {
-                  dropdownValue = value!;
-                  context.read<selectType>().setter(dropdownValue);
-                });
-              },
-              items: _valueList.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                    value: value,
-                    child: Padding(
-                        padding: EdgeInsets.only(left: 10, right: 20),
-                        child: Text(
-                          value,
-                          style: TextStyle(fontSize: 20),
-                        )));
-              }).toList(),
-            )));
+              child: Text(
+                "All type",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+          TypeList(),
+        ],
+      )),
+    );
   }
 }

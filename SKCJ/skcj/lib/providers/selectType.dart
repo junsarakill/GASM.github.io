@@ -7,11 +7,18 @@ class selectType with ChangeNotifier {
   String _selectedValue = "0";
   String get sValue => _selectedValue;
 
-  String _strResult = "";
+  String _strResult = "99";
   String get sResult => _strResult;
 
-  String _calcResult = "";
+  String _calcResult = "99";
   String get cResult => _calcResult;
+
+  String _allTypeList = "";
+  String get aTList => _allTypeList;
+  void setATList(String value) {
+    _allTypeList = value;
+    notifyListeners();
+  }
 
   void setter(String value) {
     _selectedValue = value;

@@ -19,10 +19,6 @@ class sType extends StatelessWidget {
 
     return Column(
       children: [
-        Text(context.watch<selectType>().sResult,
-            style: TextStyle(
-              fontSize: 20,
-            )),
         Text("합계: ${context.watch<selectType>().cResult}",
             style: TextStyle(
                 fontSize: 30,

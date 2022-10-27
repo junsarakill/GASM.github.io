@@ -3,7 +3,6 @@ import 'package:skcj/models/jow.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
-  // ignore: prefer_typing_uninitialized_variables
   var _db;
 
   Future<Database> get database async {
