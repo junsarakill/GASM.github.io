@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skcj/database/dbHelper.dart';
 
 import '../Utility/util.dart';
-import '../models/jow.dart';
 import '../providers/selectType.dart';
 
 class TypeList extends StatelessWidget {
+  const TypeList({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<String> tList = [];
@@ -26,7 +26,7 @@ class TypeList extends StatelessWidget {
     return ListTile(
       title: Text(
         context.watch<selectType>().aTList,
-        style: TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 20),
       ),
       onTap: () {
         Navigator.pop(context);
