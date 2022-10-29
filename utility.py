@@ -63,11 +63,30 @@ def SKCJ():
     #결과 출력
     print(result)
 
+#순환
+def reType(index):
+    type = ["wave","sun","gear","moon","wind"]
+    if(index > 4):
+        index = 0
+    elif(index < 0):
+        index = 4
+    return type[index]
+
+#돌핀 속성 계산
+def calcType():
+    type = ["wave","sun","gear","moon","wind"]
+    a = input("어택커, 디펜더 순으로 타입을 적어주세요\nwave sun gear moon wind: ").split(" ")
+    for x in a:
+        ai = type.index(x)
+        print("강점 {}, 약점 {}".format(reType(ai+1),reType(ai-1)))
+    
+
+
 
 
 #---------------실행단----------
-SKCJ()
-
+#SKCJ()
+calcType()
 
 
 
