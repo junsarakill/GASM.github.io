@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skcj/providers/dwSelectType.dart';
 import 'package:skcj/providers/selectType.dart';
+import 'package:skcj/widgets/RecGroup.dart';
 import 'package:skcj/widgets/buttons.dart';
+import 'package:skcj/widgets/camera.dart';
 import 'package:skcj/widgets/dropdown.dart';
 import 'package:skcj/widgets/reset.dart';
 import 'package:skcj/widgets/sType.dart';
@@ -13,6 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => selectType()),
+        ChangeNotifierProvider(create: (_) => dwSelectType()),
       ],
       child: const MyApp(),
     ),
@@ -40,29 +44,40 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Navigate")),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                child: const Text("CalcJow"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const CalcJow()),
-                  );
-                }),
-            ElevatedButton(
-                child: const Text("ACBook"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const ACBook()),
-                  );
-                }),
-          ],
-        )));
+      appBar: AppBar(title: const Text("Navigate")),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+              child: const Text("CalcJow"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CalcJow()),
+                );
+              }),
+          ElevatedButton(
+              child: const Text("RecGroup"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const RecGroup()),
+                );
+              }),
+        ],
+      )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const Camera()),
+          );
+        },
+        tooltip: 'camera',
+        child: const Icon(Icons.camera_alt),
+      ),
+    );
   }
 }
 
@@ -109,20 +124,6 @@ class CalcJow extends StatelessWidget {
           TypeList(),
         ],
       )),
-    );
-  }
-}
-
-class ACBook extends StatelessWidget {
-  const ACBook({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("ACBook")),
-      body: ListView(
-        children: const [],
-      ),
     );
   }
 }
