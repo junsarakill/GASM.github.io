@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skcj/providers/dwSelectType.dart';
-import 'package:skcj/widgets/typeButtons.dart';
+import 'package:skcj/widgets/recGroup/typeButtons.dart';
 
 class RecResult extends StatelessWidget {
   const RecResult({super.key});
@@ -10,7 +10,6 @@ class RecResult extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<dwSelectType>().setResult();
     List<int> result = context.watch<dwSelectType>().rValue;
-    //selectedvalue 리스트 가져와서 result: 에 넣기
     return Scaffold(
       appBar: AppBar(title: const Text("RecGroup")),
       body: Column(

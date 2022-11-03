@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skcj/Utility/util.dart';
 import 'package:skcj/database/dbHelper.dart';
-
-import '../Utility/util.dart';
-import '../providers/selectType.dart';
+import 'package:skcj/providers/selectType.dart';
 
 class TypeList extends StatelessWidget {
   const TypeList({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skcj/widgets/recResult.dart';
-import 'package:skcj/widgets/typeButtons.dart';
+import 'package:skcj/widgets/recGroup/recResult.dart';
+import 'package:skcj/widgets/recGroup/typeButtons.dart';
 
 class RecGroup extends StatelessWidget {
   const RecGroup({super.key});

@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skcj/providers/dwSelectType.dart';
 import 'package:skcj/providers/selectType.dart';
-import 'package:skcj/widgets/RecGroup.dart';
-import 'package:skcj/widgets/buttons.dart';
+import 'package:skcj/widgets/calcJow/calcJow.dart';
 import 'package:skcj/widgets/camera.dart';
-import 'package:skcj/widgets/dropdown.dart';
-import 'package:skcj/widgets/reset.dart';
-import 'package:skcj/widgets/sType.dart';
-import 'package:skcj/widgets/tyleList.dart';
+import 'package:skcj/widgets/recGroup/RecGroup.dart';
+import 'package:skcj/widgets/skgs/skgs.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SenranKaguraCalculateJow',
+      title: 'GameAssistanceSiteMatome',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
@@ -38,6 +35,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//메인 화면
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -49,6 +47,7 @@ class Home extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //행운 계산
           ElevatedButton(
               child: const Text("CalcJow"),
               onPressed: () {
@@ -57,6 +56,7 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const CalcJow()),
                 );
               }),
+          //대응 편성 추천
           ElevatedButton(
               child: const Text("RecGroup"),
               onPressed: () {
@@ -65,8 +65,18 @@ class Home extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const RecGroup()),
                 );
               }),
+          //각성목록
+          ElevatedButton(
+              child: const Text("SKGS"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SKGS()),
+                );
+              })
         ],
       )),
+      //사진 찍기
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -75,55 +85,8 @@ class Home extends StatelessWidget {
           );
         },
         tooltip: 'camera',
-        child: const Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt_sharp),
       ),
-    );
-  }
-}
-
-class CalcJow extends StatelessWidget {
-  const CalcJow({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("CalcJow"),
-      ),
-      body: ChangeNotifierProvider(
-        create: (BuildContext context) => selectType(),
-        child: ListView(
-          children: const [
-            ResetButton(),
-            DropdownType(),
-            sType(),
-            SSRButtons(),
-            SRButtons(),
-          ],
-        ),
-      ),
-      drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: const [
-          SizedBox(
-            height: 100,
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.purpleAccent,
-              ),
-              child: Text(
-                "All type",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-          TypeList(),
-        ],
-      )),
     );
   }
 }
