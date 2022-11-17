@@ -541,6 +541,8 @@ const imgInfoList =
     ,new imgObj("62015303","active","52015303","end","lr","purple")
     ,new imgObj("51015003","active","start","52015003","ur","blue")
     ,new imgObj("52015003","active","51015003","end","ur","blue")
+    ,new imgObj("51015004","active","start","52015004","ur","blue")
+    ,new imgObj("52015004","active","51015004","end","ur","blue")
     //무라사키
     ,new imgObj("51016050","active","start","end","ur","blue")
     ,new imgObj("51016150","active","start","end","ur","red")
@@ -1255,6 +1257,17 @@ const imgInfoList =
     //쿠로사키 메아
     ,new imgObj("51161100","active","start","52161100","ur","red")
     ,new imgObj("52161100","active","51161100","end","ur","red")
+    //던만추
+    //헤스티아
+    ,new imgObj("51162400","active","start","52162400","ur","green")
+    ,new imgObj("52162400","active","51162400","62162400","ur","green")
+    ,new imgObj("62162400","active","52162400","end","lr","green")
+    //아이즈 발렌슈타인
+    ,new imgObj("51163000","active","start","52163000","ur","blue")
+    ,new imgObj("52163000","active","51163000","end","ur","blue")
+    //류 시온
+    ,new imgObj("51164400","active","start","52164400","ur","green")
+    ,new imgObj("52164400","active","51164400","end","ur","green")
 
 
 
