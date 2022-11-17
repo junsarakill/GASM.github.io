@@ -1265,7 +1265,7 @@ const imgInfoList =
     //아이즈 발렌슈타인
     ,new imgObj("51163000","active","start","52163000","ur","blue")
     ,new imgObj("52163000","active","51163000","end","ur","blue")
-    //류 시온
+    //류 리온
     ,new imgObj("51164400","active","start","52164400","ur","green")
     ,new imgObj("52164400","active","51164400","end","ur","green")
 
