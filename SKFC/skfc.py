@@ -1,6 +1,7 @@
 import os
 import shutil
 import tkinter
+import ctypes
 from tkinter import filedialog
 
 #img_here 폴더 안 이미지 이름을 확인
@@ -9,8 +10,8 @@ from tkinter import filedialog
 #cmn_cx 이미지 타입 : 1080p 전체화면 이미지
 #8자리 숫자
 #[6]첫 번째 : 레어도 - 1:n 2:r 3:sr 4:ssr 5:ur 6:lr
-#[7]두 번째 : 각성여부 - 0:통상 1:통상(특수) 2:각성
-#[8:11]3~5 번째 : 캐릭터번호 - 000(아스카) ~ 162(헤스티아) 비어있는 번호 있음 자세한 목록은 cName 함수에서 확인
+#[7]두 번째 : 각성여부 - 0:통상 1:통상(특수) 2:각성 3: 신유제(변신)
+#[8:11]3~5 번째 : 캐릭터번호 - ex 000(아스카) 165(손권) 비어있는 번호 있음 자세한 목록은 cName 함수에서 확인
 #[11]여섯 번째 : 속성 - 0:blue 1:red 2:yellow 3:purple 4:green
 #[11:13]7~8 번째 : 출시 순서 - 00~99 속성이 같을 시 출시 순에 따라 00,01,02 순으로 지어짐
 
@@ -38,11 +39,11 @@ def makeFolder(result_path : str, c_num_list : list):
             #캐릭터 이름
             cName = num2Name(file)
             #경로: path_after\캐릭터이름
-            os.makedirs(result_path+"/"+cName)
+            os.makedirs(result_path+"/No."+file+" "+cName)
         except:
             pass
 
-#캐릭터 번호 -> 이름 변환 22.11.18
+#캐릭터 번호 -> 이름 변환 23.02.24
 def num2Name(cNum : str):
     #캐릭터 번호:이름 사전
     cName = {
@@ -86,16 +87,20 @@ def num2Name(cNum : str):
         ,"035" : "레오"
         ,"036" : "유우야키"
         ,"037" : "소우지"
+        #공란
         #일기당천
         ,"042" : "여몽"
+        #공란
         #DOA
         ,"045" : "마리 로즈"
         ,"046" : "호노카"
-
+        #공란
         ,"049" : "바쇼"
+        #공란
         ,"100" : "후부키"
         ,"101" : "겟코"
         ,"102" : "센코"
+        #공란
         ,"106" : "우시마루"
         #아랑 전설 : 스트리트 파이트
         ,"107" : "시라누이 마이"
@@ -108,6 +113,7 @@ def num2Name(cNum : str):
         ,"111" : "미사토"
         ,"112" : "구미"
         ,"113" : "나치"
+        #공란
         #킹 오브 파이터즈
         ,"115" : "쿨라"
         ,"116" : "아테나"
@@ -128,13 +134,15 @@ def num2Name(cNum : str):
         ,"127" : "엘리나"
         ,"128" : "토모에"
         ,"129" : "시즈카"
-
+        #공란
         ,"134" : "이부키"
+        #공란
         ,"140" : "토키"
         ,"141" : "우이"
         ,"142" : "카자키리"
         ,"143" : "히요리"
         ,"144" : "아마네"
+        #공란
         #일기당천
         ,"151" : "조운"
         #백화요란
@@ -156,6 +164,8 @@ def num2Name(cNum : str):
         ,"162" : "헤스티아"
         ,"163" : "아이즈"
         ,"164" : "류 리온"
+        #일기당천
+        ,"165" : "손권"
 
     }
     #결과 값
@@ -177,7 +187,12 @@ def moveFile(dir_path : str, result_path : str, file_list : list):
         dict[file] = num2Name(file[8:11]) 
     ##사전 이용해 파일 이동
     for key, value in dict.items():
-        shutil.move(dir_path+"/"+key, result_path+"/"+value)
+        shutil.move(dir_path+"/"+key, result_path+"/No."+key[8:11]+" "+value)
+
+
+#처리 종료 메시지
+def endMessage():
+    ctypes.windll.user32.MessageBoxW(0, "처리 종료", "처리 알림", 16)
 
 
 
@@ -202,4 +217,6 @@ if __name__ == "__main__" :
     makeFolder(result_path, c_num_list)
     #폴더에 이미지 이동
     moveFile(dir_path,result_path,file_list)
+    #처리 종료 메시지
+    endMessage()
     
