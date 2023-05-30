@@ -67,6 +67,10 @@ const imgInfoList =
     ,new imgObj("51000205","active","start","52000205","ur","yellow")
     ,new imgObj("52000205","active","51000205","62000205","ur","yellow")
     ,new imgObj("62000205","active","52000205","end","ur","yellow")
+    ,new imgObj("51000005","active","start","52000005","ur","blue")
+    ,new imgObj("52000005","active","51000005","53000005","ur","blue")
+    ,new imgObj("53000005","active","52000005","end","lr","blue")
+    ,new imgObj("51000302","active","start","end","ur","purple")
     //이카루가
     ,new imgObj("51001050","active","start","end","ur","blue")
     ,new imgObj("51001250","active","start","end","ur","yellow")
@@ -212,6 +216,9 @@ const imgInfoList =
     ,new imgObj("62005204","active","52005204","end","lr","yellow")
     ,new imgObj("51005004","active","start","52005004","ur","blue")
     ,new imgObj("52005004","active","51005004","end","ur","blue")
+    ,new imgObj("51005005","active","start","end","ur","blue")
+    ,new imgObj("51005105","active","start","52005105","ur","red")
+    ,new imgObj("52005105","active","51005105","end","ur","red")
     //요미
     ,new imgObj("51006050","active","start","end","ur","blue")
     ,new imgObj("51006250","active","start","end","ur","yellow")
@@ -388,6 +395,10 @@ const imgInfoList =
     ,new imgObj("52010206","active","51010206","end","ur","yellow")
     ,new imgObj("51010403","active","start","end","ur","green")
     ,new imgObj("41010000","active","start","end","ssr","blue")
+    ,new imgObj("51010005","active","start","52010005","ur","blue")
+    ,new imgObj("52010005","active","51010005","53010005","ur","blue")
+    ,new imgObj("53010005","active","52010005","end","lr","blue")
+    ,new imgObj("51010105","active","start","end","ur","red")
     //무라쿠모
     ,new imgObj("51011250","active","start","end","ur","yellow")
     ,new imgObj("51011150","active","start","end","ur","red")
@@ -543,6 +554,7 @@ const imgInfoList =
     ,new imgObj("52015003","active","51015003","end","ur","blue")
     ,new imgObj("51015004","active","start","52015004","ur","blue")
     ,new imgObj("52015004","active","51015004","end","ur","blue")
+    ,new imgObj("51015202","active","start","end","ur","yellow")
     //무라사키
     ,new imgObj("51016050","active","start","end","ur","blue")
     ,new imgObj("51016150","active","start","end","ur","red")
@@ -1051,6 +1063,8 @@ const imgInfoList =
     ,new imgObj("52021201","active","51021201","end","ur","yellow")
     ,new imgObj("51021003","active","start","52021003","ur","blue")
     ,new imgObj("52021003","active","51021003","end","ur","blue")
+    ,new imgObj("51021103","active","start","52021103","ur","red")
+    ,new imgObj("52021103","active","51021103","end","ur","red")
     //다이도지
     ,new imgObj("51025301","active","start","52025301","ur","purple")
     ,new imgObj("52025301","active","51025301","end","ur","purple")
