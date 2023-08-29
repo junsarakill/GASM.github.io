@@ -1,0 +1,15 @@
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.csproj.AssemblyReference.cache
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.GeneratedMSBuildEditorConfig.editorconfig
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.AssemblyInfoInputs.cache
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.AssemblyInfo.cs
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.csproj.CoreCompileInputs.cache
+D:\GASM.github.io\bin\Debug\net7.0\GASM.github.io.exe
+D:\GASM.github.io\bin\Debug\net7.0\GASM.github.io.deps.json
+D:\GASM.github.io\bin\Debug\net7.0\GASM.github.io.runtimeconfig.json
+D:\GASM.github.io\bin\Debug\net7.0\GASM.github.io.dll
+D:\GASM.github.io\bin\Debug\net7.0\GASM.github.io.pdb
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.dll
+D:\GASM.github.io\obj\Debug\net7.0\refint\GASM.github.io.dll
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.pdb
+D:\GASM.github.io\obj\Debug\net7.0\GASM.github.io.genruntimeconfig.cache
+D:\GASM.github.io\obj\Debug\net7.0\ref\GASM.github.io.dll
