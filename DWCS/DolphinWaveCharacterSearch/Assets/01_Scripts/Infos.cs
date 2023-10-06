@@ -53,10 +53,34 @@ public static class StaticInfo
     //캐릭터 아이디 : 이름
     public static Dictionary<int, string> nameDict = new Dictionary<int, string>()
     {
-        {0, "이루카"}
-        ,{1, "미치루"}
-        ,{4, "에렌"}
-        ,{15, "비나"}
+        {0, "이루카"},
+        {1, "미치루"},
+        {2, "키리3"},
+        {3, "안리"},
+        {4, "에렌"},
+        {5, "히요리"},
+        {6, "카자3"},
+        {7, "카자4"},
+        {8, "히무카1"},
+        {9, "히무카2"},
+        {10, "히무카3"},
+        {11, "히무카4"},
+        {12, "우라미1"},
+        {13, "우라미2"},
+        {14, "우라미3"},
+        {15, "우라미4"},
+        {16, "세레나"},
+        {17, "시온"},
+        {18, "갤러3"},
+        {19, "비나"},
+        {20, "해설1"},
+        {21, "해설2"},
+        {21, "해설3"},
+        {21, "해설4"},
+        {22, "ai1"},
+        {23, "ai2"},
+        {24, "ai3"},
+        {25, "ai4"}
     };
     //레어도
     public enum rarity
@@ -81,7 +105,7 @@ public static class StaticInfo
     //소속
     public enum team
     {
-        kirisima, kazami, himuka, galatia
+        kirisima, kazami, himuka, urami, galatia, maruTV
     }
     //소속 계산
     public static team GetTeam(int id)
@@ -92,7 +116,7 @@ public static class StaticInfo
     //무기 종류
     public enum Weapon
     {
-        handgun, sniperRifle, rocketLauncher, grenadeLauncher
+        handgun, sniperRifle, rocketLauncher, grenadeLauncher, shotgun
     }
 
 
