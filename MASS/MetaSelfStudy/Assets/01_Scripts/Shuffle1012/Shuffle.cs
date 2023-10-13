@@ -18,42 +18,38 @@ public class Shuffle : MonoBehaviour
         {
             AddOrderIntList(out intList);
         }
-        //2번으로 랜덤 int 넣기
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddRandomInt2List(out intList);
-        }
-
+        ////2번으로 랜덤 int 넣기
+        //if(Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    AddRandomInt2List(out intList);
+        //}
+        //랜덤 셔플 하기
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            intList = ListShuffle(intList);
-            sw.Stop();
-            UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            intList = ShuffleRecur(intList);
-            sw.Stop();
-            print(sw.ElapsedMilliseconds+" ms");
-        }
-
-         if(Input.GetKeyDown(KeyCode.Alpha5))
-         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            //intList = ListShuffle(intList);
+            //intList = ShuffleRecur(intList);
             ShuffleSwap(out intList);
             sw.Stop();
             UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
         }
+        //오름차순 정렬하기
+        if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            //스톱워치 시작
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            //SelectSort(out intList);
+            StartCoroutine(IESelectSort());
+            //스톱워치 끝
+            sw.Stop();
+            print(sw.ElapsedMilliseconds+" ms 걸림");
+        }
+        
         
     }
-
-    
-
+#region 리스트 채우기
     //배열 값을 인덱스로 채우기
     void AddOrderIntList(out int[] intList)
     {
@@ -76,6 +72,9 @@ public class Shuffle : MonoBehaviour
         }
     }
 
+#endregion
+
+#region 셔플
     //반복으로 셔플
     int[] ListShuffle(int[] list)
     {
@@ -150,4 +149,54 @@ public class Shuffle : MonoBehaviour
             intList[m] = temp;
         }
     }
+
+#endregion
+
+#region 정렬
+    //오름차순 정렬
+    //선택정렬 : 현재 인덱스가 가장 작은 값이 될때까지 비교하기
+    void SelectSort(out int[] intList)
+    {
+        intList = this.intList;
+
+        for(int i = 0; i < intList.Length; i++)
+        {
+            //현재 인덱스 이후 원소를 전부 비교해서 스왑하기
+            for(int j = i; j < intList.Length; j++)
+            {
+                if(intList[i] > intList[j])
+                {
+                    var temp = intList[i];
+                    intList[i] = intList[j];
+                    intList[j] = temp;
+                }
+            }
+        }
+    }
+    //코루틴으로 천천히 변화 과정 보기
+    //지연시간
+    [SerializeField] float delayTime;
+    IEnumerator IESelectSort()
+    {
+        WaitForSeconds ws = new WaitForSeconds(delayTime);
+        for(int i = 0; i < intList.Length; i++)
+        {
+            //현재 인덱스 이후 원소를 전부 비교해서 스왑하기
+            for(int j = i; j < intList.Length; j++)
+            {
+                if(intList[i] > intList[j])
+                {
+                    var temp = intList[i];
+                    intList[i] = intList[j];
+                    intList[j] = temp;
+                }
+                yield return ws;
+            }
+        }
+        
+    }
+    
+    //버블정렬 : 전부 정렬될때 까지 01,12,23,34 식으로 줄줄이 정렬하기
+
+#endregion
 }
