@@ -9,8 +9,20 @@ public class Shuffle : MonoBehaviour
     //int 변수 100개를 담을 수 있는 배열
     public int[] intList;
 
+    
+
     //담을 변수 개수
     [Range(1,100000)][SerializeField] int varAmount;
+
+    //지연시간
+    [SerializeField] float delayTime;
+    WaitForSeconds delay;
+
+    private void Awake() {
+        delay = new WaitForSeconds(delayTime);
+    }
+
+    Coroutine bubblesortCor;
     
     void Update() {
         //1번으로 순차대로 숫자 넣기
@@ -40,15 +52,46 @@ public class Shuffle : MonoBehaviour
             //스톱워치 시작
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            //SelectSort(out intList);
-            StartCoroutine(IESelectSort());
+            SelectSort(out intList);
+            //StartCoroutine(IESelectSort());
             //스톱워치 끝
             sw.Stop();
             print(sw.ElapsedMilliseconds+" ms 걸림");
         }
-        
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            //스톱워치 시작
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            //intList = BubbleSort(intList);
+            intList = BubbleSort2(intList);
+            //스톱워치 끝
+            sw.Stop();
+            print(sw.ElapsedMilliseconds+" ms 걸림");
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            //스톱워치 시작
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            StartCoroutine(IEBubbleSort());
+            StartCoroutine(IEStopwatchStop(sw));
+        }
+
         
     }
+
+    IEnumerator IEStopwatchStop(Stopwatch sw)
+    {
+        while(isCorRun)
+        {
+            yield return null;
+        }
+        //스톱워치 끝
+        sw.Stop();
+        print(sw.ElapsedMilliseconds+" ms 걸림");
+    }
+
 #region 리스트 채우기
     //배열 값을 인덱스로 채우기
     void AddOrderIntList(out int[] intList)
@@ -173,12 +216,13 @@ public class Shuffle : MonoBehaviour
             }
         }
     }
+    //fixme 선택정렬을 개선시켜보기(바로 바꾸지 않고 더 작은 값이 있는지 확인 후
+    //마지막에 바꾸기)
+
     //코루틴으로 천천히 변화 과정 보기
-    //지연시간
-    [SerializeField] float delayTime;
+    
     IEnumerator IESelectSort()
     {
-        WaitForSeconds ws = new WaitForSeconds(delayTime);
         for(int i = 0; i < intList.Length; i++)
         {
             //현재 인덱스 이후 원소를 전부 비교해서 스왑하기
@@ -190,13 +234,106 @@ public class Shuffle : MonoBehaviour
                     intList[i] = intList[j];
                     intList[j] = temp;
                 }
-                yield return ws;
+                yield return delay;
             }
         }
         
     }
     
     //버블정렬 : 전부 정렬될때 까지 01,12,23,34 식으로 줄줄이 정렬하기
+    //두개씩 묶어서 정렬 시키고 1번이라도 교환을 했는지 체크해서/교환 안하면 정렬 종료
+    //fixme 1만개 스택오버플로우 남
+    int[] BubbleSort(int[] intList)
+    {
+        bool isSwap = false;
+        //0부터 length-2 까지 반복
+        for(int i = 0; i < intList.Length-1; i++)
+        {
+            //자신,자신+1을 비교해서 작은 쪽을 왼쪽으로 스왑
+            if(intList[i] > intList[i+1])
+            {
+                var temp = intList[i+1];
+                intList[i+1] = intList[i];
+                intList[i] = temp;
+                //교환했음 체크
+                if(!isSwap)
+                    isSwap = true;
+            }
+        }
+        
+        //교환을 안했으면 리스트 반환
+        //아니면 반복
+        int[] returnList = isSwap ? BubbleSort(intList) : intList;
 
+        return returnList;
+    }
+
+    int[] BubbleSort2(int[] intList)
+    {
+        bool isSwap;
+        //한 번은 실행하도록 do while 사용
+        do
+        {
+            isSwap = false;
+            //0부터 length-2 까지 반복
+            for(int i = 0; i < intList.Length-1; i++)
+            {
+                //자신,자신+1을 비교해서 작은 쪽을 왼쪽으로 스왑
+                if(intList[i] > intList[i+1])
+                {
+                    var temp = intList[i+1];
+                    intList[i+1] = intList[i];
+                    intList[i] = temp;
+                    //교환했음 체크
+                    if(!isSwap)
+                        isSwap = true;
+                }
+            }
+        }
+        while(isSwap);
+
+
+        return intList;
+    }
+
+    IEnumerator IEBubbleSort()
+    {
+        isCorRun = true;
+        bool isSwap = false;
+        //0부터 length-2 까지 반복
+        for(int i = 0; i < intList.Length-1; i++)
+        {
+            //자신,자신+1을 비교해서 작은 쪽을 왼쪽으로 스왑
+            if(intList[i] > intList[i+1])
+            {
+                var temp = intList[i+1];
+                intList[i+1] = intList[i];
+                intList[i] = temp;
+                //교환했음 체크
+                if(!isSwap)
+                    isSwap = true;
+            }
+            yield return delay;
+        }
+        
+        //교환을 안했으면 리스트 반환
+        //아니면 반복
+        if(isSwap)
+            StartCoroutine(IEBubbleSort());
+        else
+            isCorRun = false;
+    }
+
+    public bool isCorRun = false;
+
+    //퀵 정렬
+    /*불안정, 비교 정렬
+    //리스트에 한 원소를 선택 = 이를 피벗이라함
+    //피벗 기준 작은 원소는 왼쪽, 큰 건 오른쪽으로 옮기기
+    피벗을 제외한 왼쪽,오른쪽 리스트를 다시 정렬
+    재귀를 이용해 부분 리스트도 같은 방식을 사용
+    부분 리스트가 분할이 불가능 = 크기가 0 or 1 까지 반복
+
+    */
 #endregion
 }

@@ -168,8 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intList: 
-  varAmount: 100
-  delayTime: 0.001
+  varAmount: 5
+  delayTime: 0.0001
+  isCorRun: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +522,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "1\uBC88\uC73C\uB85C \uC22B\uC790 \uB9AC\uC2A4\uD2B8 \uC0DD\uC131\n3\uBC88\uC73C\uB85C
-    \uC154\uD50C\n4\uBC88\uC73C\uB85C \uC624\uB984\uCC28\uC21C \uC815\uB82C"
+    \uC154\uD50C\n4\uBC88\uC73C\uB85C \uC120\uD0DD \uC815\uB82C\n5\uBC88\uC73C\uB85C
+    \uBC84\uBE14 \uC815\uB82C"
 --- !u!222 &1213146698
 CanvasRenderer:
   m_ObjectHideFlags: 0
