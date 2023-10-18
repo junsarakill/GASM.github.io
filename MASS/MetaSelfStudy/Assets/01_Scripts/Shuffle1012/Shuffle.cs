@@ -91,6 +91,15 @@ public class Shuffle : MonoBehaviour
             print(sw.ElapsedMilliseconds+" ms 걸림");
         }
 
+        if(Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            StartCoroutine(IEQuickSort(intList, (c) =>
+            {
+                intList = c;
+            }));
+        }
+
+
 
 
         //if(Input.GetKeyDown(KeyCode.R))
@@ -241,8 +250,6 @@ public class Shuffle : MonoBehaviour
             }
         }
     }
-    //fixme 선택정렬을 개선시켜보기(바로 바꾸지 않고 더 작은 값이 있는지 확인 후
-    //마지막에 바꾸기)
     int[] SelectSort2(int[] intList)
     {
         for(int i = 0; i < intList.Length; i++)
@@ -285,7 +292,6 @@ public class Shuffle : MonoBehaviour
     
     //버블정렬 : 전부 정렬될때 까지 01,12,23,34 식으로 줄줄이 정렬하기
     //두개씩 묶어서 정렬 시키고 1번이라도 교환을 했는지 체크해서/교환 안하면 정렬 종료
-    //fixme 1만개 스택오버플로우 남
     int[] BubbleSort(int[] intList)
     {
         bool isSwap = false;
@@ -381,7 +387,7 @@ public class Shuffle : MonoBehaviour
     int[] QuickSort(int[] intAry)
     {
         //랜덤 인덱스 선택
-        int index = Random.Range(0, intAry.Length);
+        int index = UnityEngine.Random.Range(0, intAry.Length);
         List<int> leftList = new List<int>();
         List<int> rightList = new List<int>();
         for(int i = 0; i < intAry.Length; i++)
@@ -423,6 +429,83 @@ public class Shuffle : MonoBehaviour
         leftAry.CopyTo(mergeAry, 0);
         mergeAry[leftAry.Length] = intAry[index];
         rightAry.CopyTo(mergeAry, leftAry.Length+1);
+
+        return mergeAry;
+    }
+
+    //fixme
+    IEnumerator IEQuickSort(int[] intAry, System.Action<int[]> callback)
+    {
+        print("시작");
+        //랜덤 인덱스 선택
+        int index = UnityEngine.Random.Range(0, intAry.Length);
+        //좌우 리스트 선언
+        List<int> leftList = new List<int>();
+        List<int> rightList = new List<int>();
+        for(int i = 0; i < intAry.Length; i ++)
+        {
+            //인덱스 스킵
+            if(i == index)
+                continue;
+            
+            //해당 인덱스의 원소 기준, 작은건 left, 큰 건 right로 놓기
+            if(intAry[i] < intAry[index])
+            {
+                leftList.Add(intAry[i]);
+            }
+            else
+            {
+                rightList.Add(intAry[i]);
+            }
+            yield return null;
+        }
+        //배열로 변환
+        int[] leftAry = leftList.ToArray();
+        int[] rightAry = rightList.ToArray();
+        
+
+        //크기가 2이상 이면 다시 퀵정렬 돌기
+        if(leftList.Count > 1)
+        {
+            StartCoroutine(IEQuickSort(leftAry, (c) =>
+            {
+                leftAry = c;
+            }));
+            while(leftAry != null)
+                yield return null;
+        }
+
+        if(rightList.Count > 1)
+        {
+            StartCoroutine(IEQuickSort(rightAry, (c) =>
+            {
+                rightAry = c;
+            }));
+            while(rightAry != null)
+                yield return null;
+        }
+        
+        
+
+        //좌 + 인덱스 + 우 배열 합치기
+        int mergeLen = leftAry.Length + rightAry.Length + 1;
+        int[] mergeAry = new int[mergeLen];
+
+        leftAry.CopyTo(mergeAry, 0);
+        mergeAry[leftAry.Length] = intAry[index];
+        rightAry.CopyTo(mergeAry, leftAry.Length+1);
+
+        callback(mergeAry);
+    }
+    
+    int[] ConcatAry(int[] ary1, int num, int[] ary2)
+    {
+        int mergeLen = ary1.Length + ary2.Length + 1;
+        int[] mergeAry = new int[mergeLen];
+
+        ary1.CopyTo(mergeAry, 0);
+        mergeAry[ary1.Length] = num;
+        ary2.CopyTo(mergeAry, ary1.Length+1);
 
         return mergeAry;
     }
