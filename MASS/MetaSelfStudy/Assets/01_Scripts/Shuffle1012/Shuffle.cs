@@ -46,6 +46,7 @@ public class Shuffle : MonoBehaviour
             sw.Stop();
             UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
         }
+        
         //오름차순 정렬하기
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
@@ -69,17 +70,41 @@ public class Shuffle : MonoBehaviour
             sw.Stop();
             print(sw.ElapsedMilliseconds+" ms 걸림");
         }
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.Alpha6))
         {
             //스톱워치 시작
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            StartCoroutine(IEBubbleSort());
-            StartCoroutine(IEStopwatchStop(sw));
+            intList = QuickSort(intList);
+            //스톱워치 끝
+            sw.Stop();
+            print(sw.ElapsedMilliseconds+" ms 걸림");
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            //스톱워치 시작
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            System.Array.Sort(intList);
+            //스톱워치 끝
+            sw.Stop();
+            print(sw.ElapsedMilliseconds+" ms 걸림");
         }
 
+
+
+        //if(Input.GetKeyDown(KeyCode.R))
+        //{
+        //    //스톱워치 시작
+        //    Stopwatch sw = new Stopwatch();
+        //    sw.Start();
+        //    StartCoroutine(IEBubbleSort());
+        //    StartCoroutine(IEStopwatchStop(sw));
+        //}
+        
         
     }
+    public List<int> tempList;
 
     IEnumerator IEStopwatchStop(Stopwatch sw)
     {
@@ -218,6 +243,24 @@ public class Shuffle : MonoBehaviour
     }
     //fixme 선택정렬을 개선시켜보기(바로 바꾸지 않고 더 작은 값이 있는지 확인 후
     //마지막에 바꾸기)
+    int[] SelectSort2(int[] intList)
+    {
+        for(int i = 0; i < intList.Length; i++)
+        {
+            //현재 인덱스 이후 원소를 전부 비교해서 스왑하기
+            for(int j = i; j < intList.Length; j++)
+            {
+                if(intList[i] > intList[j])
+                {
+                    var temp = intList[i];
+                    intList[i] = intList[j];
+                    intList[j] = temp;
+                }
+            }
+        }
+
+        return intList;
+    }
 
     //코루틴으로 천천히 변화 과정 보기
     
@@ -332,8 +375,56 @@ public class Shuffle : MonoBehaviour
     //피벗 기준 작은 원소는 왼쪽, 큰 건 오른쪽으로 옮기기
     피벗을 제외한 왼쪽,오른쪽 리스트를 다시 정렬
     재귀를 이용해 부분 리스트도 같은 방식을 사용
-    부분 리스트가 분할이 불가능 = 크기가 0 or 1 까지 반복
-
+    부분 리스트가 분할이 불가능 = 크기가 0 or 1 까지 반복\
     */
+    //정의에 부합하는 기본 퀵 정렬
+    int[] QuickSort(int[] intAry)
+    {
+        //랜덤 인덱스 선택
+        int index = Random.Range(0, intAry.Length);
+        List<int> leftList = new List<int>();
+        List<int> rightList = new List<int>();
+        for(int i = 0; i < intAry.Length; i++)
+        {
+        //인덱스는 스킵
+            if(i == index)
+                continue;
+            
+        //해당 원소를 기준으로 작은건 leftAry에 큰 건 rightAry로 놓기
+            if(intAry[i] < intAry[index])
+            {
+                leftList.Add(intAry[i]);
+            }
+            else
+            {
+                rightList.Add(intAry[i]);
+            }
+        }
+        //배열로 변환
+        int[] leftAry = leftList.ToArray();
+        int[] rightAry = rightList.ToArray();
+
+        //크기가 2이상(정렬할 여지 있음) 이면 다시 퀵정렬 돌기
+        if(leftList.Count > 1)
+        {
+            leftAry = QuickSort(leftAry);
+        }
+        
+        if(rightList.Count > 1)
+        {
+            rightAry = QuickSort(rightAry);
+        }
+
+        //좌 배열 + 인덱스 + 우 배열 합치기
+        int mergeLen = leftAry.Length + rightAry.Length + 1;
+
+        int[] mergeAry = new int[mergeLen];
+        
+        leftAry.CopyTo(mergeAry, 0);
+        mergeAry[leftAry.Length] = intAry[index];
+        rightAry.CopyTo(mergeAry, leftAry.Length+1);
+
+        return mergeAry;
+    }
 #endregion
 }
