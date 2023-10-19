@@ -4,31 +4,41 @@ using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 
+//배열 설정용 클래스
+[System.Serializable]
+public class SetArray
+{
+    //배열
+    public int[] intList;
+    //변수 개수
+    [Range(1,100000)]public int varAmount;
+    //지연시간
+    public float delayTime;
+}
+
+//퀵소트 용 노드
+public class QuickSortNode
+{
+    
+}
+
 public class Shuffle : MonoBehaviour
 {
-    //int 변수 100개를 담을 수 있는 배열
-    public int[] intList;
+    public SetArray setArray;
 
-    
-
-    //담을 변수 개수
-    [Range(1,100000)][SerializeField] int varAmount;
-
-    //지연시간
-    [SerializeField] float delayTime;
     WaitForSeconds delay;
 
-    private void Awake() {
-        delay = new WaitForSeconds(delayTime);
-    }
+    [SerializeField] Transform canvas;
 
-    Coroutine bubblesortCor;
+    private void Awake() {
+        delay = new WaitForSeconds(setArray.delayTime);
+    }
     
     void Update() {
         //1번으로 순차대로 숫자 넣기
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AddOrderIntList(out intList);
+            AddOrderIntList(out setArray.intList);
         }
         ////2번으로 랜덤 int 넣기
         //if(Input.GetKeyDown(KeyCode.Alpha2))
@@ -42,7 +52,7 @@ public class Shuffle : MonoBehaviour
             sw.Start();
             //intList = ListShuffle(intList);
             //intList = ShuffleRecur(intList);
-            ShuffleSwap(out intList);
+            ShuffleSwap(out setArray.intList);
             sw.Stop();
             UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
         }
@@ -53,7 +63,7 @@ public class Shuffle : MonoBehaviour
             //스톱워치 시작
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            SelectSort(out intList);
+            SelectSort(out setArray.intList);
             //StartCoroutine(IESelectSort());
             //스톱워치 끝
             sw.Stop();
@@ -65,7 +75,7 @@ public class Shuffle : MonoBehaviour
             Stopwatch sw = new Stopwatch();
             sw.Start();
             //intList = BubbleSort(intList);
-            intList = BubbleSort2(intList);
+            setArray.intList = BubbleSort2(setArray.intList);
             //스톱워치 끝
             sw.Stop();
             print(sw.ElapsedMilliseconds+" ms 걸림");
@@ -75,7 +85,7 @@ public class Shuffle : MonoBehaviour
             //스톱워치 시작
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            intList = QuickSort(intList);
+            setArray.intList = QuickSort(setArray.intList);
             //스톱워치 끝
             sw.Stop();
             print(sw.ElapsedMilliseconds+" ms 걸림");
@@ -85,18 +95,15 @@ public class Shuffle : MonoBehaviour
             //스톱워치 시작
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            System.Array.Sort(intList);
+            System.Array.Sort(setArray.intList);
             //스톱워치 끝
             sw.Stop();
             print(sw.ElapsedMilliseconds+" ms 걸림");
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha8))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
-            StartCoroutine(IEQuickSort(intList, (c) =>
-            {
-                intList = c;
-            }));
+            StartCoroutine(IEQuickSort1Time(setArray.intList));
         }
 
 
@@ -113,7 +120,6 @@ public class Shuffle : MonoBehaviour
         
         
     }
-    public List<int> tempList;
 
     IEnumerator IEStopwatchStop(Stopwatch sw)
     {
@@ -130,7 +136,7 @@ public class Shuffle : MonoBehaviour
     //배열 값을 인덱스로 채우기
     void AddOrderIntList(out int[] intList)
     {
-        intList = new int[varAmount];
+        intList = new int[setArray.varAmount];
         for(int i = 0; i < intList.Length; i ++)
         {
             intList[i] = i;
@@ -141,7 +147,7 @@ public class Shuffle : MonoBehaviour
     void AddRandomInt2List(out int[] intList)
     {
         //배열 선언
-        intList = new int[varAmount];
+        intList = new int[setArray.varAmount];
         //랜덤 int를 배열 원소에 넣기
         for(int i = 0; i < intList.Length; i ++)
         {
@@ -212,7 +218,7 @@ public class Shuffle : MonoBehaviour
     //교환 반복으로 셔플하기
     void ShuffleSwap(out int[] intList)
     {
-        intList = this.intList;
+        intList = this.setArray.intList;
 
         int n, m;
 
@@ -234,7 +240,7 @@ public class Shuffle : MonoBehaviour
     //선택정렬 : 현재 인덱스가 가장 작은 값이 될때까지 비교하기
     void SelectSort(out int[] intList)
     {
-        intList = this.intList;
+        intList = this.setArray.intList;
 
         for(int i = 0; i < intList.Length; i++)
         {
@@ -273,16 +279,16 @@ public class Shuffle : MonoBehaviour
     
     IEnumerator IESelectSort()
     {
-        for(int i = 0; i < intList.Length; i++)
+        for(int i = 0; i < setArray.intList.Length; i++)
         {
             //현재 인덱스 이후 원소를 전부 비교해서 스왑하기
-            for(int j = i; j < intList.Length; j++)
+            for(int j = i; j < setArray.intList.Length; j++)
             {
-                if(intList[i] > intList[j])
+                if(setArray.intList[i] > setArray.intList[j])
                 {
-                    var temp = intList[i];
-                    intList[i] = intList[j];
-                    intList[j] = temp;
+                    var temp = setArray.intList[i];
+                    setArray.intList[i] = setArray.intList[j];
+                    setArray.intList[j] = temp;
                 }
                 yield return delay;
             }
@@ -350,14 +356,14 @@ public class Shuffle : MonoBehaviour
         isCorRun = true;
         bool isSwap = false;
         //0부터 length-2 까지 반복
-        for(int i = 0; i < intList.Length-1; i++)
+        for(int i = 0; i < setArray.intList.Length-1; i++)
         {
             //자신,자신+1을 비교해서 작은 쪽을 왼쪽으로 스왑
-            if(intList[i] > intList[i+1])
+            if(setArray.intList[i] > setArray.intList[i+1])
             {
-                var temp = intList[i+1];
-                intList[i+1] = intList[i];
-                intList[i] = temp;
+                var temp = setArray.intList[i+1];
+                setArray.intList[i+1] = setArray.intList[i];
+                setArray.intList[i] = temp;
                 //교환했음 체크
                 if(!isSwap)
                     isSwap = true;
@@ -433,22 +439,27 @@ public class Shuffle : MonoBehaviour
         return mergeAry;
     }
 
-    //fixme
-    IEnumerator IEQuickSort(int[] intAry, System.Action<int[]> callback)
+    IEnumerator IEStartQuickSort(int[] intAry)
     {
-        print("시작");
+        
+        yield return null;
+    }
+
+    //엔터를 치면 퀵소트를 1회 실행시키는 기능
+    //모든 자식 리스트에서 종료 콜백을 보내면 퀵 소트 종료 코루틴 시작
+    IEnumerator IEQuickSort1Time(int[] intAry)
+    {
         //랜덤 인덱스 선택
         int index = UnityEngine.Random.Range(0, intAry.Length);
-        //좌우 리스트 선언
         List<int> leftList = new List<int>();
         List<int> rightList = new List<int>();
-        for(int i = 0; i < intAry.Length; i ++)
+        for(int i = 0; i < intAry.Length; i++)
         {
-            //인덱스 스킵
+        //인덱스는 스킵
             if(i == index)
                 continue;
             
-            //해당 인덱스의 원소 기준, 작은건 left, 큰 건 right로 놓기
+        //해당 원소를 기준으로 작은건 leftAry에 큰 건 rightAry로 놓기
             if(intAry[i] < intAry[index])
             {
                 leftList.Add(intAry[i]);
@@ -457,57 +468,10 @@ public class Shuffle : MonoBehaviour
             {
                 rightList.Add(intAry[i]);
             }
-            yield return null;
         }
-        //배열로 변환
-        int[] leftAry = leftList.ToArray();
-        int[] rightAry = rightList.ToArray();
-        
-
-        //크기가 2이상 이면 다시 퀵정렬 돌기
-        if(leftList.Count > 1)
-        {
-            StartCoroutine(IEQuickSort(leftAry, (c) =>
-            {
-                leftAry = c;
-            }));
-            while(leftAry != null)
-                yield return null;
-        }
-
-        if(rightList.Count > 1)
-        {
-            StartCoroutine(IEQuickSort(rightAry, (c) =>
-            {
-                rightAry = c;
-            }));
-            while(rightAry != null)
-                yield return null;
-        }
-        
-        
-
-        //좌 + 인덱스 + 우 배열 합치기
-        int mergeLen = leftAry.Length + rightAry.Length + 1;
-        int[] mergeAry = new int[mergeLen];
-
-        leftAry.CopyTo(mergeAry, 0);
-        mergeAry[leftAry.Length] = intAry[index];
-        rightAry.CopyTo(mergeAry, leftAry.Length+1);
-
-        callback(mergeAry);
+        yield return null;
     }
+
     
-    int[] ConcatAry(int[] ary1, int num, int[] ary2)
-    {
-        int mergeLen = ary1.Length + ary2.Length + 1;
-        int[] mergeAry = new int[mergeLen];
-
-        ary1.CopyTo(mergeAry, 0);
-        mergeAry[ary1.Length] = num;
-        ary2.CopyTo(mergeAry, ary1.Length+1);
-
-        return mergeAry;
-    }
 #endregion
 }
