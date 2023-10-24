@@ -28,6 +28,41 @@ public class Bullet
 }
 
 [System.Serializable]
+public class Tube
+{
+    public Tube(string name = "", int maxAmount = 0)
+    {
+        this.name = name;
+        this.maxAmount = maxAmount;
+        curAmount = 0;
+    }
+
+    public string name;
+    public int maxAmount;
+    public int curAmount;
+
+    //연결 리스트
+    public LinkedList<Bullet> bLinkedList = new LinkedList<Bullet>();
+
+    //추가
+    public void Push(Bullet bullet)
+    {
+        bLinkedList.Add(bullet);
+        curAmount++;
+    }
+    //제거
+    public Bullet Pop()
+    {
+        //맨 앞 가져오기
+        Bullet temp = bLinkedList.head.data;
+        //맨 앞 제거
+        bLinkedList.Remove(bLinkedList.head.data);
+        curAmount--;
+        return temp;
+    }
+}
+
+[System.Serializable]
 //스택형 총알 뭉치 클래스(탄창, 탄약상자, 클립 등)
 //@@ 리스트 말고 배열 + int 포인터로 재구성하기
 public class BulletStack
@@ -84,6 +119,9 @@ public class Magazine : MonoBehaviour
     //장전 
     [SerializeField]BulletStack mag = new BulletStack("tempMag", 30);
 
+    //샷건 튜브
+    [SerializeField]Tube tube = new Tube("tempTube", 8);
+
     private void Start() {
         Reload();
     }
@@ -116,6 +154,16 @@ public class Magazine : MonoBehaviour
         {
             //탄약 확인
             print(mag.Peek().name);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Bullet tempB = new Bullet($"{Random.Range(0,5)}", 35,2);
+            print(tempB.name);
+            tube.Push(tempB);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            print(tube.Pop().name);
         }
         
     }

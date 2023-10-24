@@ -17,7 +17,7 @@ public class Node<T>
 
 public class LinkedList<T>
 {
-    Node<T> head;
+    public Node<T> head;
 
     public void Add(T newData)
     {
