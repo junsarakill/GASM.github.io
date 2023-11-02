@@ -112,7 +112,7 @@ public class Magazine : MonoBehaviour
     //탄창 스택형
     
     [SerializeField] TextMeshProUGUI magTextUI;
-    
+
 
     //한 발 차출
 
