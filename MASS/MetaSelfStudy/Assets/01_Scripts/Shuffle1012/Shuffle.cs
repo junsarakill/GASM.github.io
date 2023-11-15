@@ -34,92 +34,92 @@ public class Shuffle : MonoBehaviour
         delay = new WaitForSeconds(setArray.delayTime);
     }
     
-    void Update() {
-        //1번으로 순차대로 숫자 넣기
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            AddOrderIntList(out setArray.intList);
-        }
-        ////2번으로 랜덤 int 넣기
-        //if(Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    AddRandomInt2List(out intList);
-        //}
-        //랜덤 셔플 하기
-        if(Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //intList = ListShuffle(intList);
-            //intList = ShuffleRecur(intList);
-            ShuffleSwap(out setArray.intList);
-            sw.Stop();
-            UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
-        }
+    //void Update() {
+    //    //1번으로 순차대로 숫자 넣기
+    //    if(Input.GetKeyDown(KeyCode.Alpha1))
+    //    {
+    //        AddOrderIntList(out setArray.intList);
+    //    }
+    //    ////2번으로 랜덤 int 넣기
+    //    //if(Input.GetKeyDown(KeyCode.Alpha2))
+    //    //{
+    //    //    AddRandomInt2List(out intList);
+    //    //}
+    //    //랜덤 셔플 하기
+    //    if(Input.GetKeyDown(KeyCode.Alpha3))
+    //    {
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        //intList = ListShuffle(intList);
+    //        //intList = ShuffleRecur(intList);
+    //        ShuffleSwap(out setArray.intList);
+    //        sw.Stop();
+    //        UnityEngine.Debug.Log(sw.ElapsedMilliseconds+" ms");
+    //    }
         
-        //오름차순 정렬하기
-        if(Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            //스톱워치 시작
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            SelectSort(out setArray.intList);
-            //StartCoroutine(IESelectSort());
-            //스톱워치 끝
-            sw.Stop();
-            print(sw.ElapsedMilliseconds+" ms 걸림");
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            //스톱워치 시작
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //intList = BubbleSort(intList);
-            setArray.intList = BubbleSort2(setArray.intList);
-            //스톱워치 끝
-            sw.Stop();
-            print(sw.ElapsedMilliseconds+" ms 걸림");
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            //스톱워치 시작
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            setArray.intList = QuickSort(setArray.intList);
-            //스톱워치 끝
-            sw.Stop();
-            print(sw.ElapsedMilliseconds+" ms 걸림");
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            //스톱워치 시작
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            System.Array.Sort(setArray.intList);
-            //스톱워치 끝
-            sw.Stop();
-            print(sw.ElapsedMilliseconds+" ms 걸림");
-        }
+    //    //오름차순 정렬하기
+    //    if(Input.GetKeyDown(KeyCode.Alpha4))
+    //    {
+    //        //스톱워치 시작
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        SelectSort(out setArray.intList);
+    //        //StartCoroutine(IESelectSort());
+    //        //스톱워치 끝
+    //        sw.Stop();
+    //        print(sw.ElapsedMilliseconds+" ms 걸림");
+    //    }
+    //    if(Input.GetKeyDown(KeyCode.Alpha5))
+    //    {
+    //        //스톱워치 시작
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        //intList = BubbleSort(intList);
+    //        setArray.intList = BubbleSort2(setArray.intList);
+    //        //스톱워치 끝
+    //        sw.Stop();
+    //        print(sw.ElapsedMilliseconds+" ms 걸림");
+    //    }
+    //    if(Input.GetKeyDown(KeyCode.Alpha6))
+    //    {
+    //        //스톱워치 시작
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        setArray.intList = QuickSort(setArray.intList);
+    //        //스톱워치 끝
+    //        sw.Stop();
+    //        print(sw.ElapsedMilliseconds+" ms 걸림");
+    //    }
+    //    if(Input.GetKeyDown(KeyCode.Alpha7))
+    //    {
+    //        //스톱워치 시작
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        System.Array.Sort(setArray.intList);
+    //        //스톱워치 끝
+    //        sw.Stop();
+    //        print(sw.ElapsedMilliseconds+" ms 걸림");
+    //    }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            StartCoroutine(IEQuickSort1Time(setArray.intList));
-        }
-
-
+    //    if(Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        StartCoroutine(IEQuickSort1Time(setArray.intList));
+    //    }
 
 
-        //if(Input.GetKeyDown(KeyCode.R))
-        //{
-        //    //스톱워치 시작
-        //    Stopwatch sw = new Stopwatch();
-        //    sw.Start();
-        //    StartCoroutine(IEBubbleSort());
-        //    StartCoroutine(IEStopwatchStop(sw));
-        //}
+
+
+    //    //if(Input.GetKeyDown(KeyCode.R))
+    //    //{
+    //    //    //스톱워치 시작
+    //    //    Stopwatch sw = new Stopwatch();
+    //    //    sw.Start();
+    //    //    StartCoroutine(IEBubbleSort());
+    //    //    StartCoroutine(IEStopwatchStop(sw));
+    //    //}
         
         
-    }
+    //}
 
     IEnumerator IEStopwatchStop(Stopwatch sw)
     {

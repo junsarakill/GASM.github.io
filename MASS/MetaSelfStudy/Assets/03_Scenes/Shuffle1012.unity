@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 370817498}
   - component: {fileID: 370817499}
+  - component: {fileID: 370817500}
   m_Layer: 0
   m_Name: Shuffle
   m_TagString: Untagged
@@ -167,11 +168,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5628804eeaa99534d8e4c057ca730e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intList: 
-  varAmount: 20000
-  delayTime: 0.0001
-  tempList: 
+  setArray:
+    intList: 
+    varAmount: 1
+    delayTime: 0
+  canvas: {fileID: 0}
   isCorRun: 0
+--- !u!114 &370817500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370817497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df2bdf94dfe5284ca8b05bab69dae5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  varAmount: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
