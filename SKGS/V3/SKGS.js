@@ -102,7 +102,7 @@ function createImgInfos()
             data.forEach(file => {
                 const imgElement = document.createElement("img");
                 imgElement.src = file.download_url;
-                document.body.appendChild(imgElement);
+                document.getElementById("list_content").appendChild(imgElement);
             });
         })
         .catch(error => console.error(error));
