@@ -94,7 +94,10 @@ function buildImgRelation(img_infos)
 function createImgInfos()
 {
     // github api로 이미지 디렉토리 접근
-    fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework')
+    fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
+            Headers: {
+                "Authorization" : "token SKGS"
+            }})
         .then(response => response.json())
         .then(data => {
             console.log(data);
