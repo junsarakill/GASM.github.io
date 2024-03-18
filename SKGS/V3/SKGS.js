@@ -90,12 +90,25 @@ function buildImgRelation(img_infos)
     return RELATION_MAP;
 }
 
-// 이미지명 비동기 가져오기
-async function aGetImgInfos()
+// 이미지 객체 생성
+async function aCreateImgInfo()
 {
-    const img_infos = await getImgNames();
+    // 이미지 명 가져오기
+    const img_names = await getImgNames();
+
+    console.log(img_names);
+
+    // 객체 생성
+    let img_infos = [];
+    img_names.forEach(img_name => {
+        img_infos.push(new imgInfo(img_name));
+    });
 
     console.log(img_infos);
+
+    const rel_map = buildImgRelation(img_infos);
+
+    console.log(rel_map);
 }
 
 // 이미지명 가져오기
@@ -103,23 +116,23 @@ function getImgNames()
 {
     // github api로 이미지 디렉토리 접근
     return fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
-            headers: {
+            Headers: {
                 "Authorization" : "token SKGS"
             }})
         .then(response => response.json())
         .then(data => {
-            let img_infos = [];
+            let img_names = [];
 
             data.forEach(file => {
                 // 파일을 읽어서 이미지로 출력
-                // const imgElement = document.createElement("img");
-                // imgElement.src = file.download_url;
-                // document.getElementById("list_content").appendChild(imgElement);
+                const imgElement = document.createElement("img");
+                imgElement.src = file.download_url;
+                document.getElementById("list_content").appendChild(imgElement);
 
                 // 이미지명 가져오기
-                img_infos.push(file.name);
+                img_names.push(file.name);
             });
-            return img_infos;
+            return img_names;
         })
         .catch(error => {
             console.error(error)
