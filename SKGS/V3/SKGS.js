@@ -90,25 +90,40 @@ function buildImgRelation(img_infos)
     return RELATION_MAP;
 }
 
-// 객체 생성
-function createImgInfos()
+// 이미지명 비동기 가져오기
+async function aGetImgInfos()
+{
+    const img_infos = await getImgNames();
+
+    console.log(img_infos);
+}
+
+// 이미지명 가져오기
+function getImgNames()
 {
     // github api로 이미지 디렉토리 접근
-    fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
-            Headers: {
+    return fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
+            headers: {
                 "Authorization" : "token SKGS"
             }})
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            let img_infos = [];
 
             data.forEach(file => {
-                const imgElement = document.createElement("img");
-                imgElement.src = file.download_url;
-                document.getElementById("list_content").appendChild(imgElement);
-            });
-        })
-        .catch(error => console.error(error));
+                // 파일을 읽어서 이미지로 출력
+                // const imgElement = document.createElement("img");
+                // imgElement.src = file.download_url;
+                // document.getElementById("list_content").appendChild(imgElement);
 
+                // 이미지명 가져오기
+                img_infos.push(file.name);
+            });
+            return img_infos;
+        })
+        .catch(error => {
+            console.error(error)
+            return [];
+        });
 }
 
