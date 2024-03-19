@@ -13,41 +13,38 @@
             <div class="title">
                 SKGS List
             </div>
+            <!-- 필터 토글 버튼 -->
             <div class="header_content">
-                <button id="openNav" onclick="openFilter()">&#9776;</button>
+                <button id="toggle_filter">&#9776;</button>
             </div>
         </header>
         <!-- 검색 필터 -->
-        <!-- <aside>
+        <aside>
             <div class="filter" id="filter">
-                <button id="closeNav" onclick="closeFilter()">&times;</button> -->
+                <!-- <button id="closeNav" onclick="closeFilter()">&times;</button> -->
                 <!-- 등급별 -->
-                <!-- <div class="filter_rank">
-                    <button class="button_rank deactive" id="n" onclick="typeFilter(this, filterList)">N</button>
-                    <button class="button_rank deactive" id="r" onclick="typeFilter(this, filterList)">R</button>
-                    <button class="button_rank deactive" id="sr" onclick="typeFilter(this, filterList)">SR</button>
-                    <button class="button_rank deactive" id="ssr" onclick="typeFilter(this, filterList)">SSR</button>
-                    <button class="button_rank deactive" id="ur" onclick="typeFilter(this, filterList)">UR</button>
-                    <button class="button_rank deactive" id="lr" onclick="typeFilter(this, filterList)">LR</button>
-                </div> -->
+                <div id="rarity-filter">
+                    <button class="filter-btn" data-rarity="0">N</button>
+                    <button class="filter-btn" data-rarity="1">R</button>
+                    <button class="filter-btn" data-rarity="2">SR</button>
+                    <button class="filter-btn" data-rarity="3">SSR</button>
+                    <button class="filter-btn" data-rarity="4">UR</button>
+                    <button class="filter-btn" data-rarity="5">LR</button>
+                </div>
                 <!-- 속성별 -->
-                <!-- <div class="filter_color">
-                    <button class="button_color deactive" id="blue" onclick="typeFilter(this, filterList)">陰</button>
-                    <button class="button_color deactive" id="red" onclick="typeFilter(this, filterList)">陽</button>
-                    <button class="button_color deactive" id="yellow" onclick="typeFilter(this, filterList)">閃</button>
-                    <button class="button_color deactive" id="purple" onclick="typeFilter(this, filterList)">絢</button>
-                    <button class="button_color deactive" id="green" onclick="typeFilter(this, filterList)">繚</button>
-                </div> -->
-                <!-- 필터 설정 불러오기 -->
-                <!-- <script>activeFilter();</script> -->
-            <!-- </div> -->
-        <!-- </aside> -->
+                <div id="type-filter">
+                    <button class="filter-btn" data-type="0">陰</button>
+                    <button class="filter-btn" data-type="1">陽</button>
+                    <button class="filter-btn" data-type="2">閃</button>
+                    <button class="filter-btn" data-type="3">絢</button>
+                    <button class="filter-btn" data-type="4">繚</button>
+                </div>
+            </div>
+        </aside>
         <!-- 리스트 -->
         <main class="list">
+            <!-- 컨텐츠 -->
             <div id="list_content" class="list_content">
-                <!-- 이미지 리스트 생성 -->
-                <!-- <script>viewImgList(imgStartMap);</script> -->
-                <script>aCreateImgInfo();</script>
             </div>
         </main>
     </body>

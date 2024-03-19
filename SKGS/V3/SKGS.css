@@ -50,27 +50,17 @@ body
     text-align: center;
 }
 
-#openNav
+#toggle_filter
 {
-    width: 50px;
-    height: 50px;
-    font-size: 24px!important;
-    background-color: var(--button-filter)!important;
-    display: none;
-    cursor: pointer;
-    position: fixed;
-}
-
-#closeNav
-{
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     font-size: 48px!important;
     background-color: var(--button-filter)!important;
-    text-align: center;
-    padding: 0px;
-    display: block;
-    cursor: pointer;
+}
+
+.hide
+{
+    display: none;
 }
 
 .filter
@@ -82,6 +72,24 @@ body
     margin-bottom: 5%;
     position: fixed;
     z-index: 1;
+}
+
+/* 비활성 버튼 스타일 */
+.filter-btn 
+{
+    background-color: transparent;
+    border: 2px solid #555;
+    color : #555;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+/* 활성 버튼 스타일 */
+.filter-btn.active 
+{
+    background-color: #555;
+    color: white;
 }
 
 .filter button
@@ -99,29 +107,12 @@ body
     cursor: pointer;
 }
 
-/* 버튼, 이미지 활성화 여부 */
-.deactive
-{
-    --button-lightgreen : white;
-    --button-lightsalmon : white;
-    --button-silver : white;
-    --button-yellow : white;
-    --button-rainbow : white;
-    --button-lightgoldenrodyellow : white;
-    --button-blue : white;
-    --button-red : white;
-    --button-purple : white;
-    --button-green : white;
-    --text-color-white : black;
-    --text-color-black : black;
-}
-
 .active
 {
     opacity: 100%;
 }
 /* 마우스 오버시 */
-.button_rank:hover, .button_color:hover
+.filter-btn:hover, .filter-btn:hover
 {
     scale: 1.2;
 }
@@ -214,6 +205,12 @@ body
     border: 5px solid black;
 }
 
+#list_content
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 img
 {
     width: 100px;
@@ -221,40 +218,14 @@ img
     object-fit: cover;
 }
 
-.list_content em
+/* .list_content em
 {
     border: none;
     margin: 5px;
-}
+} */
 
 .list_content .deactive
 {
     opacity: 0.5;
-}
-
-.list_content .n
-{
-    border-color: var(--border-lightgreen);
-}
-.list_content .r
-{
-    border-color: var(--border-lightsalmon);
-}
-.list_content .sr
-{
-    border-color: var(--border-silver);
-}
-.list_content .ssr
-{
-    border-color: var(--border-yellow);
-}
-.list_content .ur
-{
-    border-image: var(--border-rainbow);
-    border-image-slice: 1;
-}
-.list_content .lr
-{
-    border-color: var(--border-lightgoldenrodyellow);
 }
 

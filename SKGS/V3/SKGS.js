@@ -2,46 +2,28 @@
 // 캐릭터별 폴더 생성 후 이미지 이동
 // cmn_mn 이미지 타입 : 256 아이콘 이미지
 
-// 레어리티
-const RARITY_MAP = new Map(
-    [
-        [0, "n"]
-        ,[1, "r"]
-        ,[2, "sr"]
-        ,[3, "ssr"]
-        ,[4, "ur"]
-        ,[5, "lr"]
-    ]
-);
-// 속성
-const TYPE_MAP = new Map(
-    [
-        [0, "blue"]
-        ,[1, "red"]
-        ,[2, "yellow"]
-        ,[3, "purple"]
-        ,[4, "green"]
-    ]
-)
 // 캐릭터 번호 맵 만들려 했는데 굳이 필요 없나?
 
 // 이미지 정보
+/* 이미지 이름을 받아서 정보 파싱
+   전문 예시: cmn_cx10000200
+   8자리 숫자
+   [0] : 레어도 - 1:n 2:r 3:sr 4:ssr 5:ur 6:lr
+   [1] : 각성여부 - 0:통상 1:통상(특수) 2:각성 3: 신유제(변신)
+   [2:4] : 캐릭터번호 - ex 000(아스카) 165(손권) 비어있는 번호 있음
+   [5] : 속성 - 0:blue 1:red 2:yellow 3:purple 4:green
+   [6:7] : 출시 순서 - 00~99 속성이 같을 시 출시 순에 따라 00,01,02 순으로 지어짐
+ */
 class imgInfo
 {
-    /* 이미지 이름을 받아서 정보 파싱
-       전문 예시: cmn_cx10000200
-       8자리 숫자
-       [0] : 레어도 - 1:n 2:r 3:sr 4:ssr 5:ur 6:lr
-       [1] : 각성여부 - 0:통상 1:통상(특수) 2:각성 3: 신유제(변신)
-       [2:4] : 캐릭터번호 - ex 000(아스카) 165(손권) 비어있는 번호 있음
-       [5] : 속성 - 0:blue 1:red 2:yellow 3:purple 4:green
-       [6:7] : 출시 순서 - 00~99 속성이 같을 시 출시 순에 따라 00,01,02 순으로 지어짐
-     */
-    constructor(img_name = "cmn_cx87654321.png")
+    constructor(img_name = "cmn_cx87654321.png", img_url)
     {
-        this.file_name = img_name;
         // 전문 6번째부터 끝까지가 id
         this.id = img_name.substring(6,14);
+        // 파일 전문
+        this.file_name = img_name;
+        // url
+        this.url = img_url;
         // id 0 번째 레어도
         this.rarity = this.id[0];
         // 이름 번호
@@ -51,73 +33,230 @@ class imgInfo
         // 활성여부
         this.status = true;
     }
-    
-    // rarity 계산
-    setRarity(rarity)
-    {
-        const RARITY_VALUE = RARITY_MAP.get(rarity);
-        if(RARITY_VALUE != undefined)
-            return RARITY_VALUE;
-        else
-        {
-            console.log(`ID ${id}에 해당하는 레어리티가 없음`);
-            return "unknown";
-        }
-    }
+}
+
+// 전체 이미지 이름 및 데이터
+let all_img_data = null;
+// 활성화된 필터 정보
+let active_filters = {
+    rarity : []
+    ,type : []
+};
+
+// 필터 업데이트
+function updateFilter(category, value)
+{
+    const index = active_filters[category].indexOf(value);
+
+    if(index > -1)
+        active_filters[category].splice(index, 1);
+    else
+        active_filters[category].push(value);
+
+    // 업데이트한 필터대로 필터링
+    filterImg();
 }
 
 // 사실상 main
-// 이미지 객체 생성
-async function aCreateImgInfo()
+// 웹페이지 로드 시
+document.addEventListener("DOMContentLoaded", async (event) => {
+    // 데이터 가져오기
+    all_img_data = await getImgData();
+    console.log("전체 데이터 : ", all_img_data);
+
+    // 토글 버튼 클릭 이벤트 추가
+    onClickFilterBtn();
+    // 필터에 클릭 이벤트 추가
+    document.querySelectorAll(".filter-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            // 활성화 토글
+            button.classList.toggle("active");
+
+            const filterCategory = button.dataset.rarity !== undefined ? "rarity" : "type";
+            const filterValue = button.dataset.rarity || button.dataset.type;
+
+            updateFilter(filterCategory, filterValue);
+        });
+    });
+
+    // 필터 정보 가져와서 요소 생성
+    filterImg();
+});
+
+// 토글 버튼 클릭 이벤트 추가
+function onClickFilterBtn()
 {
-    // 이미지 명 가져오기
-    const img_names = await getImgNames();
+    var toggleBtn = document.getElementById("toggle_filter");
+    var filter = document.getElementById("filter");
 
-    console.log(img_names);
+    toggleBtn.addEventListener("click", function () {
+        if(filter.classList.contains("hide"))
+        {
+            filter.classList.remove("hide");
+            toggleBtn.innerHTML = "&times;";
+        }
+        else
+        {
+            filter.classList.add("hide");
+            toggleBtn.innerHTML = "&#9776";
+        }
+    });
+}
 
+// 이미지 객체 생성
+function createImgElement(img_data)
+{
+    
     // 객체 생성
-    let img_infos = createImgInfo(img_names);
+    let img_infos = createImgInfo(img_data);
+
+    // console.log(img_infos);
 
     // 이름과 속성 순 정렬
     img_infos = sortImgInfo(img_infos);
 
     // 관계도 맵 생성
-    const rel_map = buildImgRelation(img_infos);
+    const REL_MAP = buildImgRelation(img_infos);
 
-    console.log(rel_map);
+    // console.log(REL_MAP);
 
     // 이미지 그루핑
-    const img_groups = imgGrouping(img_infos, rel_map);
+    const IMG_GROUPS = imgGrouping(img_infos, REL_MAP);
 
-    console.log(img_groups);
+    console.log("이미지 그룹 : ", IMG_GROUPS);
 
+    // 그룹 가지고 이미지 생성
+    generateImg(IMG_GROUPS);
+}
+
+// 필터 정보 가져와서 필터링
+function filterImg()
+{
+    // 필터링 결과
+    let filtered_img_data = all_img_data.filter(img_data => {
+        const rarity_match = active_filters.rarity.length === 0 
+        || active_filters.rarity.includes(img_data.rarity);
+        const type_match = active_filters.type.length === 0 
+        || active_filters.type.includes(img_data.type);
+
+        return rarity_match && type_match;
+    });
+
+    console.log(filtered_img_data);
+
+    // 필터링된 데이터로 요소 생성
+    createImgElement(filtered_img_data);
+}
+
+// 이미지 생성
+function generateImg(IMG_GROUPS)
+{
+    // list_content 요소 제거
+    document.getElementById("list_content").innerHTML = '';
+
+    // 이중 for로 그룹 내 요소 하나하나 생성
+    IMG_GROUPS.forEach(group => {
+        // 그룹 컨테이너 생성
+        const GROUP_CONTAINER = document.createElement("div");
+        GROUP_CONTAINER.style.display = "inline-block";
+        // 마진 값 설정
+        GROUP_CONTAINER.style.marginRight = "40px";
+    
+        // 이미지 생성 및 컨테이너에 추가
+        group.forEach(img_info => {
+            // 요소 생성
+            const IMG_ELEMENT = document.createElement("img");
+
+            // 이미지 클릭 이벤트 추가
+            IMG_ELEMENT.addEventListener("click", function() {
+                // 상태 값 반전 
+                img_info.status = !img_info.status;
+
+                // 상태 값에 따라 비활성화 여부 결정
+                if(img_info.status)
+                    IMG_ELEMENT.classList.remove("deactive");
+                else
+                    IMG_ELEMENT.classList.add("deactive");
+            });
+
+            // 이미지 url 설정
+            IMG_ELEMENT.src = img_info.url;
+
+            // 컨테이너에 추가
+            GROUP_CONTAINER.appendChild(IMG_ELEMENT);
+        });
+        // list_content에 추가
+        document.getElementById("list_content").appendChild(GROUP_CONTAINER);
+    })
 }
 
 // 인접 리스트 생성
-function createAdjList(rel_map)
+function createAdjList(REL_MAP)
 {
-    const adj_list = {};
-    rel_map.forEach(map => {
-        const [from, to] = Object.entries(map)[0];
+    const ADJ_LIST = {};
 
-        if(!adj_list[from])
-            adj_list[from] = [];
+    REL_MAP.forEach((to, from) =>
+    {
+        if(!ADJ_LIST[from])
+            ADJ_LIST[from] = [];
 
-        adj_list[from].push(to);
+        ADJ_LIST[from].push(to);
     });
 
-    return adj_list;
+    return ADJ_LIST;
 }
 
 // 이미지 그루핑용 dfs
-// @@ 작성중 뤼튼 참조
-function dfs(node, adj_list, )
+function dfs(node, adj_list, visited, group)
 {
+    // 방문 true
+    visited[node] = true;
+    // 그룹에 추가
+    group.push(node);
     
+    if(adj_list[node])
+    {
+        adj_list[node].forEach(neighbour => {
+            // 방문 안한게 있으면 재귀
+            if(!visited[neighbour])
+                dfs(neighbour, adj_list, visited, group);
+        });
+    }
 }
 
 
 // 이미지 그루핑
+function imgGrouping(img_infos, rel_map)
+{
+    // 인접 리스트
+    const ADJ_LIST = createAdjList(rel_map);
+
+    // console.log(ADJ_LIST);
+    // 방문 기록
+    const VISITED = [];
+    // 이미지 그룹
+    const IMG_GROUPS = [];
+    // 모든 이미지 ID
+    const ALL_ID = img_infos.reduce((acc, img_info) => {
+        acc[img_info.id] = img_info;
+
+        return acc;
+    }, {});
+
+    img_infos.forEach(img_info => {
+        // 미방문 id 일때
+        if(!VISITED[img_info.id])
+        {
+            // 그룹 생성
+            const group = [];
+            // dfs 로 그룹 찾기
+            dfs(img_info.id, ADJ_LIST, VISITED, group);
+            IMG_GROUPS.push(group.map(id => ALL_ID[id]));
+        }
+    });
+
+    return IMG_GROUPS;
+}
 
 
 
@@ -148,12 +287,13 @@ function buildImgRelation(img_infos)
     return RELATION_MAP;
 }
 
-// 객체 생성
-function createImgInfo(img_names)
+// 이름, 데이터 담은 객체 배열을 받아서 객체 생성
+function createImgInfo(IMG_DATA)
 {
     img_infos = [];
-    img_names.forEach(img_name => {
-        img_infos.push(new imgInfo(img_name));
+
+    IMG_DATA.forEach(img_data => {
+        img_infos.push(new imgInfo(img_data.name, img_data.url));
     });
 
     return img_infos;
@@ -173,7 +313,7 @@ function sortImgInfo(img_infos)
 }
 
 // 이미지명 가져오기
-function getImgNames()
+function getImgData()
 {
     // github api로 이미지 디렉토리 접근
     return fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
@@ -182,19 +322,19 @@ function getImgNames()
             }})
         .then(response => response.json())
         .then(data => {
-            let img_names = [];
+            // 이미지 이름,데이터를 담을 배열
+            let img_data = [];
 
             data.forEach(file => {
-                // // 파일을 읽어서 이미지로 출력
-                // const imgElement = document.createElement("img");
-                // imgElement.src = file.download_url;
-                // document.getElementById("list_content").appendChild(imgElement);
-                
                 // @@ 나중에는 조건 달아서 필요한 이미지만 가져와야 할지도
-                // 이미지명 가져오기
-                img_names.push(file.name);
+                img_data.push({
+                    name : file.name
+                    ,url: file.download_url
+                    ,rarity : file.name[6]
+                    ,type : file.name[11]
+                });
             });
-            return img_names;
+            return img_data;
         })
         .catch(error => {
             console.error(error)
