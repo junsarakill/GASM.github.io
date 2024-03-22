@@ -35,8 +35,51 @@ class imgInfo
     }
 }
 
+// 생성한 이미지 정보 객체를 담을 캐시 클래스
+class imgInfoCache
+{
+    constructor()
+    {
+        this.cache = {};
+    }
+
+    // 캐시에 있으면 주고 없으면 생성해서 주기
+    getOrCreateImgInfo(img_name, img_url)
+    {
+        const ID = img_name.substring(6,14);
+
+        // id 검색해서 있으면 반환
+        if(this.cache[ID])
+            return this.cache[ID];
+        // 없으면 생성해서 저장 후 반환
+        else
+        {
+            const NEW_IMG_INFO = new imgInfo(img_name, img_url);
+            // 캐시에 저장
+            this.cache[ID] = NEW_IMG_INFO;
+
+            return NEW_IMG_INFO;
+        }        
+    }
+
+    // data 배열 받아서 imgInfo 배열 반환
+    createImgInfos(img_data)
+    {
+        const IMG_INFOS = [];
+
+        img_data.forEach(data => {
+            const IMG_INFO = this.getOrCreateImgInfo(data.name, data.url);
+            IMG_INFOS.push(IMG_INFO);
+        });
+
+        return IMG_INFOS;
+    }
+}
+
 // 전체 이미지 이름 및 데이터
 let all_img_data = null;
+// 이미지 정보 캐시
+const IMG_CACHE = new imgInfoCache();
 // 활성화된 필터 정보
 let active_filters = {
     rarity : []
@@ -108,7 +151,8 @@ function createImgElement(img_data)
 {
     
     // 객체 생성
-    let img_infos = createImgInfo(img_data);
+    // let img_infos = createImgInfo(img_data);
+    let img_infos = IMG_CACHE.createImgInfos(img_data);
 
     // console.log(img_infos);
 
@@ -178,6 +222,12 @@ function generateImg(IMG_GROUPS)
                 else
                     IMG_ELEMENT.classList.add("deactive");
             });
+
+            // 상태 값에 따라 비활성화 여부 결정
+            if(img_info.status)
+                IMG_ELEMENT.classList.remove("deactive");
+            else
+                IMG_ELEMENT.classList.add("deactive");
 
             // 이미지 url 설정
             IMG_ELEMENT.src = img_info.url;
@@ -273,8 +323,11 @@ function buildImgRelation(img_infos)
             const next_id = img_infos[index + 1].id;
 
             // 두 번째 문자만 제외하고 비교
-            const cci = cur_id.substring(0, 1) + cur_id.substring(2);
-            const nni = next_id.substring(0, 1) + next_id.substring(2);
+            // const cci = cur_id.substring(0, 1) + cur_id.substring(2);
+            // const nni = next_id.substring(0, 1) + next_id.substring(2);
+
+            const cci = cur_id.substring(2);
+            const nni = next_id.substring(2);
 
             if (cci === nni) 
             {
@@ -285,18 +338,6 @@ function buildImgRelation(img_infos)
     });
 
     return RELATION_MAP;
-}
-
-// 이름, 데이터 담은 객체 배열을 받아서 객체 생성
-function createImgInfo(IMG_DATA)
-{
-    img_infos = [];
-
-    IMG_DATA.forEach(img_data => {
-        img_infos.push(new imgInfo(img_data.name, img_data.url));
-    });
-
-    return img_infos;
 }
 
 // 이미지 정보 객체 이름과 속성 순 정렬
