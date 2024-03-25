@@ -13,15 +13,12 @@
             <div class="title">
                 SKGS List
             </div>
-            <!-- 필터 토글 버튼 -->
-            <div class="header_content">
-                <button id="toggle_filter">&#9776;</button>
-            </div>
         </header>
         <!-- 검색 필터 -->
-        <aside>
-            <div class="filter" id="filter">
-                <!-- <button id="closeNav" onclick="closeFilter()">&times;</button> -->
+        <aside class="filter-container">
+            <!-- 필터 토글 버튼 -->
+            <button class="filter-toggle" id="filter-toggle">&#9776;</button>
+            <div class="filter hide" id="filter">
                 <!-- 등급별 -->
                 <div id="rarity-filter">
                     <button class="filter-btn" data-rarity="0">N</button>

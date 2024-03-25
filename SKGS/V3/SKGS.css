@@ -50,17 +50,33 @@ body
     text-align: center;
 }
 
-#toggle_filter
+.filter-container
 {
+    position: relative;
+}
+
+.filter-toggle
+{
+    z-index: 10;
+}
+
+#filter-toggle
+{
+    position: absolute;
     width: 75px;
     height: 75px;
     font-size: 48px!important;
     background-color: var(--button-filter)!important;
+    right: 10px;
+    cursor: pointer;
+    left: 0;
 }
 
-.hide
+.toggle-right
 {
-    display: none;
+    left: auto;
+    right: 0;
+
 }
 
 .filter
@@ -70,9 +86,16 @@ body
     background-color: var(--filter-bd-color);
     max-width: 45%;
     margin-bottom: 5%;
-    position: fixed;
+    position: relative;
     z-index: 1;
+    display: block;
 }
+
+.hide
+{
+    display: none;
+}
+
 
 /* 비활성 버튼 스타일 */
 .filter-btn 
@@ -117,7 +140,7 @@ body
     scale: 1.2;
 }
 
-/* 버튼 별 색상 */
+/* 버튼 별 색상 
 #n
 {
     border: 3px solid var(--border-lightgreen);
@@ -185,7 +208,7 @@ body
     border: 3px solid var(--border-green);
     background-color: var(--button-green);
     color: var(--text-color-white);
-}
+}*/
 
 /* 이미지 리스트 */
 .list
@@ -217,12 +240,6 @@ img
     height: 100px;
     object-fit: cover;
 }
-
-/* .list_content em
-{
-    border: none;
-    margin: 5px;
-} */
 
 .list_content .deactive
 {

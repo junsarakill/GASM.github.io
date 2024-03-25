@@ -10,6 +10,13 @@
    [5] : 속성 : 0:blue 1:red 2:yellow 3:purple 4:green
    [6:7] : 출시 순서 : 00~99 속성이 같을 시 출시 순에 따라 00,01,02 순으로 지어짐
  */
+/* 프레임 이름 정보 파싱
+    전문 예시 : cmn_cf_1000
+    [0] : 레어도 이하략
+    [1] : ?
+    [2] : 속성 이하략
+    [3] : 소속 : 0 : 선, 1 : 악, 2 : 무
+*/
 class imgInfo
 {
     constructor(img_name = "cmn_cm87654321.png", img_url)
@@ -24,15 +31,55 @@ class imgInfo
         this.rarity = this.id[0];
         // 각성 수준
         this.awake = this.id[1];
-        // 이름 번호
+        // 캐릭터 번호
         this.name = this.id.substring(2,5);
         // 타입
         this.type = this.id[5];
         // 출시 순서
         this.release_order = this.id.substring(6,8);
+        // 소속 : 선, 악, 무 : 전문으로 알 수 없는 하드 코딩 데이터
+        this.division = this.getDiv();
         // 활성여부
         this.status = true;
     }
+
+    /** 캐릭터 번호로 소속 결정
+     * @param {string} this.name 캐릭터 번호
+     * @returns {DIV} 소속
+     */
+    getDiv()
+    {
+        let result;
+        // 캐릭터 번호 변환
+        const CHAR_NUM = +this.name;
+        // 선
+        if(CHAR_NUM <= 4
+        || (CHAR_NUM >= 10 && CHAR_NUM <= 14)
+        || (CHAR_NUM >= 20 && CHAR_NUM <= 21)
+        || CHAR_NUM == 25 || CHAR_NUM == 28
+        || CHAR_NUM == 36 || (CHAR_NUM >= 100 && CHAR_NUM <= 102)
+        || CHAR_NUM == 106 || (CHAR_NUM >= 111 && CHAR_NUM <= 113)
+        )
+        {
+            result = DIV.SUN;
+        }
+        // 악
+        else if((CHAR_NUM >= 5 && CHAR_NUM <= 9)
+        || (CHAR_NUM >= 15 && CHAR_NUM <= 19)
+        || CHAR_NUM == 26 || CHAR_NUM == 35 || CHAR_NUM == 37
+        || CHAR_NUM == 49 || CHAR_NUM == 108 || CHAR_NUM == 124
+        || (CHAR_NUM >= 140 && CHAR_NUM <= 144) || (CHAR_NUM >= 146 && CHAR_NUM <= 148)
+        )
+        {
+            result = DIV.AK;
+        }
+        // 무
+        else
+            result = DIV.OTHER;
+
+        return result;
+    }
+    
 }
 
 // 생성한 이미지 정보 객체를 담을 캐시 클래스
@@ -40,16 +87,13 @@ class imgInfoCache
 {
     constructor()
     {
-        /*
-            @@ 나중에 쿠키든 뭐든 써서 새로고침, 다른 컴퓨터 접속 해도 유지
-            되도록 변경 필요
-        */ 
-    //    {id, imgInfo} 여러 개를 담은 캐시
-        this.cache = {};
+        // 이미지 캐시 불러오기
+        const CACHED_DATA = localStorage.getItem("imgCache");
+        // {id, imgInfo} 여러 개를 담은 캐시
+        this.cache = CACHED_DATA ? JSON.parse(CACHED_DATA) : {};
     }
 
-    /**
-     * 캐시에 있으면 주고 없으면 생성해서 주기
+    /** 캐시에 있으면 주고 없으면 생성해서 주기
      * @param {string} img_name 이미지 전문
      * @param {string} img_url 이미지 주소
      * @returns {imgInfo} 이미지 정보 객체
@@ -67,13 +111,13 @@ class imgInfoCache
             const NEW_IMG_INFO = new imgInfo(img_name, img_url);
             // 캐시에 저장
             this.cache[ID] = NEW_IMG_INFO;
+            // 로컬 스토리지 업데이트
 
             return NEW_IMG_INFO;
         }        
     }
 
-    /**
-     * data 배열 받아서 imgInfo 배열 반환
+    /** data 배열 받아서 imgInfo 배열 반환
      * @param {string[]} img_data 이미지 전문, 이미지 주소 의 페어
      * @returns {imgInfo[]} 이미지 정보 배열
      */
@@ -88,6 +132,12 @@ class imgInfoCache
 
         return IMG_INFOS;
     }
+
+    // 캐시 데이터를 로컬 스토리지에 저장
+    saveImgInfos()
+    {
+        localStorage.setItem("imgCache", JSON.stringify(this.cache));
+    }
 }
 
 //#region 전역 변수
@@ -101,22 +151,51 @@ let active_filters = {
     rarity : []
     ,type : []
 };
+// 깃허브 api 주소
+const GIT_API_URL = 'https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework';
+// 깃허브 토큰명
+const GIT_TOKEN = "token SKGS";
+// enum 소속
+const DIV = {
+    SUN : 0,
+    AK : 1,
+    OTHER : 2
+}
+// FIXME 나중에 분류 시켜야함
+const FRAME_IMG_URL = "https://raw.githubusercontent.com/junsarakill/GASM.github.io/SKGS_Rework/SKGS/frame_img/";
+const FRAME_IMG_TAG = "cmn_cf_";
 
 //#endregion
 
 //#region 시작 영역 main
+
+// 페이지 로드 시
 
 // 웹페이지 로드 시
 document.addEventListener("DOMContentLoaded", async (event) => {
     // 데이터 가져오기
     all_img_data = await getImgData();
 
-    console.log("전체 데이터 : ", all_img_data);
+    // console.log("전체 데이터 : ", all_img_data);
 
     // 토글 버튼 클릭 이벤트 추가
     onClickFilterBtn();
+
+    // 필터 설정 불러오기
+    if(localStorage.getItem("active_filters"))
+        active_filters = JSON.parse(localStorage.getItem("active_filters"));
+
     // 필터에 클릭 이벤트 추가
     document.querySelectorAll(".filter-btn").forEach(button => {
+        // 필터 설정대로 활성화하기
+        const IS_RARITY = button.dataset.rarity !== undefined;
+        const CATEGORY = IS_RARITY ? "rarity" : "type";
+        const VALUE = button.dataset.rarity || button.dataset.type;
+
+        if(active_filters[CATEGORY].includes(VALUE))
+            button.classList.add("active");
+
+        // 필터 클릭 이벤트 추가
         button.addEventListener("click", function () {
             // 활성화 토글
             button.classList.toggle("active");
@@ -135,27 +214,26 @@ document.addEventListener("DOMContentLoaded", async (event) => {
     main();
 });
 
-/**
- * 이미지 데이터로 이미지 요소 생성
+/** 이미지 데이터로 이미지 요소 생성
  */
 function main()
 {
     // 필터로 데이터 필터링
     let filtered_img_data = filterImg();
 
-    console.log("필터링 된 데이터 : ", filtered_img_data);
+    // console.log("필터링 된 데이터 : ", filtered_img_data);
 
     // 객체 생성
     let img_infos = IMG_CACHE.createImgInfos(filtered_img_data);
     // 이름과 속성 순 정렬
     img_infos = sortImgInfo(img_infos);
     
-    // console.log(img_infos);
+    console.log("이미지 객체 : ", img_infos);
 
     // 관계도 맵 생성
     const REL_MAP = buildImgRelation(img_infos);
 
-    console.log(REL_MAP);
+    console.log("관계도: ", REL_MAP);
 
     // 이미지 그루핑
     const IMG_GROUPS = imgGrouping(img_infos, REL_MAP);
@@ -171,50 +249,58 @@ function main()
 
 //#region 필터 관련
 
-/**
- * 필터 정보 가져와서 필터링
+/** 필터 정보 가져와서 필터링
  * @returns {string[][]} 필터링 된 이미지 데이터
  */
 function filterImg()
 {
     // 필터링 결과
     let filtered_img_data = all_img_data.filter(img_data => {
-        const rarity_match = active_filters.rarity.length === 0 
+        const RARITY_MATCH = active_filters.rarity.length === 0 
         || active_filters.rarity.includes(img_data.rarity);
-        const type_match = active_filters.type.length === 0 
+        const TYPE_MATCH = active_filters.type.length === 0 
         || active_filters.type.includes(img_data.type);
 
-        return rarity_match && type_match;
+        return RARITY_MATCH && TYPE_MATCH;
     });
 
-    console.log(filtered_img_data);
+    // console.log(filtered_img_data);
 
     return filtered_img_data;
 }
 
-/**
- * 필터 토글 버튼 클릭 이벤트 추가
+/** 필터 토글 버튼 클릭 이벤트 추가
  */
 function onClickFilterBtn()
 {
-    var toggleBtn = document.getElementById("toggle_filter");
+    var toggle_btn = document.getElementById("filter-toggle");
     var filter = document.getElementById("filter");
 
-    toggleBtn.addEventListener("click", function () {
+    toggle_btn.addEventListener("click", function () {
         if(filter.classList.contains("hide"))
         {
             filter.classList.remove("hide");
-            toggleBtn.innerHTML = "&times;";
+            toggle_btn.innerHTML = "&times;";
+            toggle_btn.classList.add("toggle-right");
+            // 토글 버튼 위치 이동
+            var filter_width = filter.offsetWidth;
+            toggle_btn.style.left = filter_width + "px";
         }
         else
         {
             filter.classList.add("hide");
-            toggleBtn.innerHTML = "&#9776";
+            toggle_btn.innerHTML = "&#9776";
+            toggle_btn.classList.remove("toggle-right");
+            // 토글 버튼 위치 되돌리기
+            toggle_btn.style.left = "0px";
         }
     });
 }
 
-// 필터 업데이트
+/** 필터 클릭 이벤트 : 필터 업데이트
+ * @param {string[]} category 레어도, 속성
+ * @param {bool[]} value ON/OFF 유무
+ */
 function updateFilter(category, value)
 {
     const INDEX = active_filters[category].indexOf(value);
@@ -224,6 +310,9 @@ function updateFilter(category, value)
     else
         active_filters[category].push(value);
 
+    // 필터 값 로컬 스토리지에 저장
+    localStorage.setItem("active_filters",JSON.stringify(active_filters));
+
     // 업데이트한 필터대로 이미지 요소 갱신
     main();
 }
@@ -232,11 +321,42 @@ function updateFilter(category, value)
 
 //#region 이미지 데이터 관련
 
+/** 깃허브 api로 이미지 정보 가져오기
+ * @returns {string[][]} 이미지 이름, 이미지 주소 페어
+ */
+function getImgData()
+{
+    // github api로 이미지 디렉토리 접근
+    return fetch(GIT_API_URL, { Headers: { "Authorization" : GIT_TOKEN }})
+        .then(response => response.json())
+        .then(data => {
+            // 이미지 이름,데이터를 담을 배열
+            let img_data = [];
+
+            data.forEach(file => {
+                img_data.push({
+                    name : file.name
+                    ,url: file.download_url
+                    ,rarity : file.name[6]
+                    ,type : file.name[11]
+                });
+            });
+            return img_data;
+        })
+        .catch(error => {
+            console.error(error)
+            return [];
+        });
+}
+
 //#endregion
 
 //#region 이미지 객체 관련
 
-// 이미지 정보 객체 이름과 속성 순 정렬
+/** 이미지 정보 객체 이름과 속성 순 정렬
+ * @param {imgInfo[]} img_infos 이미지 객체 배열
+ * @returns {imgInfo[]} 정렬된 배열
+ */
 function sortImgInfo(img_infos)
 {
     img_infos.sort((a,b) => {
@@ -305,6 +425,48 @@ function buildImgRelation(img_infos)
     });
 
     return RELATION_MAP;
+}
+
+/** 두 id 관계성 비교
+ * @param {imgInfo} img1 // 이미지 객체 1
+ * @param {imgInfo} img2 // 이미지 객체 2
+ * @returns {bool}
+ */
+function checkRelation(img1,img2)
+{
+    //XXX 현 호무라 단일 예외처리
+    if(img1.id == "32005101" && img2.id == "42005300")
+        return true;
+
+    //레어도, 각성 수준, 속성
+    const RARITY1 = img1.rarity;
+    const RARITY2 = img2.rarity;
+    const AWAKE1 = img1.awake;
+    const AWAKE2 = img2.awake;
+    const TYPE1 = img1.type;
+    const TYPE2 = img2.type;
+
+    // 캐릭터 번호가 같은지 확인
+    if(img1.name !== img2.name || TYPE1 !== TYPE2)
+        return false;
+    
+    // 만약 신유제면 일반 각성인지 엄격하게 확인하기
+    const IS_NOT_NEW_REL = AWAKE2 === "3" 
+    && (AWAKE1 !== "2" || img1.release_order !== img2.release_order
+        || RARITY1 !== RARITY2 
+        || TYPE1 !== TYPE2
+        );
+
+    // 각성 변화 없는지 확인
+    // 레어도, 각성 감소 확인
+    // 레어도, 각성이 같은지 확인
+    const IS_NOT_REL = ((AWAKE1 === "0" || AWAKE1 === "1") && AWAKE1 === AWAKE2)
+    || RARITY2 < RARITY1
+    || AWAKE2 < AWAKE1
+    || (AWAKE1 === AWAKE2 && RARITY1 === RARITY2);
+
+    // 모든 절차 통과
+    return !IS_NOT_NEW_REL && !IS_NOT_REL;
 }
 
 /** 관계가 있는 이미지 객체 그룹 구하기
@@ -388,6 +550,7 @@ function createAdjList(REL_MAP)
     return ADJ_LIST;
 }
 
+
 //#endregion
 
 //#region html 요소 관련
@@ -411,8 +574,23 @@ function generateImg(IMG_GROUPS)
     
         // 이미지 생성 및 컨테이너에 추가
         img_group.forEach(img_info => {
-            // 요소 생성
+            // 이미지 컨테이너 생성
+            const IMG_CONTAINER = document.createElement("div");
+            IMG_CONTAINER.style.position = "relative";
+            IMG_CONTAINER.style.display = "inline-block";
+
+            // 이미지 요소 생성
             const IMG_ELEMENT = document.createElement("img");
+            // 프레임 요소 생성
+            const FRAME_ELEMENT = document.createElement("img");
+
+            // 이미지 url 설정
+            IMG_ELEMENT.src = img_info.url;
+            // 소스 설정
+            FRAME_ELEMENT.src = getImgFrame(img_info.rarity
+                                            , img_info.type
+                                            , img_info.division);
+            FRAME_ELEMENT.style.position = "absolute";
 
             // 이미지 클릭 이벤트 추가
             IMG_ELEMENT.addEventListener("click", function() {
@@ -420,20 +598,16 @@ function generateImg(IMG_GROUPS)
                 img_info.status = !img_info.status;
 
                 // 상태 값에 따라 비활성화 여부 결정
-                if(img_info.status)
-                    IMG_ELEMENT.classList.remove("deactive");
-                else
-                    IMG_ELEMENT.classList.add("deactive");
+                imgToggleActive(IMG_ELEMENT, img_info.status);
+
+                // 로컬 스토리지에 캐시 저장
+                IMG_CACHE.saveImgInfos();
             });
 
             // 상태 값에 따라 비활성화 여부 결정
-            if(img_info.status)
-                IMG_ELEMENT.classList.remove("deactive");
-            else
-                IMG_ELEMENT.classList.add("deactive");
+            imgToggleActive(IMG_ELEMENT, img_info.status);
 
-            // 이미지 url 설정
-            IMG_ELEMENT.src = img_info.url;
+            
 
             // 컨테이너에 추가
             GROUP_CONTAINER.appendChild(IMG_ELEMENT);
@@ -441,6 +615,29 @@ function generateImg(IMG_GROUPS)
         // list_content에 추가
         document.getElementById("list_content").appendChild(GROUP_CONTAINER);
     });
+}
+
+/** 활성화 여부에 따라 이미지 활성화
+ * @param {IMG_ELEMENT} IMG_ELEMENT 이미지 요소
+ * @param {bool} is_active 활성화 여부
+ */
+function imgToggleActive(IMG_ELEMENT, is_active)
+{
+    if(is_active)
+        IMG_ELEMENT.classList.remove("deactive");
+    else   
+        IMG_ELEMENT.classList.add("deactive");
+}
+
+// 속성, 소속에 따른 이미지 고르기
+function getImgFrame(rarity, type, division)
+{
+    // 결과 url string 조합
+    const RESULT_URL = FRAME_IMG_URL + FRAME_IMG_TAG 
+        + rarity + "0" + type + division
+        + ".png";
+
+    return RESULT_URL;
 }
 
 //#endregion
@@ -458,85 +655,8 @@ function generateImg(IMG_GROUPS)
 
 
 
-// FIXME 여기부터 코드 정리 필요
-
-/**
- * 두 id 관계성 비교
- * @param {imgInfo} img1 
- * @param {imgInfo} img2 
- * @returns {bool}
- */
-function checkRelation(img1,img2)
-{
-    //XXX 현 호무라 단일 예외처리
-    if(img1.id == "32005101" && img2.id == "42005300")
-        return true;
-
-    //레어도, 각성 수준, 속성
-    const RARITY1 = img1.rarity;
-    const RARITY2 = img2.rarity;
-    const AWAKE1 = img1.awake;
-    const AWAKE2 = img2.awake;
-    const TYPE1 = img1.type;
-    const TYPE2 = img2.type;
-
-    // 캐릭터 번호가 같은지 확인
-    if(img1.name !== img2.name
-    || TYPE1 !== TYPE2)
-        return false;
-
-    
-    // 만약 신유제면 일반 각성인지 엄격하게 확인하기
-    const IS_NOT_NEW_REL = AWAKE2 === "3" 
-    && (AWAKE1 !== "2" 
-        || RARITY1 !== RARITY2 
-        || TYPE1 !== TYPE2
-        || img1.release_order !== img2.release_order);
-    
-
-    // 각성 변화 없는지 확인
-    // 레어도, 각성 감소 확인
-    // 레어도, 각성이 같은지 확인
-    const IS_NOT_REL = ((AWAKE1 === "0" || AWAKE1 === "1") && AWAKE1 === AWAKE2)
-    || RARITY2 < RARITY1
-    || AWAKE2 < AWAKE1
-    || (AWAKE1 === AWAKE2 && RARITY1 === RARITY2);
-
-    // 모든 절차 통과
-    return !IS_NOT_NEW_REL && !IS_NOT_REL;
-}
 
 
 
-/**
- * 깃허브 api로 이미지 정보 가져오기
- * @returns {string[][]} 이미지 이름, 이미지 주소 페어
- */
-function getImgData()
-{
-    // github api로 이미지 디렉토리 접근
-    return fetch('https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework', {
-            Headers: {
-                "Authorization" : "token SKGS"
-            }})
-        .then(response => response.json())
-        .then(data => {
-            // 이미지 이름,데이터를 담을 배열
-            let img_data = [];
 
-            data.forEach(file => {
-                img_data.push({
-                    name : file.name
-                    ,url: file.download_url
-                    ,rarity : file.name[6]
-                    ,type : file.name[11]
-                });
-            });
-            return img_data;
-        })
-        .catch(error => {
-            console.error(error)
-            return [];
-        });
-}
 
