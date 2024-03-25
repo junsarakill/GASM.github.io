@@ -571,11 +571,14 @@ function generateImg(IMG_GROUPS)
         GROUP_CONTAINER.style.display = "inline-block";
         // 마진 값 설정
         GROUP_CONTAINER.style.marginRight = "40px";
+        GROUP_CONTAINER.style.marginBottom = "40px";
     
         // 이미지 생성 및 컨테이너에 추가
         img_group.forEach(img_info => {
             // 이미지 컨테이너 생성
             const IMG_CONTAINER = document.createElement("div");
+            IMG_CONTAINER.classList.add("img-container");
+            
             IMG_CONTAINER.style.position = "relative";
             IMG_CONTAINER.style.display = "inline-block";
 
@@ -586,11 +589,13 @@ function generateImg(IMG_GROUPS)
 
             // 이미지 url 설정
             IMG_ELEMENT.src = img_info.url;
+            IMG_ELEMENT.classList.add("raw-img");
+
             // 소스 설정
             FRAME_ELEMENT.src = getImgFrame(img_info.rarity
                                             , img_info.type
                                             , img_info.division);
-            FRAME_ELEMENT.style.position = "absolute";
+            FRAME_ELEMENT.classList.add("frame-img");
 
             // 이미지 클릭 이벤트 추가
             IMG_ELEMENT.addEventListener("click", function() {
@@ -607,10 +612,12 @@ function generateImg(IMG_GROUPS)
             // 상태 값에 따라 비활성화 여부 결정
             imgToggleActive(IMG_ELEMENT, img_info.status);
 
-            
+            // 컨테이너에 요소들 추가
+            IMG_CONTAINER.appendChild(IMG_ELEMENT);
+            IMG_CONTAINER.appendChild(FRAME_ELEMENT);
 
-            // 컨테이너에 추가
-            GROUP_CONTAINER.appendChild(IMG_ELEMENT);
+            // 그룹 컨테이너에 추가
+            GROUP_CONTAINER.appendChild(IMG_CONTAINER);
         });
         // list_content에 추가
         document.getElementById("list_content").appendChild(GROUP_CONTAINER);
