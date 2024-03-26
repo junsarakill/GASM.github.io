@@ -42,7 +42,7 @@ body
 {
     background-color: var(--body-bd-color);
     color: var(--body-color);
-    height: 100%;
+    height: auto;
 }
 
 .title
@@ -221,14 +221,7 @@ body
     height: 100%;
 }
 
-
-/* .list_content *
-{
-    vertical-align: middle;
-    border: 5px solid black;
-} */
-
-#list_content
+#list-content
 {
     display: flex;
     flex-wrap: wrap;
@@ -255,7 +248,7 @@ img
     object-fit: cover;
 }
 
-.list_content .deactive
+.list-content .deactive
 {
     opacity: 0.5;
 }

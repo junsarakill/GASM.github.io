@@ -396,30 +396,68 @@ function buildImgRelation(img_infos)
 
     // 그룹 내에서 원소를 비교
     CHAR_GROUP_MAP.forEach(char_group => {
-        for(let i = 0; i < char_group.length; i++)
+        for(let i = char_group.length - 1; i >= 0; i--)
         {
             const CUR_ID = char_group[i].id;
             // key 로 사용되었는지 확인
-            if(USED_KEY.has(CUR_ID)) 
+            // 일반 이미지 검사 제외
+            if(USED_KEY.has(CUR_ID) || char_group[i].awake === "0") 
                 continue;
 
-            for(let j = i + 1; j < char_group.length; j++)
+            // 우선도 1 : 레어도 차이
+            let rarity_inc = 99;
+            // 우선도 2 : 출시순서 비슷한 순
+            let order_inc = 99;
+            let id_cache;
+
+            for(let j = char_group.length - 1; j >= 0; j--)
             {
                 const OTHER_ID = char_group[j].id;
                 // value로 사용되었는지 확인
-                if(USED_VALUE.has(OTHER_ID))
+                if(USED_VALUE.has(OTHER_ID) || j === i)
                     continue;
                 // 관계성 확인
                 else if(checkRelation(char_group[i], char_group[j]))
                 {
-                    // 관계 맵 추가
-                    RELATION_MAP.set(CUR_ID, OTHER_ID);
-                    // 키 값 사용 횟수 업데이트
-                    USED_KEY.add(CUR_ID);
-                    USED_VALUE.add(OTHER_ID);
+                    // 우선도 확인
+                    const NOW_RARITY_INC = Math.abs(parseInt(char_group[i].rarity - char_group[j].rarity));
+                    const NOW_ORDER_INC = Math.abs(parseInt(char_group[i].release_order) - parseInt(char_group[j].release_order));
 
-                    break;
+                    if(rarity_inc > NOW_RARITY_INC)
+                    {
+                        rarity_inc = NOW_RARITY_INC; 
+                        order_inc = NOW_ORDER_INC;
+                        id_cache = OTHER_ID;
+
+                        console.log(CUR_ID, OTHER_ID, id_cache);
+                    }
+                    else if(rarity_inc == NOW_RARITY_INC)
+                    {
+                        if(order_inc > NOW_ORDER_INC)
+                        {
+                            order_inc = NOW_ORDER_INC;
+                            id_cache = OTHER_ID;
+                        }
+
+                        console.log(CUR_ID, OTHER_ID, id_cache, order_inc, NOW_ORDER_INC);
+                    }
+                    // // 관계 맵 추가
+                    // RELATION_MAP.set(OTHER_ID, CUR_ID);
+                    // // 키 값 사용 횟수 업데이트
+                    // USED_KEY.add(CUR_ID);
+                    // USED_VALUE.add(OTHER_ID);
+
+                    // break;
                 }
+            }
+
+            if(id_cache)
+            {
+                // 관계 맵 추가
+                RELATION_MAP.set(id_cache, CUR_ID);
+                // 키 값 사용 횟수 업데이트
+                USED_KEY.add(CUR_ID);
+                USED_VALUE.add(id_cache);
             }
         }
     });
@@ -428,41 +466,45 @@ function buildImgRelation(img_infos)
 }
 
 /** 두 id 관계성 비교
- * @param {imgInfo} img1 // 이미지 객체 1
- * @param {imgInfo} img2 // 이미지 객체 2
+ * @param {imgInfo} awake_img // 이미지 객체 1
+ * @param {imgInfo} original_img // 이미지 객체 2
  * @returns {bool}
  */
-function checkRelation(img1,img2)
+function checkRelation(awake_img,original_img)
 {
     //XXX 현 호무라 단일 예외처리
-    if(img1.id == "32005101" && img2.id == "42005300")
+    if(awake_img.id == "42005300" && original_img.id == "32005101")
         return true;
 
     //레어도, 각성 수준, 속성
-    const RARITY1 = img1.rarity;
-    const RARITY2 = img2.rarity;
-    const AWAKE1 = img1.awake;
-    const AWAKE2 = img2.awake;
-    const TYPE1 = img1.type;
-    const TYPE2 = img2.type;
+    const RARITY1 = awake_img.rarity;
+    const RARITY2 = original_img.rarity;
+    const AWAKE1 = awake_img.awake;
+    const AWAKE2 = original_img.awake;
+    const TYPE1 = awake_img.type;
+    const TYPE2 = original_img.type;
 
     // 캐릭터 번호가 같은지 확인
-    if(img1.name !== img2.name || TYPE1 !== TYPE2)
+    if(awake_img.name !== original_img.name || TYPE1 !== TYPE2)
         return false;
     
     // 만약 신유제면 일반 각성인지 엄격하게 확인하기
-    const IS_NOT_NEW_REL = AWAKE2 === "3" 
-    && (AWAKE1 !== "2" || img1.release_order !== img2.release_order
+    const IS_NOT_NEW_REL = AWAKE1 === "3" 
+    && (AWAKE2 !== "2" || awake_img.release_order !== original_img.release_order
         || RARITY1 !== RARITY2 
         || TYPE1 !== TYPE2
         );
 
+    // 레어도 변화가 있는지 확인
+    if(AWAKE1 !== "3" && RARITY1 === RARITY2)
+        return false;
+
     // 각성 변화 없는지 확인
     // 레어도, 각성 감소 확인
     // 레어도, 각성이 같은지 확인
-    const IS_NOT_REL = ((AWAKE1 === "0" || AWAKE1 === "1") && AWAKE1 === AWAKE2)
-    || RARITY2 < RARITY1
-    || AWAKE2 < AWAKE1
+    const IS_NOT_REL = ((AWAKE2 === "0" || AWAKE2 === "1") && AWAKE1 === AWAKE2)
+    || RARITY1 < RARITY2
+    || AWAKE1 < AWAKE2
     || (AWAKE1 === AWAKE2 && RARITY1 === RARITY2);
 
     // 모든 절차 통과
@@ -561,8 +603,8 @@ function createAdjList(REL_MAP)
  */
 function generateImg(IMG_GROUPS)
 {
-    // 기존 list_content 요소 초기화
-    document.getElementById("list_content").innerHTML = '';
+    // 기존 list-content 요소 초기화
+    document.getElementById("list-content").innerHTML = '';
 
     // 이중 for로 그룹 내 요소 하나하나 생성
     IMG_GROUPS.forEach(img_group => {
@@ -619,8 +661,8 @@ function generateImg(IMG_GROUPS)
             // 그룹 컨테이너에 추가
             GROUP_CONTAINER.appendChild(IMG_CONTAINER);
         });
-        // list_content에 추가
-        document.getElementById("list_content").appendChild(GROUP_CONTAINER);
+        // list-content에 추가
+        document.getElementById("list-content").appendChild(GROUP_CONTAINER);
     });
 }
 
