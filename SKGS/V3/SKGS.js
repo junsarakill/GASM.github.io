@@ -126,8 +126,13 @@ class imgInfoCache
         const IMG_INFOS = [];
 
         img_data.forEach(data => {
-            const IMG_INFO = this.getOrCreateImgInfo(data.name, data.url);
-            IMG_INFOS.push(IMG_INFO);
+            // 더미 데이터 id 인지 확인
+            if(!this.checkDummyData(data.name))
+            {
+                // 배열에 추가
+                const IMG_INFO = this.getOrCreateImgInfo(data.name, data.url);
+                IMG_INFOS.push(IMG_INFO);
+            }
         });
 
         return IMG_INFOS;
@@ -138,12 +143,24 @@ class imgInfoCache
     {
         localStorage.setItem("imgCache", JSON.stringify(this.cache));
     }
+
+    // 더미 데이터 인지 확인
+    checkDummyData(img_id)
+    {
+        // 확장자 빼기
+        return DUMMY_ID_ARRAY.includes(img_id.substring(0,14));
+    }
 }
 
 //#region 전역 변수
 
 // 전체 이미지 이름 및 데이터 : 깃허브 api로 불러올 것
 let all_img_data = null;
+// 더미 데이터 정보
+const DUMMY_ID_ARRAY = [
+    "cmn_cm52024003","cmn_cm40024003","cmn_cm51024003",""
+    ,""
+];
 // 이미지 정보 캐시
 const IMG_CACHE = new imgInfoCache();
 // 활성화된 필터 정보
@@ -429,7 +446,7 @@ function buildImgRelation(img_infos)
                         order_inc = NOW_ORDER_INC;
                         id_cache = OTHER_ID;
 
-                        console.log(CUR_ID, OTHER_ID, id_cache);
+                        // console.log(CUR_ID, OTHER_ID, id_cache);
                     }
                     else if(rarity_inc == NOW_RARITY_INC)
                     {
@@ -439,7 +456,7 @@ function buildImgRelation(img_infos)
                             id_cache = OTHER_ID;
                         }
 
-                        console.log(CUR_ID, OTHER_ID, id_cache, order_inc, NOW_ORDER_INC);
+                        // console.log(CUR_ID, OTHER_ID, id_cache, order_inc, NOW_ORDER_INC);
                     }
                     // // 관계 맵 추가
                     // RELATION_MAP.set(OTHER_ID, CUR_ID);
