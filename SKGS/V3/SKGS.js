@@ -591,26 +591,26 @@ function generateImg(IMG_GROUPS)
             IMG_ELEMENT.src = img_info.url;
             IMG_ELEMENT.classList.add("raw-img");
 
-            // 소스 설정
+            // 프레임 url 설정
             FRAME_ELEMENT.src = getImgFrame(img_info.rarity
                                             , img_info.type
                                             , img_info.division);
             FRAME_ELEMENT.classList.add("frame-img");
 
             // 이미지 클릭 이벤트 추가
-            IMG_ELEMENT.addEventListener("click", function() {
+            IMG_CONTAINER.addEventListener("click", function() {
                 // 상태 값 반전 
                 img_info.status = !img_info.status;
 
                 // 상태 값에 따라 비활성화 여부 결정
-                imgToggleActive(IMG_ELEMENT, img_info.status);
+                imgToggleActive(IMG_CONTAINER, img_info.status);
 
                 // 로컬 스토리지에 캐시 저장
                 IMG_CACHE.saveImgInfos();
             });
 
             // 상태 값에 따라 비활성화 여부 결정
-            imgToggleActive(IMG_ELEMENT, img_info.status);
+            imgToggleActive(IMG_CONTAINER, img_info.status);
 
             // 컨테이너에 요소들 추가
             IMG_CONTAINER.appendChild(IMG_ELEMENT);
