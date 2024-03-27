@@ -156,10 +156,17 @@ class imgInfoCache
 
 // 전체 이미지 이름 및 데이터 : 깃허브 api로 불러올 것
 let all_img_data = null;
-// 더미 데이터 정보
+// @@ 더미 데이터 정보
 const DUMMY_ID_ARRAY = [
-    "cmn_cm52024003","cmn_cm40024003","cmn_cm51024003",""
-    ,""
+    "cmn_cm52024003","cmn_cm40024003","cmn_cm51024003","cmn_cm10025000"
+    ,"cmn_cm10026000","cmn_cm10028000","cmn_cm10035000","cmn_cm10036000"
+    ,"cmn_cm10037000","cmn_cm20025100","cmn_cm20025200","cmn_cm20026100"
+    ,"cmn_cm20026200","cmn_cm20028100","cmn_cm20028200","cmn_cm20035200"
+    ,"cmn_cm20036100","cmn_cm20037100","cmn_cm20037200","cmn_cm30015200"
+    ,"cmn_cm30025100","cmn_cm30025200","cmn_cm30026100","cmn_cm30026200"
+    ,"cmn_cm30028100","cmn_cm30036200","cmn_cm40004000","cmn_cm40013401"
+    ,"cmn_cm40024003","cmn_cm40028200","cmn_cm51024003","cmn_cm51030100"
+    ,"cmn_cm51032000","cmn_cm51042100","cmn_cm52024003"
 ];
 // 이미지 정보 캐시
 const IMG_CACHE = new imgInfoCache();
