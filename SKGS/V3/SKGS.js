@@ -253,6 +253,7 @@ function main()
     img_infos = sortImgInfo(img_infos);
     
     console.log("이미지 객체 : ", img_infos);
+    console.log("길이: ", img_infos.length);
 
     // 관계도 맵 생성
     const REL_MAP = buildImgRelation(img_infos);
