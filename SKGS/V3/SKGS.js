@@ -176,18 +176,21 @@ let active_filters = {
     ,type : []
 };
 // 깃허브 api 주소
-const GIT_API_URL = 'https://api.github.com/repos/junsarakill/GASM.github.io/contents/SKGS/raw_img?ref=SKGS_Rework';
+const GIT_API_URL = 'https://api.github.com';
+const OWNER = "junsarakill";
+const REPO = "GASM.github.io";
+const BRANCH = "SKGS_Rework";
+const PATH = "SKGS/raw_img";
 // 깃허브 토큰명
-const GIT_TOKEN = "token SKGS";
+const GIT_TOKEN = "";
 // enum 소속
 const DIV = {
     SUN : 0,
     AK : 1,
     OTHER : 2
 }
-// FIXME 나중에 분류 시켜야함
-const FRAME_IMG_URL = "https://raw.githubusercontent.com/junsarakill/GASM.github.io/SKGS_Rework/SKGS/frame_img/";
-const FRAME_IMG_TAG = "cmn_cf_";
+// 프레임 이미지 url
+const FRAME_IMG_URL = `https://${OWNER}.github.io/${REPO}/SKGS/frame_img`;
 
 //#endregion
 
@@ -245,7 +248,8 @@ function main()
     // 필터로 데이터 필터링
     let filtered_img_data = filterImg();
 
-    // console.log("필터링 된 데이터 : ", filtered_img_data);
+    console.log("전체 데이터: ",all_img_data);
+    console.log("필터링 된 데이터 : ", filtered_img_data);
 
     // 객체 생성
     let img_infos = IMG_CACHE.createImgInfos(filtered_img_data);
@@ -351,27 +355,40 @@ function updateFilter(category, value)
  */
 function getImgData()
 {
-    // github api로 이미지 디렉토리 접근
-    return fetch(GIT_API_URL, { Headers: { "Authorization" : GIT_TOKEN }})
-        .then(response => response.json())
-        .then(data => {
-            // 이미지 이름,데이터를 담을 배열
-            let img_data = [];
-
-            data.forEach(file => {
-                img_data.push({
-                    name : file.name
-                    ,url: file.download_url
-                    ,rarity : file.name[6]
-                    ,type : file.name[11]
-                });
-            });
-            return img_data;
-        })
-        .catch(error => {
-            console.error(error)
-            return [];
+    // 브랜치 정보 가져와서 커밋 sha 얻기
+    return fetch(`${GIT_API_URL}/repos/${OWNER}/${REPO}/branches/${BRANCH}`, {
+        headers : {"Authorization": `token ${GIT_TOKEN}`}
+    })
+    .then(response => response.json())
+    .then(data => {
+        const SHA = data.commit.sha;
+        //커밋 sha 사용해서 특정 폴더의 트리 정보 가져오기
+        return fetch(`${GIT_API_URL}/repos/${OWNER}/${REPO}/git/trees/${SHA}?recursive=1`, {
+            headers : {"Authorization": `token ${GIT_TOKEN}`}
         });
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 특정 폴더 경로 내 파일만 필터링
+        const IMG_DATA = data.tree.filter(item => item.type === "blob"
+            && item.path.startsWith(PATH))
+            .map(file => {
+                const FILE_NAME = file.path.split("/").pop();
+
+                return {
+                    name : FILE_NAME
+                    ,url : `https://${OWNER}.github.io/${REPO}/${file.path}`
+                    ,rarity : FILE_NAME[6]
+                    ,type : FILE_NAME[11]
+                };
+            });
+        
+        return IMG_DATA;
+    })
+    .catch(error => {
+        console.error(error);
+        return [];
+    });
 }
 
 //#endregion
@@ -707,9 +724,7 @@ function imgToggleActive(IMG_ELEMENT, is_active)
 function getImgFrame(rarity, type, division)
 {
     // 결과 url string 조합
-    const RESULT_URL = FRAME_IMG_URL + FRAME_IMG_TAG 
-        + rarity + "0" + type + division
-        + ".png";
+    const RESULT_URL = `${FRAME_IMG_URL}/cmn_cf_${rarity}0${type}${division}.png`;
 
     return RESULT_URL;
 }
