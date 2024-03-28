@@ -175,14 +175,11 @@ let active_filters = {
     rarity : []
     ,type : []
 };
-// 깃허브 api 주소
-const GIT_API_URL = 'https://api.github.com';
+// 깃허브 정보
 const OWNER = "junsarakill";
 const REPO = "GASM.github.io";
-const BRANCH = "SKGS_Rework";
-const PATH = "SKGS/raw_img";
-// 깃허브 토큰명
-const GIT_TOKEN = "";
+// google cloud function url
+const GOOGLE_CLOUD_FUNCTION_URL = "https://asia-northeast3-skgs-418602.cloudfunctions.net/SKGS_GET_IMAGE_DATA";
 // enum 소속
 const DIV = {
     SUN : 0,
@@ -350,43 +347,31 @@ function updateFilter(category, value)
 
 //#region 이미지 데이터 관련
 
+
 /** 깃허브 api로 이미지 정보 가져오기
  * @returns {string[][]} 이미지 이름, 이미지 주소 페어
  */
-function getImgData()
-{
-    // 브랜치 정보 가져와서 커밋 sha 얻기
-    return fetch(`${GIT_API_URL}/repos/${OWNER}/${REPO}/branches/${BRANCH}`, {
-        headers : {"Authorization": `token ${GIT_TOKEN}`}
+function getImgData() {
+    // console.log(location.origin);
+    return fetch(GOOGLE_CLOUD_FUNCTION_URL, {
+        method: "GET",
+        headers: {
+            "Authorization": "SKGS" // Authorization 헤더 추가
+        },
     })
-    .then(response => response.json())
-    .then(data => {
-        const SHA = data.commit.sha;
-        //커밋 sha 사용해서 특정 폴더의 트리 정보 가져오기
-        return fetch(`${GIT_API_URL}/repos/${OWNER}/${REPO}/git/trees/${SHA}?recursive=1`, {
-            headers : {"Authorization": `token ${GIT_TOKEN}`}
-        });
+    .then(response => {
+        if (!response.ok)
+            throw new Error("Network response was not ok");
+        return response.json();
     })
-    .then(response => response.json())
     .then(data => {
-        // 특정 폴더 경로 내 파일만 필터링
-        const IMG_DATA = data.tree.filter(item => item.type === "blob"
-            && item.path.startsWith(PATH))
-            .map(file => {
-                const FILE_NAME = file.path.split("/").pop();
+        console.log(data);
 
-                return {
-                    name : FILE_NAME
-                    ,url : `https://${OWNER}.github.io/${REPO}/${file.path}`
-                    ,rarity : FILE_NAME[6]
-                    ,type : FILE_NAME[11]
-                };
-            });
-        
-        return IMG_DATA;
+        return data;
     })
     .catch(error => {
         console.error(error);
+
         return [];
     });
 }
