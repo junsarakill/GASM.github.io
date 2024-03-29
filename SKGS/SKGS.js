@@ -404,18 +404,21 @@ function sortImgInfo(img_infos)
     return img_infos;
 }
 
-// 이미지 그룹 정렬
+/** 이미지 그룹 정렬 : 이름 -> 레어도 -> 속성 오름차순
+ * @param {imgInfo[][]} img_groups 이미지 그룹 여러 개를 가진 배열
+ * @returns {imgInfo[][]} 정렬된 img_groups 반환
+ */
 function sortImgGroup(img_groups)
 {
     img_groups.sort((img_group_a,img_group_b) => {
         const a = img_group_a[0];
         const b = img_group_b[0];
-        // 레어도 기준
-        if(a.rarity != b.rarity)
-            return a.rarity.localeCompare(b.rarity);
         // 이름 기준
-        else if(a.name != b.name)
+        if(a.name != b.name)
             return a.name.localeCompare(b.name);
+        // 레어도 기준
+        else if(a.rarity != b.rarity)
+            return a.rarity.localeCompare(b.rarity);
         //속성 기준
         else
             return a.type.localeCompare(b.type);
