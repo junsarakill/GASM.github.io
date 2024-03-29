@@ -156,7 +156,7 @@ class imgInfoCache
 
 // 전체 이미지 이름 및 데이터 : 깃허브 api로 불러올 것
 let all_img_data = null;
-// @@ 더미 데이터 정보
+// 더미 데이터 정보 : 필요시 계속 추가해야함
 const DUMMY_ID_ARRAY = [
     "cmn_cm52024003","cmn_cm40024003","cmn_cm51024003","cmn_cm10025000"
     ,"cmn_cm10026000","cmn_cm10028000","cmn_cm10035000","cmn_cm10036000"
@@ -179,9 +179,9 @@ let active_filters = {
 const OWNER = "junsarakill";
 const REPO = "GASM.github.io";
 // google cloud function url
-const GOOGLE_CLOUD_FUNCTION_URL = "https://asia-northeast3-skgs-418602.cloudfunctions.net/SKGS_GET_IMAGE_DATA";
+const GOOGLE_CLOUD_FUNCTION_URL = "https://us-central1-skgs-418602.cloudfunctions.net/SKGS_TEST";
 // enum 소속
-const DIV = {
+const DIV = { 
     SUN : 0,
     AK : 1,
     OTHER : 2
@@ -193,14 +193,12 @@ const FRAME_IMG_URL = `https://${OWNER}.github.io/${REPO}/SKGS/frame_img`;
 
 //#region 시작 영역 main
 
-// 페이지 로드 시
-
 // 웹페이지 로드 시
-document.addEventListener("DOMContentLoaded", async (event) => {
+document.addEventListener("DOMContentLoaded", async () => {
     // 데이터 가져오기
     all_img_data = await getImgData();
 
-    // console.log("전체 데이터 : ", all_img_data);
+    console.log("전체 데이터 : ", all_img_data);
 
     // 토글 버튼 클릭 이벤트 추가
     onClickFilterBtn();
@@ -245,7 +243,6 @@ function main()
     // 필터로 데이터 필터링
     let filtered_img_data = filterImg();
 
-    console.log("전체 데이터: ",all_img_data);
     console.log("필터링 된 데이터 : ", filtered_img_data);
 
     // 객체 생성
@@ -254,7 +251,6 @@ function main()
     img_infos = sortImgInfo(img_infos);
     
     console.log("이미지 객체 : ", img_infos);
-    console.log("길이: ", img_infos.length);
 
     // 관계도 맵 생성
     const REL_MAP = buildImgRelation(img_infos);
@@ -299,8 +295,8 @@ function filterImg()
  */
 function onClickFilterBtn()
 {
-    var toggle_btn = document.getElementById("filter-toggle");
-    var filter = document.getElementById("filter");
+    let toggle_btn = document.getElementById("filter-toggle");
+    let filter = document.getElementById("filter");
 
     toggle_btn.addEventListener("click", function () {
         if(filter.classList.contains("hide"))
@@ -309,7 +305,7 @@ function onClickFilterBtn()
             toggle_btn.innerHTML = "&times;";
             toggle_btn.classList.add("toggle-right");
             // 토글 버튼 위치 이동
-            var filter_width = filter.offsetWidth;
+            let filter_width = filter.offsetWidth;
             toggle_btn.style.left = filter_width + "px";
         }
         else
@@ -352,20 +348,20 @@ function updateFilter(category, value)
  * @returns {string[][]} 이미지 이름, 이미지 주소 페어
  */
 function getImgData() {
-    // console.log(location.origin);
     return fetch(GOOGLE_CLOUD_FUNCTION_URL, {
-        method: "GET",
-        headers: {
-            "Authorization": "SKGS" // Authorization 헤더 추가
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
         },
+        body: JSON.stringify()
     })
     .then(response => {
-        if (!response.ok)
+        if(!response.ok)
             throw new Error("Network response was not ok");
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        // console.log(data);
 
         return data;
     })
@@ -465,16 +461,7 @@ function buildImgRelation(img_infos)
                             order_inc = NOW_ORDER_INC;
                             id_cache = OTHER_ID;
                         }
-
-                        // console.log(CUR_ID, OTHER_ID, id_cache, order_inc, NOW_ORDER_INC);
                     }
-                    // // 관계 맵 추가
-                    // RELATION_MAP.set(OTHER_ID, CUR_ID);
-                    // // 키 값 사용 횟수 업데이트
-                    // USED_KEY.add(CUR_ID);
-                    // USED_VALUE.add(OTHER_ID);
-
-                    // break;
                 }
             }
 
@@ -631,41 +618,31 @@ function createAdjList(REL_MAP)
 function generateImg(IMG_GROUPS)
 {
     // 기존 list-content 요소 초기화
-    document.getElementById("list-content").innerHTML = '';
+    // document.getElementById("list-content").innerHTML = '';
+    let list_content = document.getElementById("list-content");
+    
+    while(list_content.firstChild)
+    {
+        list_content.removeChild(list_content.firstChild);
+    }
 
     // 이중 for로 그룹 내 요소 하나하나 생성
     IMG_GROUPS.forEach(img_group => {
         // 그룹 컨테이너 생성
         const GROUP_CONTAINER = document.createElement("div");
-        GROUP_CONTAINER.style.display = "inline-block";
-        // 마진 값 설정
-        GROUP_CONTAINER.style.marginRight = "40px";
-        GROUP_CONTAINER.style.marginBottom = "40px";
+        GROUP_CONTAINER.classList.add("img-group");
     
         // 이미지 생성 및 컨테이너에 추가
         img_group.forEach(img_info => {
             // 이미지 컨테이너 생성
             const IMG_CONTAINER = document.createElement("div");
             IMG_CONTAINER.classList.add("img-container");
-            
-            IMG_CONTAINER.style.position = "relative";
-            IMG_CONTAINER.style.display = "inline-block";
 
             // 이미지 요소 생성
             const IMG_ELEMENT = document.createElement("img");
-            // 프레임 요소 생성
-            const FRAME_ELEMENT = document.createElement("img");
-
             // 이미지 url 설정
             IMG_ELEMENT.src = img_info.url;
             IMG_ELEMENT.classList.add("raw-img");
-
-            // 프레임 url 설정
-            FRAME_ELEMENT.src = getImgFrame(img_info.rarity
-                                            , img_info.type
-                                            , img_info.division);
-            FRAME_ELEMENT.classList.add("frame-img");
-
             // 이미지 클릭 이벤트 추가
             IMG_CONTAINER.addEventListener("click", function() {
                 // 상태 값 반전 
@@ -681,9 +658,25 @@ function generateImg(IMG_GROUPS)
             // 상태 값에 따라 비활성화 여부 결정
             imgToggleActive(IMG_CONTAINER, img_info.status);
 
+            
+            // 프레임 요소 생성
+            const FRAME_ELEMENT = document.createElement("img");
+            // 프레임 url 설정
+            FRAME_ELEMENT.src = getImgFrame(img_info.rarity
+                                            , img_info.type
+                                            , img_info.division);
+            FRAME_ELEMENT.classList.add("frame-img");
+
+
+            // 툴팁 요소 생성
+            const TOOLTIP = document.createElement("span");
+            TOOLTIP.classList.add("tooltip");
+            TOOLTIP.textContent = `id : ${img_info.id}`;
+
             // 컨테이너에 요소들 추가
             IMG_CONTAINER.appendChild(IMG_ELEMENT);
             IMG_CONTAINER.appendChild(FRAME_ELEMENT);
+            IMG_CONTAINER.appendChild(TOOLTIP); 
 
             // 그룹 컨테이너에 추가
             GROUP_CONTAINER.appendChild(IMG_CONTAINER);
@@ -705,7 +698,12 @@ function imgToggleActive(IMG_ELEMENT, is_active)
         IMG_ELEMENT.classList.add("deactive");
 }
 
-// 속성, 소속에 따른 이미지 고르기
+/** 프레임 이미지 url 조합
+ * @param {string} rarity 레어도
+ * @param {string} type 속성
+ * @param {DIV} division 소속
+ * @returns {string} 프레임 이미지 url
+ */
 function getImgFrame(rarity, type, division)
 {
     // 결과 url string 조합

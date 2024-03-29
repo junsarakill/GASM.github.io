@@ -212,9 +212,18 @@ body
     flex-wrap: wrap;
 }
 
+.img-group
+{
+    display: inline-block;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+
 .img-container
 {
     margin: 5px;
+    position: relative;
+    display: inline-block;
 }
 
 .frame-img
@@ -224,6 +233,11 @@ body
     top: -5px;
     width: 110%;
     height: 110%;
+}
+
+.frame-img:hover + .tooltip
+{
+    visibility: visible;
 }
 
 img
@@ -239,3 +253,17 @@ img
 }
 
 /* #endregion */
+
+/* 툴팁 기본 스타일 */
+.tooltip 
+{
+    position: absolute;
+    z-index: 1;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 6px;
+    visibility: hidden;
+    font-size: 30px;
+    white-space: pre;
+}
