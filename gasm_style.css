@@ -1,16 +1,12 @@
 /*	
 	TODO 웹에서 dropdown 항목 추가 할 수 있게(html web storage?)
 */
-/*
-	06.15 변경점
-	텍스트 클릭으로도 체크되게 변경
-*/
 /*기술순서 포지션 - 요소내부(텍스트,컬러) - 크기 - 패딩, 마진 - 보더 -
 \n display,visibility 등 충돌에 관계*/
 :root
 {
 	--line-height: 50px;
-	--main-count-percent: 16%; /* 목록 추가시 분할 1/n */
+	--main-count-percent: 100%; /* 목록 추가시 분할 1/n */
 
 	--body-bg-color: #121212;
 	--body-color: #fff;

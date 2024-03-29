@@ -15,3 +15,17 @@ function turnOnDarkMode()
 		element.classList.toggle("light-mode");
 	}
 }
+
+function updateMenuWidth()
+{
+	const menuCnt = document.querySelectorAll(".submenu").length;
+
+	const newPercent = 100 / menuCnt;
+
+	document.documentElement.style.setProperty("--main-count-percent", newPercent + "%");
+}
+
+// 웹페이지 시작시 작동
+document.addEventListener("DOMContentLoaded", async () => {
+	updateMenuWidth();
+});
