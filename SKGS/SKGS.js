@@ -168,6 +168,11 @@ const DUMMY_ID_ARRAY = [
     ,"cmn_cm40024003","cmn_cm40028200","cmn_cm51024003","cmn_cm51030100"
     ,"cmn_cm51032000","cmn_cm51042100","cmn_cm52024003"
 ];
+// 특수 관계인 시작 id : 필요시 계속 추가해야함(신유제로 캐릭터가 바뀌는 경우등)
+const SPECIAL_REL_IDS = new Map([
+    ["52002301","53001302"] // 신유제 카츠라기 & 이카루가
+    ,["32005101","42005300"] // 호무라 원시 현속성
+]);
 // 이미지 정보 캐시
 const IMG_CACHE = new imgInfoCache();
 // 활성화된 필터 정보
@@ -188,6 +193,13 @@ const DIV = {
 }
 // 프레임 이미지 url
 const FRAME_IMG_URL = `https://${OWNER}.github.io/${REPO}/SKGS/frame_img`;
+
+// 이미지 관계 맵
+const RELATION_MAP = new Map();
+// 관계 유무 추적용
+const USED_KEY = new Set();
+const USED_VALUE = new Set();
+
 
 //#endregion
 
@@ -248,7 +260,7 @@ function main()
     // 객체 생성
     let img_infos = IMG_CACHE.createImgInfos(filtered_img_data);
     // 이름과 속성 순 정렬
-    img_infos = sortImgInfo(img_infos);
+    // img_infos = sortImgInfo(img_infos);
     
     console.log("이미지 객체 : ", img_infos);
 
@@ -257,8 +269,8 @@ function main()
 
     console.log("관계도: ", REL_MAP);
 
-    // 이미지 그루핑
-    const IMG_GROUPS = imgGrouping(img_infos, REL_MAP);
+    // 이미지 그루핑 및 정렬
+    const IMG_GROUPS = sortImgGroup(imgGrouping(img_infos, REL_MAP));
 
     console.log("이미지 그룹 : ", IMG_GROUPS);
 
@@ -392,6 +404,42 @@ function sortImgInfo(img_infos)
     return img_infos;
 }
 
+// 이미지 그룹 정렬
+function sortImgGroup(img_groups)
+{
+    img_groups.sort((img_group_a,img_group_b) => {
+        const a = img_group_a[0];
+        const b = img_group_b[0];
+        // 레어도 기준
+        if(a.rarity != b.rarity)
+            return a.rarity.localeCompare(b.rarity);
+        // 이름 기준
+        else if(a.name != b.name)
+            return a.name.localeCompare(b.name);
+        //속성 기준
+        else
+            return a.type.localeCompare(b.type);
+    });
+
+    return img_groups;
+}
+
+/** 두 관련된 id를 관계 맵에 설정
+ * @param {string} cur_id 이전 이미지 id
+ * @param {string} next_id 다음 이미지 id
+ */
+function setRelMap(cur_id, next_id)
+{
+    // 관계 맵에 설정
+    RELATION_MAP.set(cur_id, next_id);
+    // 사용 횟수 추적 업데이트
+    USED_KEY.add(next_id);
+    USED_VALUE.add(cur_id);
+}
+
+
+
+
 /** 이미지 간 관계 설정
  * @param {imgInfo[]} img_infos 이미지 객체 배열
  * @returns {Map<imgInfo.id, imgInfo.id>} 이미지 관계 맵
@@ -400,22 +448,24 @@ function buildImgRelation(img_infos)
 {
     // 캐릭터 그룹 맵
     const CHAR_GROUP_MAP = new Map();
-    //관계도 맵
-    const RELATION_MAP = new Map();
 
     // 캐릭터 그룹화
     img_infos.forEach(img_info => {
+        // 특수 관계 설정
+        if(SPECIAL_REL_IDS.has(img_info.id))
+        {
+            const NEXT_IMG_INFO = img_infos.find(e => e.id === SPECIAL_REL_IDS.get(img_info.id));
+
+            if(NEXT_IMG_INFO)
+                setRelMap(img_info.id, NEXT_IMG_INFO.id);
+        }
+
         // 캐릭터 그룹이 없으면 추가하고 있으면 push
         if(!CHAR_GROUP_MAP.has(img_info.name))
             CHAR_GROUP_MAP.set(img_info.name, []);
 
         CHAR_GROUP_MAP.get(img_info.name).push(img_info);
     });
-
-    // 키 사용 횟수 추적 셋
-    const USED_KEY = new Set();
-    // 밸류 사용 횟수 추적 셋
-    const USED_VALUE = new Set();
 
     // 그룹 내에서 원소를 비교
     CHAR_GROUP_MAP.forEach(char_group => {
@@ -465,14 +515,9 @@ function buildImgRelation(img_infos)
                 }
             }
 
+            // 관계 맵 추가
             if(id_cache)
-            {
-                // 관계 맵 추가
-                RELATION_MAP.set(id_cache, CUR_ID);
-                // 키 값 사용 횟수 업데이트
-                USED_KEY.add(CUR_ID);
-                USED_VALUE.add(id_cache);
-            }
+                setRelMap(id_cache, CUR_ID);
         }
     });
 
@@ -486,10 +531,6 @@ function buildImgRelation(img_infos)
  */
 function checkRelation(awake_img,original_img)
 {
-    //XXX 현 호무라 단일 예외처리
-    if(awake_img.id == "42005300" && original_img.id == "32005101")
-        return true;
-
     //레어도, 각성 수준, 속성
     const RARITY1 = awake_img.rarity;
     const RARITY2 = original_img.rarity;
@@ -535,7 +576,7 @@ function imgGrouping(img_infos, rel_map)
     // 인접 리스트 생성
     const ADJ_LIST = createAdjList(rel_map);
 
-    // console.log(ADJ_LIST);
+    // console.log("인접 리스트",ADJ_LIST);
 
     // 방문 기록
     const VISITED = [];
@@ -548,17 +589,26 @@ function imgGrouping(img_infos, rel_map)
         return ary;
     }, {});
 
-    img_infos.forEach(img_info => {
-        // 미방문 id 일때
-        if(!VISITED[img_info.id])
-        {
-            // 그룹 생성
+    Object.keys(ALL_ID).forEach(img_id => {
+        
+        if(!VISITED[img_id]) {
             const GROUP = [];
-            // dfs 로 그룹 찾기
-            dfs(img_info.id, ADJ_LIST, VISITED, GROUP);
+            dfs(img_id, ADJ_LIST, VISITED, GROUP);
             IMG_GROUPS.push(GROUP.map(id => ALL_ID[id]));
         }
     });
+
+    // img_infos.forEach(img_info => {
+    //     // 미방문 id 일때
+    //     if(!VISITED[img_info.id])
+    //     {
+    //         // 그룹 생성
+    //         const GROUP = [];
+    //         // dfs 로 그룹 찾기
+    //         dfs(img_info.id, ADJ_LIST, VISITED, GROUP);
+    //         IMG_GROUPS.push(GROUP.map(id => ALL_ID[id]));
+    //     }
+    // });
 
     return IMG_GROUPS;
 }
@@ -606,7 +656,6 @@ function createAdjList(REL_MAP)
     return ADJ_LIST;
 }
 
-
 //#endregion
 
 //#region html 요소 관련
@@ -634,6 +683,10 @@ function generateImg(IMG_GROUPS)
     
         // 이미지 생성 및 컨테이너에 추가
         img_group.forEach(img_info => {
+            // 존재시 생성
+            if(!img_info)
+                return;
+
             // 이미지 컨테이너 생성
             const IMG_CONTAINER = document.createElement("div");
             IMG_CONTAINER.classList.add("img-container");
