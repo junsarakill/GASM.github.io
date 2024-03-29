@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta cahrset="utf-8">
+        <title>SenranGakuseiList</title>
+        <!-- 외부 스타일 -->
+        <link rel="stylesheet" href="./SKGS.css">
+        <!-- 외부 스크립트 -->
+        <script type="text/javascript" src="./SKGS.js"></script>  
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                SKGS List
+            </div>
+        </header>
+        <!-- 검색 필터 -->
+        <aside class="filter-container">
+            <!-- 필터 토글 버튼 -->
+            <button class="filter-toggle" id="filter-toggle">&#9776;</button>
+            <div class="filter hide" id="filter">
+                <!-- 등급별 -->
+                <div id="rarity-filter">
+                    <button class="filter-btn" data-rarity="1">N</button>
+                    <button class="filter-btn" data-rarity="2">R</button>
+                    <button class="filter-btn" data-rarity="3">SR</button>
+                    <button class="filter-btn" data-rarity="4">SSR</button>
+                    <button class="filter-btn" data-rarity="5">UR</button>
+                    <button class="filter-btn" data-rarity="6">LR</button>
+                </div>
+                <!-- 속성별 -->
+                <div id="type-filter">
+                    <button class="filter-btn" data-type="0">陰</button>
+                    <button class="filter-btn" data-type="1">陽</button>
+                    <button class="filter-btn" data-type="2">閃</button>
+                    <button class="filter-btn" data-type="3">絢</button>
+                    <button class="filter-btn" data-type="4">繚</button>
+                </div>
+            </div>
+        </aside>
+        <!-- 리스트 -->
+        <main class="list">
+            <!-- 컨텐츠 -->
+            <div id="list-content" class="list-content">
+            </div>
+        </main>
+    </body>
+</html>
