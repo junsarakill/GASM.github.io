@@ -43,7 +43,7 @@ def makeFolder(result_path : str, c_num_list : list):
         except:
             pass
 
-#캐릭터 번호 -> 이름 변환 23.02.24
+#캐릭터 번호 -> 이름 변환 24.04.27
 def num2Name(cNum : str):
     #캐릭터 번호:이름 사전
     cName = {
