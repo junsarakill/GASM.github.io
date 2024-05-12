@@ -4,6 +4,7 @@ import shutil
 import tkinter
 import ctypes
 from tkinter import filedialog
+import random
 
 #소녀전선 이미지 정리
 #선택한 폴더 내 이미지 이름을 확인
@@ -19,7 +20,7 @@ from tkinter import filedialog
 """
 
 #인형이름 사전 // 파일이름(대문자) : 진짜이름
-#숫자~z 번호순 정렬 23.05.15 MSBS 까지
+#숫자~z 번호순 정렬 24.05.12 마티니 헨리 까지
 cName = {
     "4type" : "4식"
     ,"06TypeSMG" : "CF05"
@@ -433,8 +434,30 @@ cName = {
     ,"ZastavaM21" : "Zas M21"
     ,"ZB26" : "ZB-26"
     ,"ZIP22" : "ZIP .22"
-    
-    
+    # msbs 이후 추가
+    ,"VP9" : "VP9"
+    ,"Jatimatic" : "Jatimatic"
+    ,"VRB" : "VRB"
+    ,"LAMG" : "LAMG"
+    ,"TPS" : "TPS"
+    ,"QBU191" : "QBU-191"
+    ,"BoysAntiTank" : "보이스"
+    ,"HK433" : "HK433"
+    ,"Type82S" : "82식"
+    ,"Owen" : "오웬"
+    ,"Beowulf" : "베오울프"
+    ,"CM901" : "CM901"
+    ,"FM24" : "FM24"
+    ,"MG15" : "MG15" 
+    ,"Stevens520" : "스티븐스 520" 
+    ,"Stevens620" : "스티븐스 620" 
+    ,"P2000" : "P2000" 
+    ,"M1851N" : "콜트 M1851N" 
+    ,"P50" : "P50" 
+    ,"MartiniHenry" : "마티니-헨리" 
+    ,"Motoko" : "쿠사나기 모토코" 
+    ,"Ezaki" : "에사키 푸린" 
+    ,"Mizukinn" : "미즈카네 스즈카" 
 }
 #인형번호 사전 // 파일이름(대문자) : 인형번호
 cNumber = {
@@ -814,8 +837,28 @@ cNumber = {
     ,"APC9K" : "380"
     ,"M110" : "381"
     ,"MSBS" : "382"
+    # msbs 이후 추가
     ,"VP9" : "383"
-    
+    ,"Jatimatic" : "384"
+    ,"VRB" : "385"
+    ,"LAMG" : "386"
+    ,"TPS" : "387"
+    ,"QBU191" : "388"
+    ,"BoysAntiTank" : "389"
+    ,"HK433" : "390"
+    ,"Type82S" : "391"
+    ,"Owen" : "392"
+    ,"Beowulf" : "393"
+    ,"CM901" : "394"
+    ,"FM24" : "395"
+    ,"MG15" : "396"
+    ,"Stevens520" : "397"
+    ,"Stevens620" : "398"
+    ,"P2000" : "399"
+    ,"M1851N" : "400"
+    ,"P50" : "401"
+    ,"MartiniHenry" : "402" 
+
     #npc
     ,"NPC_Kalina" : ""
     ,"NPC_Persica" : ""
@@ -855,6 +898,41 @@ cNumber = {
     ,"Junko" : "1039"
     ,"Yuugiri" : "1040"
     ,"Saki" : "1041"
+    ,"Motoko" : "1042"
+    ,"Ezaki" : "1043"
+    ,"Mizukinn" : "1044"
+    
+    
+    
+}
+# 예외처리 필요한 이름 리스트
+underbarName = [
+    "Nyto_tareus"
+    ,"BB_Noel"
+    ,"GG_elfeldt"
+    ,"Nyto_black"
+    ,"Nyto_White"
+    ,"Nyto_white"
+    ,"Nyto_mecha2"
+    
+]
+# 혼합세력 사전
+hocDict = {
+    "Agent" : "에이전트"
+    ,"Alchemist" : "알케미스트"
+    ,"Destroyer" : "디스트로이어"
+    ,"Dreamer" : "드리머"
+    ,"Excutioner" : "엑스큐서너"
+    ,"Hunter" : "헌터"
+    ,"Intruder" : "인트루더"
+    ,"Justice" : "저지"
+    ,"Nyto_black" : "아델린"
+    ,"Nyto_White" : "알리나"
+    ,"Nyto_white" : "알리나"
+    ,"Nyto_mecha2" : "사나"
+    ,"Nyto_tareus" : "타레우스"
+    ,"Scarecrow" : "스케어크로우"
+    ,"Weaver" : "우로보로스"
     
     
 }
@@ -877,23 +955,6 @@ def dict_key_upper(data):
         return [dict_key_upper(v) for v in data]
     else:
         return data
-
-#결과 경로 설정
-def setResultPath(dir_path : str):
-    #반환값
-    result_path = ""
-    
-    #경로 폴더 단위로 리스트화
-    pathList = dir_path.split("/")
-    #마지막 경로 result로 변경
-    pathList[len(pathList)-1] = "result"
-    #경로 재조합
-    result_path = "/".join(pathList)
-    print("결과 저장 경로 : ",result_path)
-
-    return result_path
-
-#이미지 파일 이름 확인 if(fileName.contains("pic_이름"))
 
 #전체 파일 이름 조정
 def namerAllFile(file_list):
@@ -927,21 +988,33 @@ def tokenizer(fileName : str):
 
     print("전문: "+fileName)
     try:
+        # 확장자 제거
+        subExe = fileName[0:-4]
+        # 검열 확인
+        if("he" in subExe):
+            subExe += "_A"
         #앞부분 자르기
         #pic, Pic 구분
-        if("pic_" in fileName):
-            subFront = fileName.split("pic_")    
-        elif("Pic_" in fileName):
-            subFront = fileName.split("Pic_")    
+        temp = subExe.lower()
+        if("pic_" in temp):
+            index = temp.find("pic_")
+            subFront = subExe[index + 4 :]
         print("pic 이후: ",subFront)
-        #확장자 제거
-        subExe = subFront[1].split(".png")
-        #뒷부분 자르기
-        subBack = subExe[0].split("_")
+        # #뒷부분 자르기
+        subBack = subFront.split("_")
+        # 이름에 _ 붙은 것 예외처리
+        if isUnderbarName(subFront):
+            print("예외 처리")
+            subBack = [subBack[0] + "_" + subBack[1]] + subBack[2:]
+        
+        # LL 제거
+        if "LL" in subBack:
+            subBack.remove("LL")
+            
         print("_ 문항별 자르기: ",subBack)
         #subBack[1] 이 숫자라면 = 스킨번호 일때 앞에 S붙이기
         if(len(subBack) > 1):
-            if(subBack[1].isdigit()):
+            if(subBack[1].isdigit() and int(subBack[1]) > 1):
                 subBack[1] = "S"+subBack[1]
         #결과 반환값에 대입
         dollFullName = subBack
@@ -952,20 +1025,18 @@ def tokenizer(fileName : str):
 
 #인형 이름 계산
 def setName(dollInfo : list):
-    #반환값
-    name = ""
-
-    #값 설정
-    #@@ 하드코딩 "_" 가 들어가는 인형명 예외 처리 
-    if(dollInfo[0] == "BB" or dollInfo[0] == "GG" or dollInfo[0] == "NPC"):
-        name = dollInfo[0] + "_" + dollInfo[1]
-    else:
-        name = dollInfo[0]
-
+    name = dollInfo[0]
     print("이름 : ",name)
-    
 
     return name
+
+# 예외처리 필요한 이름 인지 확인
+def isUnderbarName(filename : str):
+    for name in underbarName:
+        if name in filename:
+            return True
+
+    return False
 
 #파일명 계산
 def setFileName(dollInfo : list , name : str):
@@ -973,22 +1044,29 @@ def setFileName(dollInfo : list , name : str):
     newFileName = ""
     #키값 대문자화
     name = name.upper()
+    # 인형인지 확인
+    if name in cNumber:
+        #dollInfo[0] = 이름 부분을 "No.인형번호 인형이름" 으로 변경
+        dollInfo[0] = "No." + cNumber[name] + " " + cName[name]
+    # 혼합세력
+    elif name in hocDict:
+        dollInfo[0] = "HOC. " + hocDict[name]
+    # 기타
+    else:
+        dollInfo[0] = str(random.randint(10000,99999)) 
 
-    #dollInfo[0] = 이름 부분을 "No.인형번호 인형이름" 으로 변경
-    dollInfo[0] = "No." + cNumber[name] + " " + cName[name]
     #dollInfo 리스트 _으로 결합
-    newFileName = "_".join(dollInfo)
+    newFileName += "_".join(dollInfo)
     #확장자 추가
     newFileName += ".png"
-    print("결과 : ",newFileName)
+    # print("결과 : ",newFileName)
 
     return newFileName
 
 #리스트내 파일명 변경
 def namer(file_list : list):
     #반환값
-    modFile_list = []
-
+    modFile_list = []   
     for fileName in file_list:
         #정보 전문 리스트화
         dollInfo = tokenizer(fileName)
@@ -1012,12 +1090,19 @@ def namer(file_list : list):
 def replacer(originFile_list : list, modFile_list : list, dir_path : str, result_path : str):
     #파일 이동
     for i in range(len(originFile_list)):
-        #원본 전체 파일명
-        originFilePath = dir_path+"/"+originFile_list[i]
-        #변경한 전체 파일명
-        modFilePath = result_path+"/"+modFile_list[i]
-        #파일 복사
-        shutil.copy2(originFilePath, modFilePath) 
+        try:
+            #원본 전체 파일명
+            originFilePath = dir_path+"/"+originFile_list[i]
+            #변경한 전체 파일명
+            modFilePath = result_path+"/"+modFile_list[i]
+            #파일 복사
+            shutil.copy2(originFilePath, modFilePath) 
+
+            # 진척도 출력
+            progress = ((i+1) / len(originFile_list)) * 100
+            print(f"\r진척도 : {progress:.2f}%", end="")
+        except:
+            print(f"문제 파일명 : {originFile_list[i]}")
 
 def endMessage():
     ctypes.windll.user32.MessageBoxW(0, "처리 종료", "처리 알림", 16)
@@ -1026,6 +1111,7 @@ def endMessage():
 #0. dict 키값 전부 대문자로
 cName = dict_key_upper(cName)
 cNumber = dict_key_upper(cNumber)
+hocDict = dict_key_upper(hocDict)
 
 if __name__ == "__main__" :
     root = tkinter.Tk()
@@ -1038,16 +1124,19 @@ if __name__ == "__main__" :
     #2. 전체 파일명 조정
     modFile_list = namerAllFile(file_list)
     #3. 결과 경로 설정 / 선택한 폴더와 동등한 위치에 생성
-    result_path = setResultPath(dir_path)
-    try:
-        #4. 결과 폴더 생성
-        os.makedirs(result_path)
-    except:
-        print("result 폴더 이미 존재")
-        pass
+    result_path = os.path.join(dir_path, "result")
+
+    if os.path.exists(result_path):
+        shutil.rmtree(result_path)
+
+    os.makedirs(result_path)
     #5. 리스트내 파일명 변경
-    modFile_list = namer(modFile_list)
-    #6. 원본 파일명 리스트와 대조하여 변경된 파일명 파일 복사
-    replacer(originFile_list=file_list, modFile_list=modFile_list, dir_path=dir_path, result_path=result_path)
+    try:
+        modFile_list = namer(modFile_list)
+        #6. 원본 파일명 리스트와 대조하여 변경된 파일명 파일 복사
+        replacer(originFile_list=file_list, modFile_list=modFile_list, dir_path=dir_path, result_path=result_path)
+    except:
+        print("오류 발생")
+        root.mainloop()
     #7 종료 메시지
     endMessage()
