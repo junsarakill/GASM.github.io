@@ -1,4 +1,3 @@
-
 import os
 import re
 import shutil
@@ -7,7 +6,7 @@ import ctypes
 from tkinter import filedialog
 
 #소녀전선 이미지 정리
-#img_here 폴더 안 이미지 이름을 확인
+#선택한 폴더 내 이미지 이름을 확인
 #이미지 이름에 따른 파일명 변경
 #그리고 result 파일로 이동
 #전문 예시:
@@ -15,7 +14,7 @@ from tkinter import filedialog
 일반 : pic_이름(_D)_HD.png
 스킨 : pic_이름_스킨번호(_D)_HD.png
 개조 : pic_이름Mod_HD.png
-%% 푸른 바다 위 검은 돛 이후 스킨(3.0클라이후)은 hd이름 없음
+@@ 푸른 바다 위 검은 돛 이후 스킨(3.0클라이후)은 hd이름 없음
 즉 : pic_이름(_스킨번호)(_D).png
 """
 
@@ -815,6 +814,8 @@ cNumber = {
     ,"APC9K" : "380"
     ,"M110" : "381"
     ,"MSBS" : "382"
+    ,"VP9" : "383"
+    
     #npc
     ,"NPC_Kalina" : ""
     ,"NPC_Persica" : ""
@@ -1032,8 +1033,6 @@ if __name__ == "__main__" :
     #1. 폴더 선택
     dir_path = filedialog.askdirectory(parent=root,initialdir="/",title="이미지가 들어있는 폴더를 선택해주세요.")
     print("\n 선택된 경로 : ",dir_path)
-    #@@ 폴더가 이미지파일만 있는지 폴더별로 이미지가 있는지
-    #@@ 구분해서 작업 하면 좋겠다.
     #폴더의 파일명 리스트
     file_list = list(set(os.listdir(dir_path)) - exceptFileName)
     #2. 전체 파일명 조정
