@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "jk_2dShooting_cppEditor Editor Win64 Development (jk_2dShooting_cpp)",
+            "compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\JKAKK\\jk_2dShooting_cpp\\.vscode\\compileCommands_jk_2dShooting_cpp.json",
+            "includePath": [
+                "${workspaceFolder}/Source/**",
+                "${workspaceFolder}/Intermediate/**",
+                "${workspaceFolder:UE5}/Engine/Source/Runtime/Core/Public"
+            ]
+        },
+        {
+            "name": "Win32",
+            "compilerPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\JKAKK\\jk_2dShooting_cpp\\.vscode\\compileCommands_Default.json"
+        }
+    ],
+    "version": 4
+}
