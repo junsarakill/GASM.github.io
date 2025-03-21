@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GASM.github.io")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aabffa8e21956f40e69f449b0d744f57ce64c78")]
 [assembly: System.Reflection.AssemblyProductAttribute("GASM.github.io")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GASM.github.io")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
