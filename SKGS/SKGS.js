@@ -171,7 +171,12 @@ const DUMMY_ID_ARRAY = [
     ,"cmn_cm20036000","cmn_cm30036000","cmn_cm30037000","cmn_cm10000100"
     ,"cmn_cm10002100","cmn_cm10003100","cmn_cm10005100","cmn_cm10006100"
     ,"cmn_cm10008100","cmn_cm10009100","cmn_cm10011100","cmn_cm10012100"
-    ,"cmn_cm10014100","cmn_cm10015100","cmn_cm10017100"
+    ,"cmn_cm10014100","cmn_cm10015100","cmn_cm10017100","cmn_cm10018100"
+    ,"cmn_cm10025100","cmn_cm10026100","cmn_cm10035100","cmn_cm10036100"
+    ,"cmn_cm10037100","cmn_cm10001000","cmn_cm10000000","cmn_cm10003000"
+    ,"cmn_cm10004000","cmn_cm10006000","cmn_cm10007000","cmn_cm10009000"
+    ,"cmn_cm10010000","cmn_cm10012000","cmn_cm10013000","cmn_cm10015000"
+    ,"cmn_cm10016000","cmn_cm10018000","cmn_cm10019000"
 ];
 // 특수 관계 맵 [이전 id : 다음 id] : 필요시 계속 추가해야함(신유제로 캐릭터가 바뀌는 경우등)
 const SPECIAL_REL_IDS = new Map([
