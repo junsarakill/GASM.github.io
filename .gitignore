@@ -70,11 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-/obj/Debug
-/obj
-obj/Debug/net7.0/GASM.github.io.AssemblyInfo.cs
-obj/Debug/net7.0/GASM.github.io.AssemblyInfoInputs.cache
-obj/Debug/net7.0/GASM.github.io.AssemblyInfo.cs
-obj/Debug/net7.0/GASM.github.io.AssemblyInfoInputs.cache
-/obj
-/obj
+# 폴더 전체 무시
+obj/
+bin/
