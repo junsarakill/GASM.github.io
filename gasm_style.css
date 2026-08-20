@@ -106,18 +106,31 @@ body
 }
 .submenu > li:hover > ul {display: inline;}
 
+.submenu > li:hover .thirdmenu
+{
+    display: grid;
+}
 
 .thirdmenu
 {
-	position: absolute;
-	list-style: none;
-	top: 0;
-	right: -200px;
-	width: 200px;
-	padding: 0;
-	margin: 0;
+    /* 위치 및 크기 설정 */
+    position: absolute;
+    top: 0;
+    right: -200px;
+    width: 350px;
 
-	display: none;
+    /* 목록 기본 스타일 및 패딩/마진 초기화 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    /* 기본 상태: 숨김 */
+    display: none;
+
+    /* 2열 그리드 레이아웃 구조 정의 */
+    grid-template-columns: repeat(2, 1fr);
+    /* 항목 간 간격 (위아래 8px, 좌우 16px) */
+    gap: 8px 16px;
 }
 .thirdmenu > li 
 {
